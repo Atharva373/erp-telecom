@@ -1,0 +1,68 @@
+
+<!--| Level | Meaning                                   | Typical Usage                                                                                                    |-->
+<!--| TRACE | Most detailed, fine-grained info          | Very low-level info, like method entry/exit, very detailed debug data. Usually only enabled for troubleshooting. |-->
+<!--| DEBUG | Detailed information useful for debugging | Show internal flow, variable values, JWT extraction, service call results. Useful in development.                |-->
+<!--| INFO  | General runtime information               | High-level events like “Customer created” or “Contract processed”. Safe to leave on in production.               |-->
+<!--| WARN  | Potentially harmful situations            | Something unexpected but not fatal, like invalid input or slow response.                                         |-->
+<!--| ERROR | Serious issues that affect functionality  | Exceptions, failed database operations, failed authentication, application errors.                               |-->
+
+
+
+
+<configuration>
+    <property name="LOG_PATH" value="logs"/>
+    <property name="APP_NAME" value="erp-telecom"/>
+
+    <!-- ==================== CONSOLE APPENDER : Print things to the console ==================== -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n</pattern> <!-- Pattern for the logs -->
+        </encoder>
+    </appender>
+
+    <!-- ==================== DAILY ROLLING FILE APPENDER : Daily and overall generated log file ==================== -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/${APP_NAME}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"> <!--Used for filtering by date and creating file daily -->
+            <fileNamePattern>${LOG_PATH}/${APP_NAME}-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n</pattern>
+        </encoder>
+        <!-- Exclude ERROR logs from this file (optional, since we have separate error file) -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">  <!--Used for filtering and excluding error logs separately -->
+            <level>ERROR</level>
+            <onMatch>DENY</onMatch>
+            <onMismatch>ACCEPT</onMismatch>
+        </filter>
+    </appender>
+
+    <!-- ==================== ERROR FILE APPENDER : Daily and overall generated error file ==================== -->
+    <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/${APP_NAME}-error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"> <!--Used for filtering by date and creating file daily -->
+            <fileNamePattern>${LOG_PATH}/${APP_NAME}-error-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"> <!--Used for filtering and including only error logs -->
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!-- ==================== LOGGERS ==================== -->
+    <!-- Root logger -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="ERROR_FILE"/>
+    </root>
+
+    <!-- Your application package at DEBUG for detailed tracing -->
+    <logger name="com.atharva.erp_telecom" level="DEBUG"/>
+</configuration>

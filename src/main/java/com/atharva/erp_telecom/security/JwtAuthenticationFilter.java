@@ -11,6 +11,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,6 +23,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 
 // NOTE
@@ -102,10 +105,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtUtils jwtUtils;
     private final UserService userService;
+    //private final List<String> excludePaths;
 
-    public JwtAuthenticationFilter(JwtUtils jwtUtils, UserService userService) {
+    public JwtAuthenticationFilter(JwtUtils jwtUtils, UserService userService
+            //,@Value("${security.jwt.exclude-endpoints}") String excludePathsFromPropertyFile
+    ) {
         this.jwtUtils = jwtUtils;
         this.userService = userService;
+        //this.excludePaths = Arrays.asList(excludePathsFromPropertyFile.split(","));
     }
 
 
@@ -145,9 +152,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        //System.out.println("Entered the filter\nURI:"+request.getRequestURI());
+        // System.out.println("Entered the filter\nURI:"+request.getRequestURI());
+
+
+        // This block of code excludes the /users/register and /users/login for authentication.
+        // Modified and modularized the exclude paths from the external application.properties file.(23/09/2025)
         String servletPath = request.getServletPath();
-        if(servletPath.equals("/users/register") || servletPath.equals("/users/login")){
+        if(servletPath.equals("/users/login") || servletPath.equals("/users/register")){
+            // Here the control is passed to the next Http filter or Servlet and stops further validation.
             filterChain.doFilter(request,response);
             return ;
         }

@@ -14,7 +14,7 @@ import com.atharva.erp_telecom.exception.custom_exceptions.*;
 import org.springframework.web.context.request.WebRequest;
 
 // The primary objective of this class will be to handle all the custom exceptions.
-// This @RestControllerAdvice is only triggered when exceptions are propogated to and from the controller.
+// This @RestControllerAdvice is only triggered when exceptions are propagated to and from the controller.
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 

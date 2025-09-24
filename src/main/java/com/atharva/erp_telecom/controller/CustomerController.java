@@ -7,13 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.slf4j.*;
 
 import java.util.*;
 
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
-
+    private static final Logger customerControllerLogger = LoggerFactory.getLogger(CustomerController.class);
     private final CustomerService customerService;
 
     @Autowired
