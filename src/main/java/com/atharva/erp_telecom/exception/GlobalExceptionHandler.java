@@ -1,10 +1,12 @@
 package com.atharva.erp_telecom.exception;
 
 
+import com.atharva.erp_telecom.dto.CustomErrorResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
@@ -74,4 +76,17 @@ public class GlobalExceptionHandler {
         return buildResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Unexpected error: " + ex.getMessage());
     }
 
+    // Custom ExceptionHandling for Product GET API
+    @ExceptionHandler(ProductNotFoundException.class)
+    public ResponseEntity<CustomErrorResponse> handleProductNotFound(ProductNotFoundException exception, HttpServletRequest request){
+        CustomErrorResponse errorResponse = new CustomErrorResponse(
+                LocalDateTime.now(),
+                HttpStatus.NOT_FOUND,
+                "Requested Product NOT FOUND",
+                request.getRequestURI(),
+                exception.getMessage()
+
+        );
+        return new ResponseEntity<>(errorResponse,HttpStatus.NOT_FOUND);
+    }
 }

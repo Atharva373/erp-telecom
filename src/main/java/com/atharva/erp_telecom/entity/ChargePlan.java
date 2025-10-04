@@ -2,6 +2,8 @@ package com.atharva.erp_telecom.entity;
 
 
 import com.atharva.erp_telecom.enums.BillingCycle;
+import com.atharva.erp_telecom.enums.PlanType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.persistence.Id;
 import org.springframework.data.annotation.*;
@@ -19,18 +21,27 @@ public class ChargePlan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long chargePlanId;
 
+    // Although the entire product is being used here as a field, the JoinColumn annotation ensures that a
+    // foreign key 'product_id' is used as a reference instead of the entire entity
+
+    // NOTE: For avoiding infinite nested recursion and referencing, we will use the annotation @JsonBackReference
+    // Managing back reference to the product using this annotation.
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id",nullable = false)
+    @JsonBackReference
     private Product product;
 
-    @Column(nullable = false,length = 30)
-    private String planType;        // PREPAID or POSTPAID
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private PlanType planType;     // PREPAID or POSTPAID
 
     @Column(precision = 10, scale = 2)
-    private BigDecimal recurringCharge;
-    private Double oneOffCharge;
-    private Double ratePerUnit;     // Applicable if in case of USAGE based scenarios.
-                                    // This is the base price for a postpaid plan even when there is no usage by the user
+    private BigDecimal recurringCharge;     // For Postpaid: This is the base price for a postpaid plan even when there is no usage by the user.
+                                            // For Prepaid: This is the amount paid for the subscription.
+    private Double oneOffCharge;            // OneOff charges are applied for certain products where there is a
+                                            // product/service for which the subscriber will pay for only once e.g. A modem for internet usage.
+    private Double ratePerUnit;             // Applicable if in case of USAGE based scenarios.
+
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -65,11 +76,11 @@ public class ChargePlan {
         this.product = product;
     }
 
-    public String getPlanType() {
+    public PlanType getPlanType() {
         return planType;
     }
 
-    public void setPlanType(String planType) {
+    public void setPlanType(PlanType planType) {
         this.planType = planType;
     }
 

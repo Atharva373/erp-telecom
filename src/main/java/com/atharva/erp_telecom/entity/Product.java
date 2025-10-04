@@ -1,6 +1,7 @@
 package com.atharva.erp_telecom.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -46,6 +47,7 @@ public class Product {
     private LocalDateTime updatedOn;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonManagedReference       // This annotation is used to maintain parent-child hierarchy for inter-related entities.
     private Set<ChargePlan> chargePlans = new HashSet<>();
 
     public Long getProductId() {
