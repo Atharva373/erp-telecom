@@ -5,12 +5,14 @@ import com.atharva.erp_telecom.constants.CustomerConstants;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
 @Table(name = "customer")
+@EntityListeners(AuditingEntityListener.class)
 public class Customer {
 
     @Id
