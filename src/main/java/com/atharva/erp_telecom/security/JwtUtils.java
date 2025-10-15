@@ -178,7 +178,7 @@ public class JwtUtils {
 
     // Method to validate the existing token
     public boolean validateToken(String token, UserDetails userDetails) {
-        System.out.println("Inside the validateToken method...");
+        //System.out.println("Inside the validateToken method...");
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }

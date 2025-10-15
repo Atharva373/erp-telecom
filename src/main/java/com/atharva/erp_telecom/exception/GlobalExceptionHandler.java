@@ -69,6 +69,15 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.UNAUTHORIZED);
     }
 
+    @ExceptionHandler
+    public ResponseEntity<Object> handleAccessDenied(AccessDeniedException exception){
+        Map<String,Object> body = new HashMap<>();
+        body.put("error","Access Denied. Insufficient Privilege.");
+        body.put("timestamp", LocalDateTime.now());
+        body.put("status", HttpStatus.UNAUTHORIZED.value());
+        body.put("message", exception.getMessage());
+        return new ResponseEntity<>(body,HttpStatus.UNAUTHORIZED);
+    }
 
     // Generic method for handling anything else that the sever is unable to handle
     @ExceptionHandler(Exception.class)

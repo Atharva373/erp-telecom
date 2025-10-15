@@ -152,9 +152,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        // System.out.println("Entered the filter\nURI:"+request.getRequestURI());
-
-
         // This block of code excludes the /users/register and /users/login for authentication.
         // Modified and modularized the exclude paths from the external application.properties file.(23/09/2025)
         String servletPath = request.getServletPath();
@@ -167,11 +164,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // Fetch the request header
         String HEADER_AUTHORIZATION = "Authorization";
         final String authHeader = request.getHeader(HEADER_AUTHORIZATION);
-//        System.out.println("🔍 Headers in request:");
-//        request.getHeaderNames().asIterator()
-//                .forEachRemaining(h -> System.out.println(h + " = " + request.getHeader(h)));
-//
-//        System.out.println("Extracted Authorization header = " + authHeader);
         String userName = null;
         String jwt = null;
 
