@@ -1,5 +1,7 @@
 package com.atharva.erp_telecom.dto;
 
+import java.time.LocalDate;
+
 public class TaxRequest {
     private String taxCode;
     private String taxName;
@@ -8,6 +10,8 @@ public class TaxRequest {
     private Double igstPercentage;
     private Boolean isActive;
     private String description;
+    private LocalDate effectiveFrom;
+    private LocalDate effectiveTo;
 
     public String getTaxCode() {
         return taxCode;
@@ -63,5 +67,21 @@ public class TaxRequest {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public LocalDate getEffectiveFrom() {
+        return effectiveFrom;
+    }
+
+    public void setEffectiveFrom(LocalDate effectiveFrom) {
+        this.effectiveFrom = effectiveFrom;
+    }
+
+    public LocalDate getEffectiveTo() {
+        return effectiveTo;
+    }
+
+    public void setEffectiveTo(LocalDate effectiveTo) {
+        this.effectiveTo = effectiveTo;
     }
 }

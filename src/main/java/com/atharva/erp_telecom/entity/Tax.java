@@ -1,9 +1,18 @@
 package com.atharva.erp_telecom.entity;
 
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.access.prepost.PreAuthorize;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "taxes")
+@EntityListeners(AuditingEntityListener.class)
+@PreAuthorize("hasAnyRole('ADMIN','CONSULTANT','AGENT','MANAGER')")
 public class Tax {
 
     @Id
@@ -31,16 +40,23 @@ public class Tax {
     @Column(length = 1000)
     private String description;
 
+    @CreatedDate
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdOn;
+
+    @LastModifiedDate
+    @Column(nullable = false)
+    private LocalDateTime updatedOn;
+
+    @Column
+    private LocalDate effectiveFrom;
+
+    @Column
+    private LocalDate effectiveTo;
+
     public Tax() {
     }
 
-    public Long getId() {
-        return taxId;
-    }
-
-    public void setId(Long taxId) {
-        this.taxId = taxId;
-    }
 
     public String getTaxCode() {
         return taxCode;
@@ -96,6 +112,46 @@ public class Tax {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Long getTaxId() {
+        return taxId;
+    }
+
+    public void setTaxId(Long taxId) {
+        this.taxId = taxId;
+    }
+
+    public LocalDateTime getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(LocalDateTime createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public LocalDateTime getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public void setUpdatedOn(LocalDateTime updatedOn) {
+        this.updatedOn = updatedOn;
+    }
+
+    public LocalDate getEffectiveFrom() {
+        return effectiveFrom;
+    }
+
+    public void setEffectiveFrom(LocalDate effectiveFrom) {
+        this.effectiveFrom = effectiveFrom;
+    }
+
+    public LocalDate getEffectiveTo() {
+        return effectiveTo;
+    }
+
+    public void setEffectiveTo(LocalDate effectiveTo) {
+        this.effectiveTo = effectiveTo;
     }
 
     public Double getTotalTaxPercentage() {

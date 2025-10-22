@@ -1,5 +1,8 @@
 package com.atharva.erp_telecom.dto;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public class TaxResponse {
     private Long taxId;
     private String taxCode;
@@ -10,6 +13,10 @@ public class TaxResponse {
     private Double totalTaxPercentage;
     private Boolean isActive;
     private String description;
+    private LocalDate effectiveFrom;
+    private LocalDate effectiveTo;
+    private LocalDateTime createdOn;
+    private LocalDateTime updatedOn;
 
     public Long getTaxId() {
         return taxId;
@@ -81,5 +88,37 @@ public class TaxResponse {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public LocalDate getEffectiveFrom() {
+        return effectiveFrom;
+    }
+
+    public void setEffectiveFrom(LocalDate effectiveFrom) {
+        this.effectiveFrom = effectiveFrom;
+    }
+
+    public LocalDate getEffectiveTo() {
+        return effectiveTo;
+    }
+
+    public void setEffectiveTo(LocalDate effectiveTo) {
+        this.effectiveTo = effectiveTo;
+    }
+
+    public LocalDateTime getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(LocalDateTime createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public LocalDateTime getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public void setUpdatedOn(LocalDateTime updatedOn) {
+        this.updatedOn = updatedOn;
     }
 }

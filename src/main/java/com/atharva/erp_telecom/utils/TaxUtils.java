@@ -23,7 +23,7 @@ public class TaxUtils {
 
     public TaxResponse mapToResponse(Tax tax){
         TaxResponse response = new TaxResponse();
-        response.setTaxId(tax.getId());
+        response.setTaxId(tax.getTaxId());
         response.setTaxCode(tax.getTaxCode());
         response.setTaxName(tax.getTaxName());
         response.setCgstPercentage(tax.getCgstPercentage());
