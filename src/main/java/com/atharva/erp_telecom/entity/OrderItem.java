@@ -1,5 +1,7 @@
 package com.atharva.erp_telecom.entity;
 
+import com.atharva.erp_telecom.enums.PlanType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -22,6 +24,7 @@ public class OrderItem {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false)
+    @JsonBackReference
     private Order order;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -31,11 +34,12 @@ public class OrderItem {
     @Column(nullable = false)
     private Integer quantity = 1;
 
-    @Column(precision = 15, scale = 2, nullable = false)
+    @Column(nullable = false)
     private BigDecimal price;
 
+    @Enumerated(EnumType.STRING)
     @Column(length = 50)
-    private String chargePlanType;
+    private PlanType chargePlanType;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "contract_id")
@@ -47,6 +51,12 @@ public class OrderItem {
 
     @LastModifiedDate
     private LocalDateTime updatedOn;
+
+    @Column(length = 50)
+    private String createdBy;
+
+    @Column(length = 50)
+    private String updatedBy;
 
     // Removed from the Entity layer to the service layer since Entity layers should be just dumb data holders with the least business logic.
     //    @PrePersist
@@ -107,11 +117,11 @@ public class OrderItem {
         this.price = price;
     }
 
-    public String getChargePlanType() {
+    public PlanType getChargePlanType() {
         return chargePlanType;
     }
 
-    public void setChargePlanType(String chargePlanType) {
+    public void setChargePlanType(PlanType chargePlanType) {
         this.chargePlanType = chargePlanType;
     }
 
@@ -137,5 +147,21 @@ public class OrderItem {
 
     public void setUpdatedOn(LocalDateTime updatedOn) {
         this.updatedOn = updatedOn;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
     }
 }

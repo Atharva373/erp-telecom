@@ -2,6 +2,7 @@ package com.atharva.erp_telecom.entity;
 
 import com.atharva.erp_telecom.enums.OrderStatus;
 import com.atharva.erp_telecom.enums.OrderType;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -36,12 +37,24 @@ public class Order {
     private OrderType orderType; // PREPAID or POSTPAID
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<OrderItem> items = new ArrayList<>();
 
     @Column(precision = 15, scale = 2)
     private BigDecimal totalAmount = BigDecimal.ZERO;
 
+    @Column
     private String remarks;
+
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
+    private Invoice invoice;
+
+    @Column
+    private String createdBy;
+
+    @Column
+    private String updatedBy;
 
     @CreatedDate
     @Column(updatable = false)
@@ -50,16 +63,17 @@ public class Order {
     @LastModifiedDate
     private LocalDateTime updatedOn;
 
-    @PrePersist
-    public void onCreate() {
-        if (this.orderNumber == null && this.customer != null) {
-            this.orderNumber = String.format(
-                    "ORD_%s_%s",
-                    customer.getCustomerId(),
-                    LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"))
-            );
-        }
-    }
+    // Logic moved to Service and Util classes.
+//    @PrePersist
+//    public void onCreate() {
+//        if (this.orderNumber == null && this.customer != null) {
+//            this.orderNumber = String.format(
+//                    "ORD_%s_%s",
+//                    customer.getCustomerId(),
+//                    LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"))
+//            );
+//        }
+//    }
 
     // Utility method for adding items safely to and forth.
     public void addItem(OrderItem item) {
@@ -145,5 +159,32 @@ public class Order {
 
     public void setUpdatedOn(LocalDateTime updatedOn) {
         this.updatedOn = updatedOn;
+    }
+
+    public Invoice getInvoice() {
+        return invoice;
+    }
+
+    public void setInvoice(Invoice invoice) {
+        this.invoice = invoice;
+        if(invoice!=null && invoice.getOrder() != this){
+            invoice.setOrder(this);
+        }
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
     }
 }

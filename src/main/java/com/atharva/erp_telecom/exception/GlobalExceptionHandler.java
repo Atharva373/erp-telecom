@@ -70,22 +70,18 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler
-    public ResponseEntity<Object> handleAccessDenied(AccessDeniedException exception){
-        Map<String,Object> body = new HashMap<>();
-        body.put("error","Access Denied. Insufficient Privilege.");
+    public ResponseEntity<Object> handleAccessDenied(AccessDeniedException exception) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("error", "Access Denied. Insufficient Privilege.");
         body.put("timestamp", LocalDateTime.now());
         body.put("status", HttpStatus.UNAUTHORIZED.value());
         body.put("message", exception.getMessage());
-        return new ResponseEntity<>(body,HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(body, HttpStatus.UNAUTHORIZED);
     }
 
-    // Generic method for handling anything else that the sever is unable to handle
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<Object> handleGeneral(Exception ex) {
-        return buildResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Unexpected error: " + ex.getMessage());
-    }
-
-    // Custom ExceptionHandling for Product GET API
+    /**
+     * Custom ExceptionHandling for Product GET API
+     */
     @ExceptionHandler(ProductNotFoundException.class)
     public ResponseEntity<CustomErrorResponse> handleProductNotFound(ProductNotFoundException exception, HttpServletRequest request){
         CustomErrorResponse errorResponse = new CustomErrorResponse(
@@ -97,5 +93,26 @@ public class GlobalExceptionHandler {
 
         );
         return new ResponseEntity<>(errorResponse,HttpStatus.NOT_FOUND);
+    }
+    /**
+     * Custom Error handling for ChargePlan not found.
+     */
+    @ExceptionHandler
+    public ResponseEntity<Object> handleChargePlanNotFound(ChargePlanNotFoundException exception, HttpServletRequest request){
+        CustomErrorResponse errorResponse = new CustomErrorResponse(
+                LocalDateTime.now(),
+                HttpStatus.NOT_FOUND,
+                "Requested ChargePlan NOT FOUND",
+                request.getRequestURI(),
+                exception.getMessage()
+        );
+        return new ResponseEntity<>(errorResponse,HttpStatus.NOT_FOUND);
+    }
+
+
+    // Generic method for handling anything else that the sever is unable to handle
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Object> handleGeneral(Exception ex) {
+        return buildResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Unexpected error: " + ex.getMessage());
     }
 }

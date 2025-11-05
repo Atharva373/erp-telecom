@@ -1,13 +1,19 @@
 package com.atharva.erp_telecom.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import org.antlr.v4.runtime.misc.NotNull;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "invoice_items")
-
+@EntityListeners(AuditingEntityListener.class)
 public class InvoiceItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,11 +24,16 @@ public class InvoiceItem {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "invoice_id")
+    @JsonBackReference
     private Invoice invoice;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_item_id")
+    private OrderItem orderItem;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tax_id")
@@ -46,19 +57,18 @@ public class InvoiceItem {
     @Column
     private String additionalInfo;
 
+    @CreatedDate
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdOn;
+
+    @LastModifiedDate
+    @Column(nullable = false)
+    private LocalDateTime updatedOn;
+
     @PrePersist
+    @PreUpdate
     public void prePersist() {
         if (baseAmount == null) baseAmount = BigDecimal.ZERO;
-        if (unitPrice != null && quantity != null) {
-            baseAmount = unitPrice.multiply(BigDecimal.valueOf(quantity));
-        }
-        if (tax != null) {
-            double totalTaxPercent = tax.getTotalTaxPercentage();
-            this.taxAmount = (baseAmount.multiply(BigDecimal.valueOf(totalTaxPercent))).divide(BigDecimal.valueOf(100),2, RoundingMode.HALF_UP);
-        } else {
-            this.taxAmount = BigDecimal.ZERO;
-        }
-        this.totalAmount = baseAmount.add(taxAmount);
     }
 
     public Long getInvoiceItemId() {
@@ -149,4 +159,27 @@ public class InvoiceItem {
         this.additionalInfo = additionalInfo;
     }
 
+    public OrderItem getOrderItem() {
+        return orderItem;
+    }
+
+    public void setOrderItem(OrderItem orderItem) {
+        this.orderItem = orderItem;
+    }
+
+    public LocalDateTime getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(LocalDateTime createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public LocalDateTime getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public void setUpdatedOn(LocalDateTime updatedOn) {
+        this.updatedOn = updatedOn;
+    }
 }

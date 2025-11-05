@@ -8,4 +8,5 @@ import java.util.List;
 public interface CompanyRepository extends JpaRepository<Company,Long> {
     List<Company> findByParentCompany(Company parent);
     boolean existsByCompanyCode(String companyCode);
+    Company findByStateCode(String stateCode);
 }

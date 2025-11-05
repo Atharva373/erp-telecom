@@ -1,12 +1,15 @@
 package com.atharva.erp_telecom.entity;
 
 import com.atharva.erp_telecom.enums.InvoiceStatus;
+import com.atharva.erp_telecom.enums.PaymentStatus;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +31,7 @@ public class Invoice {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false)
+    @JsonBackReference
     private Order order;
 
     @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -46,10 +50,17 @@ public class Invoice {
     private LocalDateTime invoiceDate;
 
     @Column(nullable = false)
+    private LocalDate dueDate;
+
+    @Column(nullable = false)
     private InvoiceStatus status; // e.g., CREATED, PAID, CANCELLED
 
     @Column(length = 1000)
     private String remarks;
+
+    @Enumerated(EnumType.STRING)
+    @Column
+    private PaymentStatus paymentStatus;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
@@ -65,39 +76,13 @@ public class Invoice {
     @Column(length = 100)
     private String modifiedBy;
 
-
-    @PrePersist
-    public void prePersist() {
-        LocalDateTime now = LocalDateTime.now();
-        if (invoiceDate == null) this.invoiceDate = now;
-        if (status == null) this.status = InvoiceStatus.CREATED;
-    }
-
-    @PreUpdate
-    public void preUpdate() {
-        this.updatedOn = LocalDateTime.now();
-    }
-
     // --- Helper Methods ---
     public void addItem(InvoiceItem item) {
         invoiceItems.add(item);
         item.setInvoice(this);
     }
 
-    public void calculateTotals() {
-        subTotal = invoiceItems.stream()
-                .map(InvoiceItem::getBaseAmount)
-                .reduce(BigDecimal.ZERO, BigDecimal::add)
-                .setScale(2, RoundingMode.HALF_UP);;
-
-        taxTotal = invoiceItems.stream()
-                .map(InvoiceItem::getTaxAmount)
-                .reduce(BigDecimal.ZERO, BigDecimal::add)
-                .setScale(2, RoundingMode.HALF_UP);
-
-        assert subTotal != null;
-        totalAmount = subTotal.add(taxTotal).setScale(2, RoundingMode.HALF_UP);;
-    }
+    // Removed the calculateTotals() method from entity class. Moved to the service.
 
     public Invoice() {}
 
@@ -131,6 +116,9 @@ public class Invoice {
 
     public void setOrder(Order order) {
         this.order = order;
+        if (order != null && order.getInvoice() != this) {
+            order.setInvoice(this);
+        }
     }
 
     public List<InvoiceItem> getInvoiceItems() {
@@ -219,5 +207,13 @@ public class Invoice {
 
     public void setModifiedBy(String modifiedBy) {
         this.modifiedBy = modifiedBy;
+    }
+
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
     }
 }

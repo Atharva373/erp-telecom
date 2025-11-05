@@ -1,11 +1,9 @@
 package com.atharva.erp_telecom.repository;
 
-
-import com.atharva.erp_telecom.entity.Customer;
+import com.atharva.erp_telecom.entity.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CustomerRepository extends JpaRepository<Customer,Long> {
-
+public interface OrderRepository extends JpaRepository<Order,Long> {
 }

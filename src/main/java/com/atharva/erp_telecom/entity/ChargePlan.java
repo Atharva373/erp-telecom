@@ -38,10 +38,11 @@ public class ChargePlan {
     @Column(precision = 10, scale = 2)
     private BigDecimal recurringCharge;     // For Postpaid: This is the base price for a postpaid plan even when there is no usage by the user.
                                             // For Prepaid: This is the amount paid for the subscription.
-    private Double oneOffCharge;            // OneOff charges are applied for certain products where there is a
+    private BigDecimal oneOffCharge;            // OneOff charges are applied for certain products where there is a
                                             // product/service for which the subscriber will pay for only once e.g. A modem for internet usage.
     private Double ratePerUnit;             // Applicable if in case of USAGE based scenarios.
 
+    private boolean isDefault = false;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -92,11 +93,11 @@ public class ChargePlan {
         this.recurringCharge = recurringCharge;
     }
 
-    public Double getOneOffCharge() {
+    public BigDecimal getOneOffCharge() {
         return oneOffCharge;
     }
 
-    public void setOneOffCharge(Double oneOffCharge) {
+    public void setOneOffCharge(BigDecimal oneOffCharge) {
         this.oneOffCharge = oneOffCharge;
     }
 
@@ -146,5 +147,13 @@ public class ChargePlan {
 
     public void setUpdatedOn(LocalDateTime updatedOn) {
         this.updatedOn = updatedOn;
+    }
+
+    public boolean isDefault() {
+        return isDefault;
+    }
+
+    public void setDefault(boolean aDefault) {
+        isDefault = aDefault;
     }
 }
