@@ -22,13 +22,13 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
-    public Optional<Customer> getCustomerById(int customerId){
+    public Optional<Customer> getCustomerById(Long customerId){
         return Optional.ofNullable(customerRepository.findById(customerId)
                 .orElseThrow(() -> new ResourceNotFoundException("Customer not found with ID:" + customerId)));
     }
 
     public Customer createCustomer(Customer customer){
-        customerServiceLogger.info("Creating customer with id:{}",customer.getCustomerId());
+        // customerServiceLogger.info("Creating customer with id:{}",customer.getCustomerId());
         return customerRepository.save(customer);
     }
 

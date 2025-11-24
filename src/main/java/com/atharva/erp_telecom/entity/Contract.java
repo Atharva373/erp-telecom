@@ -4,16 +4,16 @@ package com.atharva.erp_telecom.entity;
 import com.atharva.erp_telecom.enums.ContractStatus;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.ConditionalOnIssuerLocationJwtDecoder;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Entity
-@Table(name = "contract")
+@Table(name = "contracts")
 @EntityListeners(AuditingEntityListener.class)
 public class Contract {
 
@@ -34,18 +34,29 @@ public class Contract {
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
+    @Column
     private LocalDate contractStartDate;
+
+    @Column
     private LocalDate contractEndDate;
 
     @Enumerated(value = EnumType.STRING)
     @Column(length = 30, nullable = false)
-    private ContractStatus contractStatus = ContractStatus.INACTIVE;
+    private ContractStatus contractStatus;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_item_id", nullable = false)
+    private OrderItem orderItem;
 
     // NOTE: @JsonBackReference is used for mapping back to the Parent entity. This annotation is mostly used in the Child entity to prevent infinite recursion.
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "master_agreement_id")
     @JsonBackReference
     private MasterAgreement masterAgreement;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "charge_plan_id")
+    private ChargePlan chargePlan;
 
     @Column(length = 255)
     private String deactivationReason;
@@ -57,16 +68,18 @@ public class Contract {
     @LastModifiedDate
     private LocalDateTime updatedOn;
 
+    @Column
+    private String createdBy;
 
+    @Column
+    private String updatedBy;
 
-    // Commented this as this needs to be handled at the Service layer instead of the Entity layer.
-
-    //    private String generateContractNumber() {
-    //        String customerId = String.valueOf(customer.getCustomerId());
-    //        String productType = product.getProductCategory();
-    //        String currentTimestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
-    //        return String.format("CON_%s_%s_%s",customerId,productType,currentTimestamp);
-    //    }
+    @PrePersist
+    public void onCreate() {
+        if (this.contractStatus == null) {
+            this.contractStatus = ContractStatus.INACTIVE;
+        }
+    }
 
     public Long getContractId() {
         return contractId;
@@ -154,5 +167,29 @@ public class Contract {
 
     public void setMasterAgreement(MasterAgreement masterAgreement) {
         this.masterAgreement = masterAgreement;
+    }
+
+    public OrderItem getOrderItem() {
+        return orderItem;
+    }
+
+    public void setOrderItem(OrderItem orderItem) {
+        this.orderItem = orderItem;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
     }
 }

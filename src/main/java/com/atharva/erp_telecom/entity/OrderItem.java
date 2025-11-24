@@ -37,6 +37,9 @@ public class OrderItem {
     @Column(nullable = false)
     private BigDecimal price;
 
+    @Column
+    private BigDecimal unitPrice = BigDecimal.ZERO;
+
     @Enumerated(EnumType.STRING)
     @Column(length = 50)
     private PlanType chargePlanType;
@@ -163,5 +166,13 @@ public class OrderItem {
 
     public void setUpdatedBy(String updatedBy) {
         this.updatedBy = updatedBy;
+    }
+
+    public BigDecimal getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(BigDecimal unitPrice) {
+        this.unitPrice = unitPrice;
     }
 }

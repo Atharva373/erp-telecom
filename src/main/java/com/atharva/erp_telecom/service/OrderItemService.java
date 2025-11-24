@@ -10,6 +10,7 @@ import com.atharva.erp_telecom.exception.custom_exceptions.ChargePlanNotFoundExc
 import com.atharva.erp_telecom.exception.custom_exceptions.ProductNotFoundException;
 import com.atharva.erp_telecom.repository.OrderItemRepository;
 import com.atharva.erp_telecom.service.implementation.ProductServiceImplementation;
+import com.atharva.erp_telecom.utils.GenericUtils;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -32,31 +34,35 @@ public class OrderItemService {
     }
 
     @Transactional
-    public List<OrderItem> createOrderItems(Order order, OrderCheckoutRequest orderCheckoutRequest, List<Product> products) {
-        if (order == null  || products.isEmpty()) {
+    public List<OrderItem> createOrderItems(Order order, OrderCheckoutRequest orderCheckoutRequest, Map<Long,Product> productMap) {
+        if (order == null  || orderCheckoutRequest == null || productMap.isEmpty()) {
             throw new IllegalArgumentException("Order or Products cannot be null or empty.");
         }
-
         AtomicInteger itemCounter = new AtomicInteger(1);
-        return products.stream().map(product -> {
+
+        return orderCheckoutRequest.getOrderProducts().stream().map(orderProduct -> {
             OrderItem item = new OrderItem();
-
             item.setOrder(order);
-            item.setProduct(product);
-            item.setQuantity(1); // default quantity, can be changed if provided, will be mapped via DTO.
-            item.setPrice(determineProductPriceForOrderItem(product));
-
+            if(orderProduct.getProductId() == null){
+                throw new ProductNotFoundException("Product Id is null, can't fetch product...");
+            }
+            Product fetchedProduct = productMap.get(orderProduct.getProductId());
+            BigDecimal oneOffPrice = GenericUtils.getDefaultChargePlan(fetchedProduct).getOneOffCharge();
+            item.setProduct(fetchedProduct);
+            item.setQuantity(orderProduct.getQuantity());
+            item.setPrice(determineProductPriceForOrderItem(fetchedProduct));
+            item.setUnitPrice(oneOffPrice);
             String orderLineItemNumber = String.format(
                     "%s_ITEM_%d", order.getOrderNumber(), itemCounter.getAndIncrement());
             item.setOrderLineItemNumber(orderLineItemNumber);
-            item.setChargePlanType(determineChargePlanType(product));
+            item.setChargePlanType(determineChargePlanType(fetchedProduct));
             item.setCreatedOn(LocalDateTime.now());
             item.setUpdatedOn(LocalDateTime.now());
-
+            // Contract will be created later, currently populated as null.
             order.addItem(item);
             item.setCreatedBy("PHOTON_ERP");
             item.setUpdatedBy("PHOTON_ERP");
-            return orderItemRepository.save(item);
+            return item;
 
         }).collect(Collectors.toList());
     }

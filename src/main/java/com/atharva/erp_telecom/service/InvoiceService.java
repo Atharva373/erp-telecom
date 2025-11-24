@@ -3,6 +3,7 @@ package com.atharva.erp_telecom.service;
 import com.atharva.erp_telecom.entity.*;
 import com.atharva.erp_telecom.enums.IndianState;
 import com.atharva.erp_telecom.enums.InvoiceStatus;
+import com.atharva.erp_telecom.enums.PaymentStatus;
 import com.atharva.erp_telecom.repository.CompanyRepository;
 import com.atharva.erp_telecom.repository.InvoiceItemRepository;
 import com.atharva.erp_telecom.repository.InvoiceRepository;
@@ -23,10 +24,10 @@ import java.util.List;
 @Service
 public class InvoiceService {
 
-    private InvoiceRepository invoiceRepository;
-    private InvoiceItemService invoiceItemService;
-    private OrderRepository orderRepository;
-    private CompanyRepository companyRepository;
+    private final InvoiceRepository invoiceRepository;
+    private final InvoiceItemService invoiceItemService;
+    private final OrderRepository orderRepository;
+    private final CompanyRepository companyRepository;
 
     @Autowired
     public InvoiceService(InvoiceRepository invoiceRepository, InvoiceItemService invoiceItemService,OrderRepository orderRepository, CompanyRepository companyRepository) {
@@ -49,13 +50,15 @@ public class InvoiceService {
         Customer customerFromOrder = order.getCustomer();
         invoice.setInvoiceNumber(EntityNumberGeneratorUtil.generateInvoiceNumber(order.getOrderId(),customerFromOrder.getCustomerId()));
         invoice.setCustomer(customerFromOrder);
+        // Setting order here because Invoice is the owning side.
         invoice.setOrder(order);
-        // 10 Days of leeway before the Invoice gets overdue.
         invoice.setInvoiceDate(LocalDateTime.now());
         invoice.setStatus(InvoiceStatus.CREATED);
         invoice.setCreatedBy("PHOTON_ERP");
-        invoice.setCreatedOn(LocalDateTime.now());
+        // 10 Days of leeway before the Invoice gets overdue.
         invoice.setDueDate(LocalDate.now().plusDays(10));
+
+        Invoice savedInvoice = invoiceRepository.save(invoice);
 
         Company company = companyRepository.findByStateCode(IndianState.MAHARASHTRA.getAbbreviation());
         List<InvoiceItem> invoiceItems = invoiceItemService.createInvoiceItemsFromOrderItems(invoice,invoice.getOrder().getItems(), company);
@@ -63,9 +66,10 @@ public class InvoiceService {
 
         // Void function to set all the amount fields.
         calculateAndSetInvoiceAmounts(invoice);
+        invoice.setPaymentStatus(PaymentStatus.PENDING);
 
-        order.setInvoice(invoice);
-        return invoiceRepository.save(invoice);
+        // order.setInvoice(invoice);
+        return invoiceRepository.save(savedInvoice);
     }
 
     @Transactional
@@ -83,7 +87,6 @@ public class InvoiceService {
     public Invoice updateInvoiceStatus(Long invoiceId, InvoiceStatus newStatus) {
         Invoice invoice = getInvoiceById(invoiceId);
         invoice.setStatus(newStatus);
-        invoice.setUpdatedOn(LocalDateTime.now());
         return invoiceRepository.save(invoice);
     }
 

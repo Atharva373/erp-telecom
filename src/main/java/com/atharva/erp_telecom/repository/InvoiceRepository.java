@@ -3,6 +3,7 @@ package com.atharva.erp_telecom.repository;
 import com.atharva.erp_telecom.entity.Customer;
 import com.atharva.erp_telecom.entity.Invoice;
 import com.atharva.erp_telecom.entity.Order;
+import com.atharva.erp_telecom.enums.InvoiceStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -19,7 +20,7 @@ public interface InvoiceRepository extends JpaRepository<Invoice,Long> {
 
     List<Invoice> findByCustomer(Customer customer);
 
-    List<Invoice> findByStatus(String status);
+    List<Invoice> findByStatus(InvoiceStatus status);
 
     List<Invoice> findByInvoiceDateBetween(LocalDateTime start, LocalDateTime end);
 }

@@ -1,6 +1,7 @@
 package com.atharva.erp_telecom.entity;
 
 import com.atharva.erp_telecom.enums.AgreementStatus;
+import com.atharva.erp_telecom.enums.AgreementType;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -10,7 +11,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,11 +35,22 @@ public class MasterAgreement {
     @JsonManagedReference   // Forward mapping to the child entity (since Contract : MasterAgreement = N:1)
     private List<Contract> contracts = new ArrayList<>();
 
+    @Column(nullable = false)
     private LocalDate startDate;
+
+    @Column(nullable = false)
     private LocalDate endDate;
 
+    @Column(length = 1000)
+    private String termsAndConditions;
+
     @Enumerated(EnumType.STRING)
-    private AgreementStatus status = AgreementStatus.PENDING;
+    @Column
+    private AgreementStatus status;
+
+    @Enumerated(EnumType.STRING)
+    @Column
+    private AgreementType agreementType;
 
     @Column(length = 500)
     private String remarks;
@@ -51,11 +62,20 @@ public class MasterAgreement {
     @LastModifiedDate
     @Column(nullable = false)
     private LocalDateTime updatedOn;
+
+    @Column(length = 100)
+    private String createdBy;
+
+    @Column(length = 100)
+    private String updatedBy;
     
     @PrePersist
     public void onCreate() {
         if (this.status == null) {
             this.status = AgreementStatus.PENDING;
+        }
+        if(this.agreementType == null){
+            this.agreementType = AgreementType.STANDARD;
         }
     }
 
@@ -152,5 +172,37 @@ public class MasterAgreement {
 
     public void setAgreementId(Long agreementId) {
         this.agreementId = agreementId;
+    }
+
+    public String getTermsAndConditions() {
+        return termsAndConditions;
+    }
+
+    public void setTermsAndConditions(String termsAndConditions) {
+        this.termsAndConditions = termsAndConditions;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public AgreementType getAgreementType() {
+        return agreementType;
+    }
+
+    public void setAgreementType(AgreementType agreementType) {
+        this.agreementType = agreementType;
     }
 }

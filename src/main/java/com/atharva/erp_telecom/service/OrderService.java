@@ -14,13 +14,15 @@ import com.atharva.erp_telecom.repository.OrderRepository;
 import com.atharva.erp_telecom.repository.ProductRepository;
 import com.atharva.erp_telecom.service.implementation.ProductServiceImplementation;
 import com.atharva.erp_telecom.utils.EntityNumberGeneratorUtil;
+import com.atharva.erp_telecom.utils.GenericUtils;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
+
 
 @Service
 public class OrderService {
@@ -41,6 +43,7 @@ public class OrderService {
         this.productRepository = productRepository;
     }
 
+    @Transactional
     public Order createOrder(OrderCheckoutRequest orderCheckoutRequest) {
         Long customerId = orderCheckoutRequest.getCustomerId();
         // Calling the Product repository only once to stop multiple queries.
@@ -49,6 +52,10 @@ public class OrderService {
                         .stream()
                         .map(OrderProductRequest::getProductId)
                         .toList());
+
+        Map<Long,Product> productMap = products.stream()
+                                        .collect(Collectors.toMap(Product::getProductId,product -> product));
+
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new ResourceNotFoundException("Customer not found for ID: " + customerId));
 
@@ -58,44 +65,30 @@ public class OrderService {
         order.setCreatedBy("PHOTON_ERP");
         order.setUpdatedBy("PHOTON_ERP");
         order.setStatus(OrderStatus.CREATED);
-        order.setOrderType(deriveOrderTypeFromChargePlan(products));
-        order.setItems(orderItemService.createOrderItems(order, orderCheckoutRequest,products));
+        order.setOrderType(GenericUtils.deriveOrderTypeFromChargePlan(products));
+        orderItemService.createOrderItems(order,orderCheckoutRequest,productMap);
         order.setTotalAmount(calculateOrderItemTotalAmount(order.getItems()));
-        Order savedOrder = orderRepository.save(order);
+        Order savedOrder = orderRepository.saveAndFlush(order);
         String productNames = products.stream()
                 .map(Product::getProductName)
                 .collect(Collectors.joining(", "));
         savedOrder.setRemarks(String.format("Order created successfully for Customer: %s | Products: %s | Type: %s | Order Id: %s"
                 ,customerId,productNames,savedOrder.getOrderType(),savedOrder.getOrderId()));
-        savedOrder.setInvoice(invoiceService.createInvoiceFromOrder(savedOrder.getOrderId()));
-        return orderRepository.save(savedOrder);
+        invoiceService.createInvoiceFromOrder(savedOrder.getOrderId());
+        // Instead of --> return orderRepository.save(savedOrder), we will proceed by simply returning the
+        // savedOrder since Hibernates Persistence Context will flush and save the order from the first save() call (no need for a second call)
+        return savedOrder;
     }
 
-
-
-    // Helper Methods:
-    private OrderType deriveOrderTypeFromChargePlan(List<Product> products) {
-        if (products == null || products.isEmpty()) {
-            throw new IllegalArgumentException("No products found in the order");
-        }
-
-        Set<PlanType> chargeTypes = products.stream()
-                .flatMap(product -> product.getChargePlans().stream())
-                .filter(ChargePlan::isDefault)
-                .map(ChargePlan::getPlanType)
-                .collect(Collectors.toSet());
-
-        if (chargeTypes.isEmpty()) {
-            throw new ChargePlanNotFoundException("No Charge Plans found for provided products");
-        }
-
-        if (chargeTypes.size() == 1) {
-            PlanType singleType = chargeTypes.iterator().next();
-            return (singleType == PlanType.PREPAID) ? OrderType.PREPAID : OrderType.POSTPAID;
-        }
-        throw new IllegalArgumentException("Mixed PREPAID and POSTPAID products not allowed in the same order");
+    public Optional<Order> getOrder(Long orderId) {
+        return orderRepository.findById(orderId);
     }
 
+    public List<Order> getAllOrders() {
+        return orderRepository.findAll();
+    }
+
+    // Helper Method:
     private BigDecimal calculateOrderItemTotalAmount(List<OrderItem> orderItems) {
         return orderItems.stream()
                 .map(OrderItem::getPrice)

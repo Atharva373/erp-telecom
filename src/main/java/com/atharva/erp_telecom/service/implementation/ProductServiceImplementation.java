@@ -48,7 +48,7 @@ public class ProductServiceImplementation implements ProductService {
 
     @Override
     public Product updateProduct(Long id, ProductUpdateRequest newProduct) {
-        Product existingProduct = getProductById(id).orElseThrow(() -> new ProductNotFoundException(id));
+        Product existingProduct = getProductById(id).orElseThrow(() -> new ProductNotFoundException("Product Not found for Id: "+id));
         CrudUtils.updateIfNotNull(existingProduct::setProductCode, newProduct.getProductCode());
         CrudUtils.updateIfNotNull(existingProduct::setProductName, newProduct.getProductName());
         CrudUtils.updateIfNotNull(existingProduct::setProductDescription, newProduct.getProductDescription());

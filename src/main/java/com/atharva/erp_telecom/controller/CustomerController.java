@@ -26,7 +26,7 @@ public class CustomerController {
     public Object getCustomers(@RequestParam(value = "id",required = false) String customerId){
         // Get single customer by ID
         if(customerId!=null) {
-            Optional<Customer> fetchedCustomer = customerService.getCustomerById(Integer.parseInt(customerId));
+            Optional<Customer> fetchedCustomer = customerService.getCustomerById(Long.parseLong(customerId));
             return fetchedCustomer.map(ResponseEntity::ok)
                     .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
         }

@@ -40,7 +40,7 @@ public class InvoiceItem {
     private Tax tax;
 
     @Column(nullable = false)
-    private Integer quantity = 1;
+    private Integer quantity    ;
 
     @Column(nullable = false)
     private BigDecimal unitPrice;   // For hardware or one-off products.

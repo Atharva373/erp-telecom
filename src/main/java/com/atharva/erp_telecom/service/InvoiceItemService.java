@@ -4,6 +4,7 @@ package com.atharva.erp_telecom.service;
 import com.atharva.erp_telecom.entity.*;
 import com.atharva.erp_telecom.repository.InvoiceItemRepository;
 import com.atharva.erp_telecom.repository.TaxRepository;
+import com.atharva.erp_telecom.utils.EntityNumberGeneratorUtil;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import java.math.RoundingMode;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Service
 public class InvoiceItemService {
@@ -39,13 +41,13 @@ public class InvoiceItemService {
 
             invoiceItem.setInvoice(invoice);
             invoiceItem.setOrderItem(orderItem);
-
+            invoiceItem.setQuantity(orderItem.getQuantity());
             if (orderItem.getProduct() == null) {
-                throw new IllegalStateException("OrderItem does not have a linked Product.");
+                throw new IllegalStateException("OrderItem does not have a linked or a valid Product.");
             }
             invoiceItem.setProduct(orderItem.getProduct());
-
-            String invoiceItemNumber = String.format("%s_ITEM_%d",
+            invoiceItem.setUnitPrice(orderItem.getUnitPrice());
+            String invoiceItemNumber = EntityNumberGeneratorUtil.generateInvoiceItemNumber(
                     invoice.getInvoiceNumber(),
                     counter.getAndIncrement());
             invoiceItem.setInvoiceItemNumber(invoiceItemNumber);
@@ -61,12 +63,12 @@ public class InvoiceItemService {
             BigDecimal total = baseAmount.add(taxAmount).setScale(2, RoundingMode.HALF_UP);
             invoiceItem.setTotalAmount(total);
 
-            invoiceItem.setAdditionalInfo(String.format("Generated from Order item: %s and Invoice number: %s", orderItem.getOrderLineItemNumber(),invoice.getInvoiceNumber()));
+            invoiceItem.setAdditionalInfo(String.format("Order item: %s and Invoice number: %s", orderItem.getOrderLineItemNumber(),invoice.getInvoiceNumber()));
 
             invoice.addItem(invoiceItem);
-            return invoiceItemRepository.save(invoiceItem);
+            return invoiceItem;
 
-        }).toList();
+        }).collect(Collectors.toList());
     }
 
     @Transactional
@@ -96,9 +98,7 @@ public class InvoiceItemService {
         boolean isIntraState = customer.getRegion().equalsIgnoreCase(company.getStateCode());
 
         Optional<Tax> gstTaxOpt = taxRepository.findByTaxCode("GST_18");
-        if (gstTaxOpt.isEmpty()) {
-            return BigDecimal.ZERO;
-        }
+        if (gstTaxOpt.isEmpty()) return BigDecimal.ZERO;
 
         Tax tax = gstTaxOpt.get();
         invoiceItem.setTax(tax);

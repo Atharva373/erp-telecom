@@ -12,7 +12,7 @@ public class OrderCheckoutRequest {
     private String promoCode;
     private String currencyCode;      // e.g., "INR", "USD"
     private String remarks;           // optional note by user or sales agent
-    private boolean autoGenerateInvoice ; // default true
+    private boolean autoGenerateInvoice; // default true
     private BigDecimal shippingCharges; // optional for hardware delivery
     private BigDecimal discountAmount;  // total discount
 

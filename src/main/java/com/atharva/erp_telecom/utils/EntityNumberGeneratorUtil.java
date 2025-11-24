@@ -2,6 +2,7 @@ package com.atharva.erp_telecom.utils;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.concurrent.atomic.AtomicInteger;
 
 // Purpose of this UTIL class is to generate Entity specific ID's which are not system generated and require custom logic.
 
@@ -27,5 +28,9 @@ public class EntityNumberGeneratorUtil {
     public static String generateInvoiceNumber(Long orderId, Long customerId) {
         String timestamp = LocalDateTime.now().format(FORMATTER);
         return String.format("INV_%s_%s_%s", customerId,  orderId, timestamp);
+    }
+
+    public static String generateInvoiceItemNumber(String invoiceNumber, int itemNumber) {
+        return String.format("%s_ITEM_%s", invoiceNumber,  itemNumber);
     }
 }

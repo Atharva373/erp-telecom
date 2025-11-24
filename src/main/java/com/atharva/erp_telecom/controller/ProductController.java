@@ -66,7 +66,7 @@ public class ProductController {
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<Product> getProductById(@PathVariable("id") Long productId){
         Product fetchedProduct = productService.getProductById(productId)
-                .orElseThrow(()->new ProductNotFoundException(productId));
+                .orElseThrow(()->new ProductNotFoundException("Product Not found for Id: "+productId));
         return ResponseEntity.ok(fetchedProduct);
     }
 

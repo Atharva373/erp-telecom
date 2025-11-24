@@ -36,6 +36,31 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderType orderType; // PREPAID or POSTPAID
 
+    /*
+        NOTE: Very,very important -->
+        1. The owning side of the relationship should contain the @JoinColumn annotation not the non-owning side.
+        2. The non-owning side should contain the @XToY(mappedBy=..) property as a good practice which suggests that
+            foreign key (FK) relation is already been established already.
+
+            In simple words, it literally means:
+
+            “This side is NOT the owner of the relationship.
+            The other side already has the foreign key column.
+            Use that one — not this one.”
+
+        3. Table:
+
+            | Relationship Type | Owning Side    | Annotation                   | Non-owning Side | Annotation             |
+            | ----------------- | -------------- | ---------------------------- | --------------- | ---------------------- |
+            | `@OneToMany`      | Child          | `@ManyToOne @JoinColumn`     | Parent          | `@OneToMany(mappedBy)` |
+            | `@OneToOne`       | Entity with FK | `@JoinColumn`                | Other side      | `@OneToOne(mappedBy)`  |
+            | `@ManyToMany`     | Chosen owner   | `@JoinTable` / `@JoinColumn` | Other side      | `mappedBy`             |
+
+        4. Ideally the non-owning entity should reference back in the service layer.
+            e.g. child.setParent(parent);
+
+     */
+
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<OrderItem> items = new ArrayList<>();
@@ -46,7 +71,8 @@ public class Order {
     @Column
     private String remarks;
 
-    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    // Removed the CascadeType.ALL to mitigate 2 database inserts - one in Invoice and one in Order.
+    @OneToOne(mappedBy = "order",  fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
     private Invoice invoice;
 
@@ -187,4 +213,5 @@ public class Order {
     public void setUpdatedBy(String updatedBy) {
         this.updatedBy = updatedBy;
     }
+
 }
