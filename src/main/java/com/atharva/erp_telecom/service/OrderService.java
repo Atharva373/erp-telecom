@@ -2,23 +2,29 @@ package com.atharva.erp_telecom.service;
 
 import com.atharva.erp_telecom.dto.OrderCheckoutRequest;
 import com.atharva.erp_telecom.dto.OrderProductRequest;
+import com.atharva.erp_telecom.dto.OrderResponse;
 import com.atharva.erp_telecom.entity.*;
 import com.atharva.erp_telecom.enums.OrderStatus;
 import com.atharva.erp_telecom.enums.OrderType;
 import com.atharva.erp_telecom.enums.PlanType;
 import com.atharva.erp_telecom.exception.custom_exceptions.ChargePlanNotFoundException;
+import com.atharva.erp_telecom.exception.custom_exceptions.OrderNotFoundException;
 import com.atharva.erp_telecom.exception.custom_exceptions.ProductNotFoundException;
 import com.atharva.erp_telecom.exception.custom_exceptions.ResourceNotFoundException;
 import com.atharva.erp_telecom.repository.CustomerRepository;
 import com.atharva.erp_telecom.repository.OrderRepository;
 import com.atharva.erp_telecom.repository.ProductRepository;
 import com.atharva.erp_telecom.service.implementation.ProductServiceImplementation;
+import com.atharva.erp_telecom.utils.EntityDtoMappers;
 import com.atharva.erp_telecom.utils.EntityNumberGeneratorUtil;
 import com.atharva.erp_telecom.utils.GenericUtils;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.parser.Entity;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -29,7 +35,6 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final CustomerRepository customerRepository;
     private final OrderItemService orderItemService;
-    private final ProductService productService;
     private final InvoiceService invoiceService;
     private final ProductRepository productRepository;
 
@@ -38,15 +43,14 @@ public class OrderService {
         this.orderRepository = orderRepository;
         this.customerRepository = customerRepository;
         this.orderItemService = orderItemService;
-        this.productService = productService;
         this.invoiceService = invoiceService;
         this.productRepository = productRepository;
     }
 
     @Transactional
-    public Order createOrder(OrderCheckoutRequest orderCheckoutRequest) {
+    public OrderResponse createOrder(OrderCheckoutRequest orderCheckoutRequest) {
         Long customerId = orderCheckoutRequest.getCustomerId();
-        // Calling the Product repository only once to stop multiple queries.
+        // Calling the Product repository only once to stop multiple queries i.e. the N+1 query problem.
         List<Product> products =
                 productRepository.findAllById(orderCheckoutRequest.getOrderProducts()
                         .stream()
@@ -54,14 +58,14 @@ public class OrderService {
                         .toList());
 
         Map<Long,Product> productMap = products.stream()
-                                        .collect(Collectors.toMap(Product::getProductId,product -> product));
+                .collect(Collectors.toMap(Product::getProductId,product -> product));
 
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new ResourceNotFoundException("Customer not found for ID: " + customerId));
 
         Order order = new Order();
         order.setCustomer(customer);
-        order.setOrderNumber(EntityNumberGeneratorUtil.generateOrderNumber(customerId));
+        order.setOrderNumber(EntityNumberGeneratorUtil.generateOrderNumber(customer.getCustomerId()));
         order.setCreatedBy("PHOTON_ERP");
         order.setUpdatedBy("PHOTON_ERP");
         order.setStatus(OrderStatus.CREATED);
@@ -77,15 +81,33 @@ public class OrderService {
         invoiceService.createInvoiceFromOrder(savedOrder.getOrderId());
         // Instead of --> return orderRepository.save(savedOrder), we will proceed by simply returning the
         // savedOrder since Hibernates Persistence Context will flush and save the order from the first save() call (no need for a second call)
-        return savedOrder;
+        return EntityDtoMappers.mapOrderToOrderResponse(savedOrder);
     }
 
-    public Optional<Order> getOrder(Long orderId) {
-        return orderRepository.findById(orderId);
+    public Optional<OrderResponse> getOrderById(Long orderId) {
+        return Optional.of(EntityDtoMappers.mapOrderToOrderResponse(
+                orderRepository.findById(orderId)
+                        .orElseThrow(() -> new OrderNotFoundException("Order NOT FOUND for Id: "+orderId)))
+        );
     }
 
-    public List<Order> getAllOrders() {
-        return orderRepository.findAll();
+    public List<OrderResponse> getAllOrders() {
+        return orderRepository.findAll().stream()
+                .map(EntityDtoMappers::mapOrderToOrderResponse)
+                .toList();
+    }
+
+    public String updateOrderStatus(Long orderId,OrderStatus orderStatus){
+        Optional<Order> orderOpt = orderRepository.findById(orderId);
+        if (orderOpt.isEmpty()) {
+            return "Order NOT FOUND for Id: " + orderId;
+        }
+
+        Order order = orderOpt.get();
+        order.setStatus(orderStatus);
+        orderRepository.save(order);
+
+        return "Order status updated to: " + orderStatus;
     }
 
     // Helper Method:

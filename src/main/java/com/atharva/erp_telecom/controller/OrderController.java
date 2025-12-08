@@ -37,8 +37,7 @@ public class OrderController {
     @PostMapping("/checkout")
     public ResponseEntity<?> createOrder(@RequestBody OrderCheckoutRequest orderCheckoutRequest) {
         try {
-            Order order = orderService.createOrder(orderCheckoutRequest);
-            OrderResponse response = EntityDtoMappers.mapOrderToOrderResponse(order);
+            OrderResponse response = orderService.createOrder(orderCheckoutRequest);
             return ResponseEntity.ok(response);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body("Invalid request: " + e.getMessage());
@@ -54,10 +53,7 @@ public class OrderController {
     // ---------------------------
     @GetMapping
     public ResponseEntity<List<OrderResponse>> getAllOrders() {
-        List<Order> orders = orderRepository.findAll();
-        List<OrderResponse> responseList = orders.stream()
-                .map(EntityDtoMappers::mapOrderToOrderResponse)
-                .toList();
+        List<OrderResponse> responseList = orderService.getAllOrders();
         if (responseList.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
@@ -69,15 +65,12 @@ public class OrderController {
     // ---------------------------
     @GetMapping("/{orderId}")
     public ResponseEntity<?> getOrderById(@PathVariable Long orderId) {
-        Optional<Order> optionalOrder = orderService.getOrder(orderId);
-
+        Optional<OrderResponse> optionalOrder = orderService.getOrderById(orderId);
         if (optionalOrder.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Order not found with ID: " + orderId);
         }
-
-        OrderResponse response = EntityDtoMappers.mapOrderToOrderResponse(optionalOrder.get());
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(optionalOrder.get());
     }
 
 
@@ -90,16 +83,8 @@ public class OrderController {
             @PathVariable Long orderId,
             @RequestParam OrderStatus status
     ) {
-        Optional<Order> orderOpt = orderRepository.findById(orderId);
-        if (orderOpt.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Order not found with ID: " + orderId);
-        }
-
-        Order order = orderOpt.get();
-        order.setStatus(status);
-        orderRepository.save(order);
-        return ResponseEntity.ok("Order status updated to: " + status);
+        String updateStatusMessage = orderService.updateOrderStatus(orderId,status);
+        return ResponseEntity.ok(updateStatusMessage);
     }
 
     // ---------------------------

@@ -2,6 +2,7 @@ package com.atharva.erp_telecom.exception;
 
 
 import com.atharva.erp_telecom.dto.CustomErrorResponse;
+import com.atharva.erp_telecom.entity.Order;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -105,6 +106,36 @@ public class GlobalExceptionHandler {
                 "Requested ChargePlan NOT FOUND",
                 request.getRequestURI(),
                 exception.getMessage()
+        );
+        return new ResponseEntity<>(errorResponse,HttpStatus.NOT_FOUND);
+    }
+    /**
+     * Custom Error handling for Illegal Posting rule.
+     */
+    @ExceptionHandler(IllegalPostingRuleException.class)
+    public ResponseEntity<CustomErrorResponse> handleIllegalPostingRule(IllegalPostingRuleException exception, HttpServletRequest request){
+        CustomErrorResponse errorResponse = new CustomErrorResponse(
+                LocalDateTime.now(),
+                HttpStatus.NOT_FOUND,
+                "Illegal operation in the Posting Rules.",
+                request.getRequestURI(),
+                exception.getMessage()
+        );
+        return new ResponseEntity<>(errorResponse,HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * Custom ExceptionHandling for Product GET API
+     */
+    @ExceptionHandler(OrderNotFoundException.class)
+    public ResponseEntity<CustomErrorResponse> handleProductNotFound(OrderNotFoundException exception, HttpServletRequest request){
+        CustomErrorResponse errorResponse = new CustomErrorResponse(
+                LocalDateTime.now(),
+                HttpStatus.NOT_FOUND,
+                "Requested Order NOT FOUND",
+                request.getRequestURI(),
+                exception.getMessage()
+
         );
         return new ResponseEntity<>(errorResponse,HttpStatus.NOT_FOUND);
     }

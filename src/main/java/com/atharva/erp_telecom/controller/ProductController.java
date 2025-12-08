@@ -1,5 +1,6 @@
 package com.atharva.erp_telecom.controller;
 
+import com.atharva.erp_telecom.dto.ProductResponse;
 import com.atharva.erp_telecom.dto.ProductUpdateRequest;
 import com.atharva.erp_telecom.entity.Product;
 import com.atharva.erp_telecom.exception.custom_exceptions.ProductNotFoundException;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/products")
@@ -44,8 +46,8 @@ public class ProductController {
      */
     @PostMapping("/create")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Product> createProduct(@RequestBody Product productRequest){
-        Product savedProduct = productService.createProduct(productRequest);
+    public ResponseEntity<ProductResponse> createProduct(@RequestBody Product productRequest){
+        ProductResponse savedProduct = productService.createProduct(productRequest);
         return new ResponseEntity<>(savedProduct, HttpStatus.CREATED);
     }
 
@@ -54,8 +56,8 @@ public class ProductController {
     // /products?productCode = 'SMS'
     @GetMapping
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
-    public ResponseEntity<List<Product>> getAllProducts(){
-        Optional<List<Product>> fetchedProducts = productService.getAllProducts();
+    public ResponseEntity<List<ProductResponse>> getAllProducts(){
+        Optional<List<ProductResponse>> fetchedProducts = productService.getAllProducts();
         return new ResponseEntity<>(fetchedProducts.get(),HttpStatus.OK);
     }
 
@@ -64,16 +66,16 @@ public class ProductController {
     // variable name should always be same as the Path variable name, i.e. Long id
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
-    public ResponseEntity<Product> getProductById(@PathVariable("id") Long productId){
-        Product fetchedProduct = productService.getProductById(productId)
+    public ResponseEntity<ProductResponse> getProductById(@PathVariable("id") Long productId){
+        ProductResponse fetchedProduct = productService.getProductById(productId)
                 .orElseThrow(()->new ProductNotFoundException("Product Not found for Id: "+productId));
         return ResponseEntity.ok(fetchedProduct);
     }
 
     @PatchMapping("/{id}")        // Can be replaced with PatchMapping for partial updates for an entity. PUT usually expects an entire payload.
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Product> updateProduct(@PathVariable("id") Long productId, @RequestBody ProductUpdateRequest newProduct){
-        Product updatedProduct = productService.updateProduct(productId,newProduct);
+    public ResponseEntity<ProductResponse> updateProduct(@PathVariable("id") Long productId, @RequestBody ProductUpdateRequest newProduct){
+        ProductResponse updatedProduct = productService.updateProduct(productId,newProduct);
         return new ResponseEntity<>(updatedProduct,HttpStatus.OK);
     }
 

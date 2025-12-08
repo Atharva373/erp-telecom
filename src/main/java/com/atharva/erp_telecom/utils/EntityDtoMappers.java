@@ -2,9 +2,13 @@ package com.atharva.erp_telecom.utils;
 
 import com.atharva.erp_telecom.dto.*;
 import com.atharva.erp_telecom.entity.*;
+import com.atharva.erp_telecom.enums.OrderStatus;
+import com.atharva.erp_telecom.repository.ChartOfAccountRepository;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class EntityDtoMappers {
 
@@ -134,4 +138,64 @@ public class EntityDtoMappers {
         invoiceItemResponse.setAdditionalInfo(invoiceItem.getAdditionalInfo());
         return invoiceItemResponse;
     }
+
+    public static PostingRule mapPostingRuleRequestToPostingRuleEntity(PostingRuleRequest request,ChartOfAccountRepository chartOfAccountRepository){
+        if(request == null) return null;
+        PostingRule postingRule = new PostingRule();
+        postingRule.setEventType(request.getEventType());
+        postingRule.setDescription(request.getDescription());
+        postingRule.setConditionExpression(request.getConditionExpression());
+        postingRule.setEffectiveFrom(request.getEffectiveFrom());
+        postingRule.setEffectiveTo(request.getEffectiveTo());
+        postingRule.setActive(request.getActive());
+        postingRule.setItems(
+                request.getLines()
+                .stream()
+                .map(line -> mapPostingRuleLineRequestToPostingRuleLine(line,chartOfAccountRepository))
+                .toList()
+        );
+        return postingRule;
+    }
+
+    public static PostingRuleLine mapPostingRuleLineRequestToPostingRuleLine(PostingRuleLineDTO line, ChartOfAccountRepository chartOfAccountRepository){
+        if(line == null) return null;
+        PostingRuleLine postingRuleLine = new PostingRuleLine();
+        postingRuleLine.setAccount(chartOfAccountRepository.findByAccountCode(line.getAccountCode()));
+        postingRuleLine.setEntryType(line.getEntryType());
+        postingRuleLine.setAmountExpression(line.getAmountExpression());
+        return postingRuleLine;
+    }
+
+    public static PostingRuleResponse mapPostingRuleToPostingRuleResponse(PostingRule postingRule){
+        if(postingRule == null) return null;
+        PostingRuleResponse response = new PostingRuleResponse();
+        response.setId(postingRule.getId());
+        response.setEventType(postingRule.getEventType());
+        response.setDescription(postingRule.getDescription());
+        response.setConditionExpression(postingRule.getConditionExpression());
+        response.setEffectiveFrom(postingRule.getEffectiveFrom());
+        response.setEffectiveTo(postingRule.getEffectiveTo());
+        response.setCreatedOn(postingRule.getCreatedOn());
+        response.setModifiedOn(postingRule.getModifiedOn());
+        response.setCreatedBy(postingRule.getCreatedBy());
+        response.setActive(postingRule.isActive());
+        response.setModifiedBy(postingRule.getModifiedBy());
+        response.setLines(
+                postingRule.getItems()
+                        .stream()
+                        .map(EntityDtoMappers::mapPostingRuleLineToPostingRuleLineDTO)
+                        .toList()
+        );
+        return response;
+    }
+
+    public static PostingRuleLineDTO mapPostingRuleLineToPostingRuleLineDTO(PostingRuleLine line){
+        if(line == null) return null;
+        PostingRuleLineDTO responseLine = new PostingRuleLineDTO();
+        responseLine.setEntryType(line.getEntryType());
+        responseLine.setAmountExpression(line.getAmountExpression());
+        responseLine.setAccountCode(line.getAccount().getAccountCode());
+        return responseLine;
+    }
+
 }

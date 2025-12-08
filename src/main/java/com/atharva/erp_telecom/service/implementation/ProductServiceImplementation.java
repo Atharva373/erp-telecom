@@ -1,5 +1,6 @@
 package com.atharva.erp_telecom.service.implementation;
 
+import com.atharva.erp_telecom.dto.ProductResponse;
 import com.atharva.erp_telecom.dto.ProductUpdateRequest;
 import com.atharva.erp_telecom.entity.ChargePlan;
 import com.atharva.erp_telecom.entity.Product;
@@ -9,6 +10,7 @@ import com.atharva.erp_telecom.exception.custom_exceptions.ProductNotFoundExcept
 import com.atharva.erp_telecom.repository.ProductRepository;
 import com.atharva.erp_telecom.service.ProductService;
 import com.atharva.erp_telecom.utils.CrudUtils;
+import com.atharva.erp_telecom.utils.EntityDtoMappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,33 +31,41 @@ public class ProductServiceImplementation implements ProductService {
 
     // Explicitly back-mapping the current product to the Chargeplan.
     @Override
-    public Product createProduct(Product product) {
+    public ProductResponse createProduct(Product product) {
         for(ChargePlan chargePlan: product.getChargePlans()){
             chargePlan.setProduct(product);
         }
-        return productRepository.save(product);
+        Product savedProduct = productRepository.save(product);
+        return EntityDtoMappers.mapProductToProductResponse(savedProduct);
     }
 
     @Override
-    public Optional<List<Product>> getAllProducts() {
-        return Optional.of(productRepository.findAll());
+    public Optional<List<ProductResponse>> getAllProducts() {
+        List<Product> fetchedProducts = productRepository.findAll();
+        return Optional.of(
+                fetchedProducts.stream()
+                        .map(EntityDtoMappers::mapProductToProductResponse)
+                        .toList()
+        );
     }
 
     @Override
-    public Optional<Product> getProductById(Long id) {
-        return productRepository.findById(id);
+    public Optional<ProductResponse> getProductById(Long id) {
+        Product fetchedProduct = productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Product Not found for Id: "+id));
+        return Optional.of(EntityDtoMappers.mapProductToProductResponse(fetchedProduct));
     }
 
     @Override
-    public Product updateProduct(Long id, ProductUpdateRequest newProduct) {
-        Product existingProduct = getProductById(id).orElseThrow(() -> new ProductNotFoundException("Product Not found for Id: "+id));
+    public ProductResponse updateProduct(Long id, ProductUpdateRequest newProduct) {
+        Product existingProduct = productRepository.findById(id)
+                .orElseThrow(() -> new ProductNotFoundException("Product Not found for Id: "+id));
         CrudUtils.updateIfNotNull(existingProduct::setProductCode, newProduct.getProductCode());
         CrudUtils.updateIfNotNull(existingProduct::setProductName, newProduct.getProductName());
         CrudUtils.updateIfNotNull(existingProduct::setProductDescription, newProduct.getProductDescription());
         CrudUtils.updateIfNotNull(existingProduct::setProductCategory, newProduct.getProductCategory());
         CrudUtils.updateIfNotNull(existingProduct::setActive, newProduct.isActive());
         CrudUtils.updateIfNotNull(existingProduct::setBundle, newProduct.isBundle());
-        return productRepository.save(existingProduct);
+        return EntityDtoMappers.mapProductToProductResponse(productRepository.save(existingProduct));
     }
 
     @Override
