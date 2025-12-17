@@ -2,13 +2,12 @@ package com.atharva.erp_telecom.utils;
 
 import com.atharva.erp_telecom.dto.*;
 import com.atharva.erp_telecom.entity.*;
-import com.atharva.erp_telecom.enums.OrderStatus;
+import com.atharva.erp_telecom.exception.custom_exceptions.ResourceNotFoundException;
 import com.atharva.erp_telecom.repository.ChartOfAccountRepository;
+import com.atharva.erp_telecom.repository.CompanyRepository;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 public class EntityDtoMappers {
 
@@ -139,12 +138,79 @@ public class EntityDtoMappers {
         return invoiceItemResponse;
     }
 
-    public static PostingRule mapPostingRuleRequestToPostingRuleEntity(PostingRuleRequest request,ChartOfAccountRepository chartOfAccountRepository){
+    /**
+     *  COMPANY RELATED MAPPERS
+     */
+    public static Company mapCompanyRequestToCompany(CompanyRequest request,CompanyRepository companyRepository){
+        Company company = new Company();
+        company.setCompanyCode(request.getCompanyCode());
+        company.setCompanyName(request.getCompanyName());
+        company.setAddressLine1(request.getAddressLine1());
+        company.setAddressLine2(request.getAddressLine2());
+        company.setCity(request.getCity());
+        company.setState(request.getState());
+        company.setStateCode(request.getStateCode());
+        company.setGstCode(request.getGstCode());
+        company.setGstNumber(request.getGstNumber());
+        company.setPanNumber(request.getPanNumber());
+        company.setCinNumber(request.getCinNumber());
+        company.setEmail(request.getEmail());
+        company.setCurrencyCode(request.getCurrencyCode());
+        company.setPhoneNumber(request.getPhoneNumber());
+        company.setParent(request.getIsParent());
+
+        if(request.getParentCompanyId() != null){
+            Company parent = companyRepository.findById(request.getParentCompanyId())
+                    .orElseThrow(() -> new RuntimeException("Parent company not found"));
+            company.setParentCompany(parent);
+        }
+        return company;
+    }
+
+    public static CompanyResponse mapCompanyToCompanyResponse(Company fetchedCompany,CompanyRepository companyRepository){
+        CompanyResponse response = new CompanyResponse();
+        response.setCompanyId(fetchedCompany.getCompanyId());
+        response.setCompanyCode(fetchedCompany.getCompanyCode());
+        response.setCompanyName(fetchedCompany.getCompanyName());
+        response.setAddressLine1(fetchedCompany.getAddressLine1());
+        response.setAddressLine2(fetchedCompany.getAddressLine2());
+        response.setCity(fetchedCompany.getCity());
+        response.setState(fetchedCompany.getState());
+        response.setStateCode(fetchedCompany.getStateCode());
+        response.setGstCode(fetchedCompany.getGstCode());
+        response.setGstNumber(fetchedCompany.getGstNumber());
+        response.setPanNumber(fetchedCompany.getPanNumber());
+        response.setCinNumber(fetchedCompany.getCinNumber());
+        response.setEmail(fetchedCompany.getEmail());
+        response.setCurrencyCode(fetchedCompany.getCurrencyCode());
+        response.setPhoneNumber(fetchedCompany.getPhoneNumber());
+        response.setIsParent(fetchedCompany.getParent());
+        List<Company> childCompanies = companyRepository.
+                findByParentCompany(companyRepository
+                        .findById(fetchedCompany.getCompanyId()).orElseThrow(() -> new RuntimeException("Parent not found.")));
+        response.setChildCompanies(childCompanies);
+        response.setCreatedOn(fetchedCompany.getCreatedOn());
+        response.setUpdatedOn(fetchedCompany.getUpdatedOn());
+        return response;
+    }
+
+
+    /**
+    *   POSTING RULES - MAPPERS.
+    */
+
+    public static PostingRule mapPostingRuleRequestToPostingRuleEntity(PostingRuleRequest request, ChartOfAccountRepository chartOfAccountRepository, CompanyRepository companyRepository){
         if(request == null) return null;
         PostingRule postingRule = new PostingRule();
         postingRule.setEventType(request.getEventType());
         postingRule.setDescription(request.getDescription());
-        postingRule.setConditionExpression(request.getConditionExpression());
+        postingRule.setCompany(companyRepository.findByCompanyCode(
+                request.getCompanyCode())
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("Company NOT FOUND for Code :-> "+request.getCompanyCode())
+                )
+        );
+        postingRule.setHeaderConditionExpression(request.getConditionExpression());
         postingRule.setEffectiveFrom(request.getEffectiveFrom());
         postingRule.setEffectiveTo(request.getEffectiveTo());
         postingRule.setActive(request.getActive());
@@ -160,7 +226,8 @@ public class EntityDtoMappers {
     public static PostingRuleLine mapPostingRuleLineRequestToPostingRuleLine(PostingRuleLineDTO line, ChartOfAccountRepository chartOfAccountRepository){
         if(line == null) return null;
         PostingRuleLine postingRuleLine = new PostingRuleLine();
-        postingRuleLine.setAccount(chartOfAccountRepository.findByAccountCode(line.getAccountCode()));
+        postingRuleLine.setAccount(chartOfAccountRepository.findByAccountCode(line.getAccountCode())
+                .orElseThrow(() -> new ResourceNotFoundException("CoA NOT FOUND FOR :-> "+line.getAccountCode())));
         postingRuleLine.setEntryType(line.getEntryType());
         postingRuleLine.setAmountExpression(line.getAmountExpression());
         return postingRuleLine;
@@ -172,7 +239,8 @@ public class EntityDtoMappers {
         response.setId(postingRule.getId());
         response.setEventType(postingRule.getEventType());
         response.setDescription(postingRule.getDescription());
-        response.setConditionExpression(postingRule.getConditionExpression());
+        response.setConditionExpression(postingRule.getHeaderConditionExpression());
+        response.setCompanyCode(postingRule.getCompany().getCompanyCode());
         response.setEffectiveFrom(postingRule.getEffectiveFrom());
         response.setEffectiveTo(postingRule.getEffectiveTo());
         response.setCreatedOn(postingRule.getCreatedOn());
@@ -196,6 +264,43 @@ public class EntityDtoMappers {
         responseLine.setAmountExpression(line.getAmountExpression());
         responseLine.setAccountCode(line.getAccount().getAccountCode());
         return responseLine;
+    }
+
+    /**
+     *   CHART OF ACCOUNT - MAPPERS
+     */
+    public static ChartOfAccount mapCoaRequestToCoa(ChartOfAccountRequest request,Company company){
+        ChartOfAccount chartOfAccount = new ChartOfAccount();
+        chartOfAccount.setAccountCode(request.getAccountCode());
+        chartOfAccount.setAccountName(request.getAccountName());
+        chartOfAccount.setCategory(request.getCategory());
+        chartOfAccount.setSubtype(request.getSubtype());
+        chartOfAccount.setNormalBalance(request.getNormalBalance());
+        chartOfAccount.setActive(request.getActive());
+        chartOfAccount.setEffectiveFrom(request.getEffectiveFrom());
+        chartOfAccount.setEffectiveTo(request.getEffectiveTo());
+        chartOfAccount.setCompany(company);
+        return chartOfAccount;
+    }
+
+
+    public static ChartOfAccountResponse mapCoaToCoaResponse(ChartOfAccount chartOfAccount){
+        ChartOfAccountResponse response = new ChartOfAccountResponse();
+        response.setId(chartOfAccount.getId());
+        response.setAccountCode(chartOfAccount.getAccountCode());
+        response.setAccountName(chartOfAccount.getAccountName());
+        response.setCategory(chartOfAccount.getCategory());
+        response.setSubtype(chartOfAccount.getSubtype());
+        response.setNormalBalance(chartOfAccount.getNormalBalance());
+        response.setActive(chartOfAccount.isActive());
+        response.setEffectiveFrom(chartOfAccount.getEffectiveFrom());
+        response.setEffectiveTo(chartOfAccount.getEffectiveTo());
+        response.setCreatedOn(chartOfAccount.getCreatedOn());
+        response.setModifiedOn(chartOfAccount.getModifiedOn());
+        response.setCreatedBy(chartOfAccount.getCreatedBy());
+        response.setModifiedBy(chartOfAccount.getModifiedBy());
+        response.setCompanyCode(chartOfAccount.getCompany().getCompanyCode());
+        return response;
     }
 
 }

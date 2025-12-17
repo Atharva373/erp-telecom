@@ -17,6 +17,8 @@ public class PostingRuleResponse {
 
     private LocalDate effectiveFrom;
 
+    private String companyCode;
+
     private LocalDate effectiveTo;
 
     private Boolean active;
@@ -122,5 +124,13 @@ public class PostingRuleResponse {
 
     public void setModifiedBy(String modifiedBy) {
         this.modifiedBy = modifiedBy;
+    }
+
+    public String getCompanyCode() {
+        return companyCode;
+    }
+
+    public void setCompanyCode(String companyCode) {
+        this.companyCode = companyCode;
     }
 }

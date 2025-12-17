@@ -1,6 +1,6 @@
 package com.atharva.erp_telecom.security;
 
-import com.atharva.erp_telecom.entity.Users;
+import com.atharva.erp_telecom.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -79,9 +79,9 @@ Would you like me to also explain how UserService + UserDetails are called behin
 
 public class CustomUserDetails implements UserDetails {
 
-    private final Users user;
+    private final User user;
 
-    public CustomUserDetails(Users user){
+    public CustomUserDetails(User user){
         this.user = user;
     }
 

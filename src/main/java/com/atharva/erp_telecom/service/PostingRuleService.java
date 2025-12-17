@@ -3,12 +3,17 @@ package com.atharva.erp_telecom.service;
 import com.atharva.erp_telecom.dto.PostingRuleRequest;
 import com.atharva.erp_telecom.dto.PostingRuleResponse;
 import com.atharva.erp_telecom.entity.PostingRule;
+import com.atharva.erp_telecom.entity.PostingRuleLine;
 import com.atharva.erp_telecom.exception.custom_exceptions.IllegalPostingRuleException;
 import com.atharva.erp_telecom.repository.ChartOfAccountRepository;
+import com.atharva.erp_telecom.repository.CompanyRepository;
 import com.atharva.erp_telecom.repository.PostingRuleRepository;
+import com.atharva.erp_telecom.utils.CrudUtils;
 import com.atharva.erp_telecom.utils.EntityDtoMappers;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -17,11 +22,14 @@ public class PostingRuleService {
     private final PostingRuleRepository postingRuleRepository;
     private final PostingRuleValidator postingRuleValidator;
     private final ChartOfAccountRepository chartOfAccountRepository;
+    private final CompanyRepository companyRepository;
 
-    public PostingRuleService(PostingRuleRepository postingRuleRepository, PostingRuleValidator postingRuleValidator, ChartOfAccountRepository chartOfAccountRepository) {
+
+    public PostingRuleService(PostingRuleRepository postingRuleRepository, PostingRuleValidator postingRuleValidator, ChartOfAccountRepository chartOfAccountRepository, CompanyRepository companyRepository) {
         this.postingRuleRepository = postingRuleRepository;
         this.postingRuleValidator = postingRuleValidator;
         this.chartOfAccountRepository = chartOfAccountRepository;
+        this.companyRepository = companyRepository;
     }
 
     /**
@@ -32,10 +40,14 @@ public class PostingRuleService {
     *   @author Atharva
     */
 
-
+    @Transactional
     public PostingRuleResponse createPostingRule(PostingRuleRequest request){
-        PostingRule rule = EntityDtoMappers.mapPostingRuleRequestToPostingRuleEntity(request,chartOfAccountRepository);
+        PostingRule rule = EntityDtoMappers.mapPostingRuleRequestToPostingRuleEntity(request,chartOfAccountRepository,companyRepository);
+        if (rule.getItems() != null) {
+            rule.getItems().forEach(line -> line.setPostingRule(rule));
+        }
         postingRuleValidator.validate(rule);
+        rule.getItems().sort(Comparator.comparing(PostingRuleLine::getSortOrder));
         PostingRule saved = postingRuleRepository.save(rule);
         return EntityDtoMappers.mapPostingRuleToPostingRuleResponse(saved);
     }
@@ -56,17 +68,33 @@ public class PostingRuleService {
         return EntityDtoMappers.mapPostingRuleToPostingRuleResponse(rule);
     }
 
+    @Transactional
     public PostingRuleResponse update(Long id, PostingRuleRequest request) {
         PostingRule existing = postingRuleRepository.findById(id)
                 .orElseThrow(() -> new IllegalPostingRuleException("Posting rule not found"));
 
-        PostingRule parsedRequest = EntityDtoMappers.mapPostingRuleRequestToPostingRuleEntity(request,chartOfAccountRepository);
+        PostingRule incoming = EntityDtoMappers.mapPostingRuleRequestToPostingRuleEntity(request,chartOfAccountRepository,companyRepository);
 
-        postingRuleValidator.validate(parsedRequest);
+        postingRuleValidator.validate(incoming);
 
-        PostingRule updated = postingRuleRepository.save(existing);
+        CrudUtils.updateIfNotNull(existing::setPostingRuleCode,incoming.getPostingRuleCode());
+        CrudUtils.updateIfNotNull(existing::setDescription,incoming.getDescription());
+        CrudUtils.updateIfNotNull(existing::setEventType,incoming.getEventType());
+        CrudUtils.updateIfNotNull(existing::setCompany,incoming.getCompany());
+        CrudUtils.updateIfNotNull(existing::setEffectiveFrom,incoming.getEffectiveFrom());
+        CrudUtils.updateIfNotNull(existing::setEffectiveTo,incoming.getEffectiveTo());
+        CrudUtils.updateIfNotNull(existing::setActive,incoming.isActive());
+        CrudUtils.updateIfNotNull(existing::setHeaderConditionExpression,incoming.getHeaderConditionExpression());
 
-        return EntityDtoMappers.mapPostingRuleToPostingRuleResponse(updated);
+        // Replace Lines
+        existing.getItems().clear();
+        for (PostingRuleLine newLine : incoming.getItems()) {
+            newLine.setPostingRule(existing);
+            existing.getItems().add(newLine);
+        }
+
+        PostingRule saved = postingRuleRepository.save(existing);
+        return EntityDtoMappers.mapPostingRuleToPostingRuleResponse(saved);
     }
 
     public void delete(Long id) {

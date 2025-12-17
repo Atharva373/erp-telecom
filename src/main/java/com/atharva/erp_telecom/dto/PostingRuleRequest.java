@@ -18,6 +18,8 @@ public class PostingRuleRequest {
 
     private Boolean active = true;
 
+    private String companyCode;
+
     private List<PostingRuleLineDTO> lines;
 
     public AccountingEventType getEventType() {
@@ -74,5 +76,13 @@ public class PostingRuleRequest {
 
     public void setLines(List<PostingRuleLineDTO> lines) {
         this.lines = lines;
+    }
+
+    public String getCompanyCode() {
+        return companyCode;
+    }
+
+    public void setCompanyCode(String companyCode) {
+        this.companyCode = companyCode;
     }
 }

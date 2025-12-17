@@ -3,6 +3,7 @@ package com.atharva.erp_telecom.controller;
 import com.atharva.erp_telecom.dto.PostingRuleRequest;
 import com.atharva.erp_telecom.dto.PostingRuleResponse;
 import com.atharva.erp_telecom.service.PostingRuleService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,8 @@ public class PostingRuleController {
 
     @PostMapping
     public ResponseEntity<PostingRuleResponse> create(@RequestBody PostingRuleRequest dto) {
-        return ResponseEntity.ok(service.createPostingRule(dto));
+        PostingRuleResponse created = service.createPostingRule(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
     @GetMapping
@@ -36,9 +38,7 @@ public class PostingRuleController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PostingRuleResponse> update(
-            @PathVariable Long id,
-            @RequestBody PostingRuleRequest dto) {
+    public ResponseEntity<PostingRuleResponse> update(@PathVariable Long id, @RequestBody PostingRuleRequest dto) {
         return ResponseEntity.ok(service.update(id, dto));
     }
 

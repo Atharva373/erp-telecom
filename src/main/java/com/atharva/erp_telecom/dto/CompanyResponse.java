@@ -20,6 +20,7 @@ public class CompanyResponse {
     private String cinNumber;
     private String email;
     private String phoneNumber;
+    private String currencyCode;
     private Boolean isParent;
     private Long parentCompanyId;
     private List<Company> childCompanies;
@@ -176,5 +177,21 @@ public class CompanyResponse {
 
     public void setUpdatedOn(LocalDateTime updatedOn) {
         this.updatedOn = updatedOn;
+    }
+
+    public String getCurrencyCode() {
+        return currencyCode;
+    }
+
+    public void setCurrencyCode(String currencyCode) {
+        this.currencyCode = currencyCode;
+    }
+
+    public Boolean getParent() {
+        return isParent;
+    }
+
+    public void setParent(Boolean parent) {
+        isParent = parent;
     }
 }

@@ -1,7 +1,7 @@
 package com.atharva.erp_telecom.service;
 
 
-import com.atharva.erp_telecom.entity.Users;
+import com.atharva.erp_telecom.entity.User;
 import com.atharva.erp_telecom.repository.UserRepository;
 import com.atharva.erp_telecom.security.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,16 +24,16 @@ public class UserService implements UserDetailsService {
     // This method is only used to fetch the UserData
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        Users user = userRepository.findByUserName(userName)
+        User user = userRepository.findByUserName(userName)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found: " + userName));
         return new CustomUserDetails(user);
     }
 
-    public String createUser(Users user){
+    public String createUser(User user){
         return userRepository.save(user).getUserName();
     }
 
-    public Optional<Users> getUserByUserName(String userName){
+    public Optional<User> getUserByUserName(String userName){
         return userRepository.findByUserName(userName);
     }
 

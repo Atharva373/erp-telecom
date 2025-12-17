@@ -8,7 +8,7 @@ public enum AccountSubtype {
     PREPAID_ASSET,
 
     // Liability subtypes
-    UNEARNED_REVENUE,
+    DEFERRED_REVENUE,
     ACCOUNTS_PAYABLE,
     CUSTOMER_DEPOSIT,
 
@@ -17,6 +17,8 @@ public enum AccountSubtype {
     USAGE_REVENUE,
     ONE_TIME_REVENUE,
     BREAKAGE_REVENUE,
+    PENALTY_AND_LATE_FEE,
+    DISCOUNTS_AND_PROMOTIONS,
 
     // Expense subtypes
     NETWORK_COST,
@@ -24,8 +26,10 @@ public enum AccountSubtype {
     CUSTOMER_SUPPORT,
     DEPRECIATION,
     REFUND_EXPENSE,
+    BAD_DEBT_EXPENSE,
 
     // Tax or misc. categories
     TAX,
     MISC
+
 }

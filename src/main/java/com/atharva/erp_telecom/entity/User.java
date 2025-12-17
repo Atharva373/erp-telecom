@@ -7,13 +7,11 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name="users")
-public class Users {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     // GenerationType.IDENTITY - better suited for MYSQL, but while creation SEQUENCE was used hence going with the same

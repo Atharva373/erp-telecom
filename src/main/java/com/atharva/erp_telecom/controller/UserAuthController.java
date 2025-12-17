@@ -5,19 +5,11 @@ import com.atharva.erp_telecom.dto.AuthRequest;
 import com.atharva.erp_telecom.dto.AuthResponse;
 import com.atharva.erp_telecom.dto.RegisterRequest;
 import com.atharva.erp_telecom.dto.RegisterResponse;
-import com.atharva.erp_telecom.entity.Roles;
-import com.atharva.erp_telecom.entity.Users;
-import com.atharva.erp_telecom.security.JwtUtils;
+import com.atharva.erp_telecom.entity.User;
 import com.atharva.erp_telecom.service.UserAuthService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users")
@@ -32,7 +24,7 @@ public class UserAuthController {
     // Endpoint to create a new user
     @PostMapping("/register")
     public ResponseEntity<RegisterResponse> register(@RequestBody RegisterRequest request) {
-        Users userToSend = new Users();
+        User userToSend = new User();
         userToSend.setUserName(request.getUserName());
         userToSend.setPassword(request.getPassword());
         userToSend.setUserFirstName(request.getUserFirstName());

@@ -3,8 +3,9 @@ package com.atharva.erp_telecom.service;
 
 import com.atharva.erp_telecom.dto.RegisterResponse;
 import com.atharva.erp_telecom.entity.Roles;
-import com.atharva.erp_telecom.entity.Users;
+import com.atharva.erp_telecom.entity.User;
 import com.atharva.erp_telecom.exception.custom_exceptions.InvalidCredentialsException;
+import com.atharva.erp_telecom.exception.custom_exceptions.RoleNotFoundException;
 import com.atharva.erp_telecom.exception.custom_exceptions.UserAlreadyExistsException;
 import com.atharva.erp_telecom.repository.RolesRepository;
 import com.atharva.erp_telecom.repository.UserRepository;
@@ -13,12 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.management.relation.RoleNotFoundException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -44,7 +43,7 @@ public class UserAuthService {
     }
 
     // Method to register a new user.
-    public RegisterResponse registerNewUser(Users user, Set<String> roleNames) {
+    public RegisterResponse registerNewUser(User user, Set<String> roleNames) {
         // Check if user already exists
         if (userRepository.existsByUserName(user.getUserName())) {
             String errorMessage = "Username already exists: " + user.getUserName();
@@ -58,12 +57,12 @@ public class UserAuthService {
         RegisterResponse response = new RegisterResponse();
         Set<Roles> rolesSetToBeChecked =
                 roleNames.stream()
-                        .map(role -> {
-                            return rolesRepository.findByRoleName(role).orElseThrow(() -> new com.atharva.erp_telecom.exception.custom_exceptions.RoleNotFoundException("Role not found:" + role));
-                        })
-                        .collect(Collectors.toSet());
+                        .map(role ->
+                             rolesRepository.findByRoleName(role)
+                                     .orElseThrow(() -> new RoleNotFoundException("Role not found:" + role))
+                        ).collect(Collectors.toSet());
         user.setRoles(rolesSetToBeChecked);
-        Users savedUser = userRepository.save(user);
+        User savedUser = userRepository.save(user);
         return new RegisterResponse("User with username:" + savedUser.getUserName() + " created successfully.");
     }
 

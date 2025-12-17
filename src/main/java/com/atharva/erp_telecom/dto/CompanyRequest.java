@@ -16,6 +16,7 @@ public class CompanyRequest {
     private String cinNumber;
     private String email;
     private String phoneNumber;
+    private String currencyCode;
     private Boolean isParent;
     private Long parentCompanyId;
 
@@ -137,5 +138,21 @@ public class CompanyRequest {
 
     public void setParentCompanyId(Long parentCompanyId) {
         this.parentCompanyId = parentCompanyId;
+    }
+
+    public String getCurrencyCode() {
+        return currencyCode;
+    }
+
+    public void setCurrencyCode(String currencyCode) {
+        this.currencyCode = currencyCode;
+    }
+
+    public Boolean getParent() {
+        return isParent;
+    }
+
+    public void setParent(Boolean parent) {
+        isParent = parent;
     }
 }

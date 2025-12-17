@@ -62,6 +62,9 @@ public class Company {
     private String phoneNumber;
 
     @Column(nullable = false)
+    private String currencyCode;
+
+    @Column(nullable = false)
     private Boolean isParent = false;
 
     // --- Parent / Child Relationship ---
@@ -271,5 +274,13 @@ public class Company {
 
     public void setGstCode(String gstCode) {
         this.gstCode = gstCode;
+    }
+
+    public String getCurrencyCode() {
+        return currencyCode;
+    }
+
+    public void setCurrencyCode(String currencyCode) {
+        this.currencyCode = currencyCode;
     }
 }

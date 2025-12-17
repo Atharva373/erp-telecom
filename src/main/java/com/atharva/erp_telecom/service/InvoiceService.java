@@ -4,6 +4,7 @@ import com.atharva.erp_telecom.entity.*;
 import com.atharva.erp_telecom.enums.IndianState;
 import com.atharva.erp_telecom.enums.InvoiceStatus;
 import com.atharva.erp_telecom.enums.PaymentStatus;
+import com.atharva.erp_telecom.exception.custom_exceptions.ResourceNotFoundException;
 import com.atharva.erp_telecom.repository.CompanyRepository;
 import com.atharva.erp_telecom.repository.InvoiceItemRepository;
 import com.atharva.erp_telecom.repository.InvoiceRepository;
@@ -60,7 +61,9 @@ public class InvoiceService {
 
         Invoice savedInvoice = invoiceRepository.save(invoice);
 
-        Company company = companyRepository.findByStateCode(IndianState.MAHARASHTRA.getAbbreviation());
+        Company company = companyRepository
+                .findByStateCode(IndianState.MAHARASHTRA.getAbbreviation())
+                .orElseThrow(() -> new ResourceNotFoundException("Company NOT FOUND for State Code :-> "+IndianState.MAHARASHTRA.getAbbreviation()));
         List<InvoiceItem> invoiceItems = invoiceItemService.createInvoiceItemsFromOrderItems(invoice,invoice.getOrder().getItems(), company);
         invoice.setInvoiceItems(invoiceItems);
 
