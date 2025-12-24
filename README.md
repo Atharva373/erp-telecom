@@ -1,12 +1,12 @@
-ERP FOR A TELECOM INDUSTRY - A complete billing solution.
+ERP FOR A TELECOM INDUSTRY - A complete billing solution based on secured REST-API's.
 
-PROVIDES:
+Provides an E2E spectrum of a business lifecycle starting from --> CRM to Ledger including:
 
-1. Customer Onboarding and Enrollment.
-2. Secure JWT based authentication
-3. Role based authorization
-4. Wide product categories
-5. Real-time and monthly charging
-6. Real-time payment and reconcilation
-7. Access to end-users and customers
-   
+1. CRM - End Customer provisioning and extensive configuration. 
+2. Secure OAuth based JWT Authentication.
+3. Role-based Authorization.
+4. Wide Product and Service configurations.
+5. Real-time and periodic batch-based configuratins for Charging and Invoicing.
+6. Real-time and offline Payment configurations.
+7. Extensive Accounting and Revenue recognition configurations for financial integrity and clean auditing.
+   ... and many more.
