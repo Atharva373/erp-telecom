@@ -6,8 +6,12 @@ import com.atharva.erp_telecom.enums.OrderType;
 import com.atharva.erp_telecom.enums.PlanType;
 import com.atharva.erp_telecom.exception.custom_exceptions.ChargePlanNotFoundException;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class GenericUtils {
@@ -43,4 +47,26 @@ public class GenericUtils {
         }
         throw new IllegalArgumentException("Mixed PREPAID and POSTPAID products not allowed in the same order");
     }
+
+    // Method to filter and return certain items from a List<Items>
+    public static <T> List<T> filterRows(
+            List<T> source,
+            Predicate<T> condition
+    ) {
+        return source.stream()
+                .filter(condition)
+                .toList();
+    }
+
+    public static <T> BigDecimal sum(
+            List<T> source,
+            Function<T, BigDecimal> extractor
+    ) {
+        return source.stream()
+                .map(extractor)
+                .filter(Objects::nonNull)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+
 }
