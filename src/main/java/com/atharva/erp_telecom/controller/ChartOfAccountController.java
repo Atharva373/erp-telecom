@@ -1,8 +1,8 @@
 package com.atharva.erp_telecom.controller;
 
-import com.atharva.erp_telecom.dto.ChartOfAccountRequest;
-import com.atharva.erp_telecom.dto.ChartOfAccountResponse;
-import com.atharva.erp_telecom.service.ChartOfAccountService;
+import com.atharva.erp_telecom.dto.accounting.ChartOfAccountRequest;
+import com.atharva.erp_telecom.dto.accounting.ChartOfAccountResponse;
+import com.atharva.erp_telecom.service.accounting.ChartOfAccountService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

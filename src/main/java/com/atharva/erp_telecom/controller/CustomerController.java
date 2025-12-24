@@ -1,8 +1,8 @@
 package com.atharva.erp_telecom.controller;
 
 
-import com.atharva.erp_telecom.entity.Customer;
-import com.atharva.erp_telecom.service.CustomerService;
+import com.atharva.erp_telecom.entity.crm.Customer;
+import com.atharva.erp_telecom.service.crm.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

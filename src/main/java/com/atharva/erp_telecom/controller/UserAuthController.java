@@ -1,12 +1,12 @@
 package com.atharva.erp_telecom.controller;
 
 
-import com.atharva.erp_telecom.dto.AuthRequest;
-import com.atharva.erp_telecom.dto.AuthResponse;
-import com.atharva.erp_telecom.dto.RegisterRequest;
-import com.atharva.erp_telecom.dto.RegisterResponse;
-import com.atharva.erp_telecom.entity.User;
-import com.atharva.erp_telecom.service.UserAuthService;
+import com.atharva.erp_telecom.dto.auth.AuthRequest;
+import com.atharva.erp_telecom.dto.auth.AuthResponse;
+import com.atharva.erp_telecom.dto.auth.RegisterRequest;
+import com.atharva.erp_telecom.dto.auth.RegisterResponse;
+import com.atharva.erp_telecom.entity.auth.User;
+import com.atharva.erp_telecom.service.auth.UserAuthService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

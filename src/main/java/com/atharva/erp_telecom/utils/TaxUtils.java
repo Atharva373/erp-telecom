@@ -1,9 +1,9 @@
 package com.atharva.erp_telecom.utils;
 
 
-import com.atharva.erp_telecom.dto.TaxRequest;
-import com.atharva.erp_telecom.dto.TaxResponse;
-import com.atharva.erp_telecom.entity.Tax;
+import com.atharva.erp_telecom.dto.finance.TaxRequest;
+import com.atharva.erp_telecom.dto.finance.TaxResponse;
+import com.atharva.erp_telecom.entity.finance.Tax;
 import org.springframework.stereotype.Component;
 
 @Component

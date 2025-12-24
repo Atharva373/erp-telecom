@@ -1,6 +1,6 @@
 package com.atharva.erp_telecom.security;
 
-import com.atharva.erp_telecom.entity.User;
+import com.atharva.erp_telecom.entity.auth.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

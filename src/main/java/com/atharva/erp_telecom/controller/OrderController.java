@@ -1,13 +1,12 @@
 package com.atharva.erp_telecom.controller;
 
 
-import com.atharva.erp_telecom.dto.OrderCheckoutRequest;
-import com.atharva.erp_telecom.dto.OrderResponse;
-import com.atharva.erp_telecom.entity.Order;
+import com.atharva.erp_telecom.dto.salesorder.OrderCheckoutRequest;
+import com.atharva.erp_telecom.dto.salesorder.OrderResponse;
+import com.atharva.erp_telecom.entity.salesorder.Order;
 import com.atharva.erp_telecom.enums.OrderStatus;
-import com.atharva.erp_telecom.repository.OrderRepository;
-import com.atharva.erp_telecom.service.OrderService;
-import com.atharva.erp_telecom.utils.EntityDtoMappers;
+import com.atharva.erp_telecom.repository.salesorder.OrderRepository;
+import com.atharva.erp_telecom.service.salesorder.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

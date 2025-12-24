@@ -1,10 +1,12 @@
 package com.atharva.erp_telecom.scheduled_jobs;
 
-import com.atharva.erp_telecom.service.PostingPeriodService;
+import com.atharva.erp_telecom.service.accounting.PostingPeriodService;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
+@EnableScheduling
 public class PostingPeriodScheduler {
 
     private final PostingPeriodService service;

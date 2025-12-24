@@ -1,11 +1,10 @@
 package com.atharva.erp_telecom.controller;
 
-import com.atharva.erp_telecom.dto.ProductResponse;
-import com.atharva.erp_telecom.dto.ProductUpdateRequest;
-import com.atharva.erp_telecom.entity.Product;
+import com.atharva.erp_telecom.dto.salesorder.ProductResponse;
+import com.atharva.erp_telecom.dto.salesorder.ProductUpdateRequest;
+import com.atharva.erp_telecom.entity.salesorder.Product;
 import com.atharva.erp_telecom.exception.custom_exceptions.ProductNotFoundException;
-import com.atharva.erp_telecom.service.ProductService;
-import com.atharva.erp_telecom.service.implementation.ProductServiceImplementation;
+import com.atharva.erp_telecom.service.salesorder.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;

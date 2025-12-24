@@ -48,6 +48,6 @@ public enum AccountingEventType {
         // 8. Period Events
         PERIOD_ACCRUAL_POSTED,
         PERIOD_ACCRUAL_REVERSED,
-        PERIOD_CLOSED
+    REVREC_DEFERRED, REVREC_ACCRUED, PERIOD_CLOSED
 
 }

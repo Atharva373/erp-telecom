@@ -1,10 +1,29 @@
 package com.atharva.erp_telecom.utils;
 
-import com.atharva.erp_telecom.dto.*;
-import com.atharva.erp_telecom.entity.*;
+import com.atharva.erp_telecom.dto.accounting.*;
+import com.atharva.erp_telecom.dto.charging.ChargePlanResponse;
+import com.atharva.erp_telecom.dto.crm.CustomerInfoResponse;
+import com.atharva.erp_telecom.dto.finance.CompanyRequest;
+import com.atharva.erp_telecom.dto.finance.CompanyResponse;
+import com.atharva.erp_telecom.dto.finance.InvoiceItemResponse;
+import com.atharva.erp_telecom.dto.finance.InvoiceResponse;
+import com.atharva.erp_telecom.dto.salesorder.OrderItemResponse;
+import com.atharva.erp_telecom.dto.salesorder.OrderResponse;
+import com.atharva.erp_telecom.dto.salesorder.ProductResponse;
+import com.atharva.erp_telecom.entity.accounting.ChartOfAccount;
+import com.atharva.erp_telecom.entity.accounting.PostingRule;
+import com.atharva.erp_telecom.entity.accounting.PostingRuleLine;
+import com.atharva.erp_telecom.entity.charging.ChargePlan;
+import com.atharva.erp_telecom.entity.crm.Customer;
+import com.atharva.erp_telecom.entity.finance.Invoice;
+import com.atharva.erp_telecom.entity.finance.InvoiceItem;
+import com.atharva.erp_telecom.entity.salesorder.Company;
+import com.atharva.erp_telecom.entity.salesorder.Order;
+import com.atharva.erp_telecom.entity.salesorder.OrderItem;
+import com.atharva.erp_telecom.entity.salesorder.Product;
 import com.atharva.erp_telecom.exception.custom_exceptions.ResourceNotFoundException;
-import com.atharva.erp_telecom.repository.ChartOfAccountRepository;
-import com.atharva.erp_telecom.repository.CompanyRepository;
+import com.atharva.erp_telecom.repository.accounting.ChartOfAccountRepository;
+import com.atharva.erp_telecom.repository.finance.CompanyRepository;
 
 import java.util.Collections;
 import java.util.List;
@@ -141,7 +160,7 @@ public class EntityDtoMappers {
     /**
      *  COMPANY RELATED MAPPERS
      */
-    public static Company mapCompanyRequestToCompany(CompanyRequest request,CompanyRepository companyRepository){
+    public static Company mapCompanyRequestToCompany(CompanyRequest request, CompanyRepository companyRepository){
         Company company = new Company();
         company.setCompanyCode(request.getCompanyCode());
         company.setCompanyName(request.getCompanyName());
@@ -167,7 +186,7 @@ public class EntityDtoMappers {
         return company;
     }
 
-    public static CompanyResponse mapCompanyToCompanyResponse(Company fetchedCompany,CompanyRepository companyRepository){
+    public static CompanyResponse mapCompanyToCompanyResponse(Company fetchedCompany, CompanyRepository companyRepository){
         CompanyResponse response = new CompanyResponse();
         response.setCompanyId(fetchedCompany.getCompanyId());
         response.setCompanyCode(fetchedCompany.getCompanyCode());
@@ -269,7 +288,7 @@ public class EntityDtoMappers {
     /**
      *   CHART OF ACCOUNT - MAPPERS
      */
-    public static ChartOfAccount mapCoaRequestToCoa(ChartOfAccountRequest request,Company company){
+    public static ChartOfAccount mapCoaRequestToCoa(ChartOfAccountRequest request, Company company){
         ChartOfAccount chartOfAccount = new ChartOfAccount();
         chartOfAccount.setAccountCode(request.getAccountCode());
         chartOfAccount.setAccountName(request.getAccountName());

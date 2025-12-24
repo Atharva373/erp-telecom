@@ -1,0 +1,124 @@
+package com.atharva.erp_telecom.dto.finance;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+public class TaxResponse {
+    private Long taxId;
+    private String taxCode;
+    private String taxName;
+    private Double cgstPercentage;
+    private Double sgstPercentage;
+    private Double igstPercentage;
+    private Double totalTaxPercentage;
+    private Boolean isActive;
+    private String description;
+    private LocalDate effectiveFrom;
+    private LocalDate effectiveTo;
+    private LocalDateTime createdOn;
+    private LocalDateTime updatedOn;
+
+    public Long getTaxId() {
+        return taxId;
+    }
+
+    public void setTaxId(Long taxId) {
+        this.taxId = taxId;
+    }
+
+    public String getTaxCode() {
+        return taxCode;
+    }
+
+    public void setTaxCode(String taxCode) {
+        this.taxCode = taxCode;
+    }
+
+    public String getTaxName() {
+        return taxName;
+    }
+
+    public void setTaxName(String taxName) {
+        this.taxName = taxName;
+    }
+
+    public Double getCgstPercentage() {
+        return cgstPercentage;
+    }
+
+    public void setCgstPercentage(Double cgstPercentage) {
+        this.cgstPercentage = cgstPercentage;
+    }
+
+    public Double getSgstPercentage() {
+        return sgstPercentage;
+    }
+
+    public void setSgstPercentage(Double sgstPercentage) {
+        this.sgstPercentage = sgstPercentage;
+    }
+
+    public Double getIgstPercentage() {
+        return igstPercentage;
+    }
+
+    public void setIgstPercentage(Double igstPercentage) {
+        this.igstPercentage = igstPercentage;
+    }
+
+    public Double getTotalTaxPercentage() {
+        return totalTaxPercentage;
+    }
+
+    public void setTotalTaxPercentage(Double totalTaxPercentage) {
+        this.totalTaxPercentage = totalTaxPercentage;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public LocalDate getEffectiveFrom() {
+        return effectiveFrom;
+    }
+
+    public void setEffectiveFrom(LocalDate effectiveFrom) {
+        this.effectiveFrom = effectiveFrom;
+    }
+
+    public LocalDate getEffectiveTo() {
+        return effectiveTo;
+    }
+
+    public void setEffectiveTo(LocalDate effectiveTo) {
+        this.effectiveTo = effectiveTo;
+    }
+
+    public LocalDateTime getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(LocalDateTime createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public LocalDateTime getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public void setUpdatedOn(LocalDateTime updatedOn) {
+        this.updatedOn = updatedOn;
+    }
+}

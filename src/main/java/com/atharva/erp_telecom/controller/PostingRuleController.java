@@ -1,8 +1,8 @@
 package com.atharva.erp_telecom.controller;
 
-import com.atharva.erp_telecom.dto.PostingRuleRequest;
-import com.atharva.erp_telecom.dto.PostingRuleResponse;
-import com.atharva.erp_telecom.service.PostingRuleService;
+import com.atharva.erp_telecom.dto.accounting.PostingRuleRequest;
+import com.atharva.erp_telecom.dto.accounting.PostingRuleResponse;
+import com.atharva.erp_telecom.service.accounting.PostingRuleService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

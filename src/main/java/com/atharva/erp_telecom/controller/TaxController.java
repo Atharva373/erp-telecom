@@ -1,9 +1,9 @@
 package com.atharva.erp_telecom.controller;
 
 
-import com.atharva.erp_telecom.dto.TaxRequest;
-import com.atharva.erp_telecom.dto.TaxResponse;
-import com.atharva.erp_telecom.service.TaxService;
+import com.atharva.erp_telecom.dto.finance.TaxRequest;
+import com.atharva.erp_telecom.dto.finance.TaxResponse;
+import com.atharva.erp_telecom.service.finance.TaxService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

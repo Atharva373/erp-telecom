@@ -1,13 +1,13 @@
 package com.atharva.erp_telecom.controller;
 
-import com.atharva.erp_telecom.dto.BalanceSheetResponse;
-import com.atharva.erp_telecom.dto.GLLineRow;
-import com.atharva.erp_telecom.dto.ProfitAndLossResponse;
-import com.atharva.erp_telecom.dto.TrialBalanceRow;
-import com.atharva.erp_telecom.service.BalanceSheetService;
-import com.atharva.erp_telecom.service.GeneralLedgerService;
-import com.atharva.erp_telecom.service.ProfitAndLossService;
-import com.atharva.erp_telecom.service.TrialBalanceService;
+import com.atharva.erp_telecom.dto.accounting.BalanceSheetResponse;
+import com.atharva.erp_telecom.dto.accounting.GLLineRow;
+import com.atharva.erp_telecom.dto.accounting.ProfitAndLossResponse;
+import com.atharva.erp_telecom.dto.accounting.TrialBalanceRow;
+import com.atharva.erp_telecom.service.accounting.BalanceSheetService;
+import com.atharva.erp_telecom.service.accounting.GeneralLedgerService;
+import com.atharva.erp_telecom.service.accounting.ProfitAndLossService;
+import com.atharva.erp_telecom.service.accounting.TrialBalanceService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

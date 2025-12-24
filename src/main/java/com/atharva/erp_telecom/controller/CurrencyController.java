@@ -1,11 +1,11 @@
 package com.atharva.erp_telecom.controller;
 
-import com.atharva.erp_telecom.service.CurrencyService;
+import com.atharva.erp_telecom.service.accounting.CurrencyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import com.atharva.erp_telecom.entity.Currency;
+import com.atharva.erp_telecom.entity.accounting.Currency;
 
 import java.util.List;
 

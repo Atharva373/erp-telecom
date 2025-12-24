@@ -1,7 +1,7 @@
 package com.atharva.erp_telecom.utils;
 
-import com.atharva.erp_telecom.entity.ChargePlan;
-import com.atharva.erp_telecom.entity.Product;
+import com.atharva.erp_telecom.entity.charging.ChargePlan;
+import com.atharva.erp_telecom.entity.salesorder.Product;
 import com.atharva.erp_telecom.enums.OrderType;
 import com.atharva.erp_telecom.enums.PlanType;
 import com.atharva.erp_telecom.exception.custom_exceptions.ChargePlanNotFoundException;

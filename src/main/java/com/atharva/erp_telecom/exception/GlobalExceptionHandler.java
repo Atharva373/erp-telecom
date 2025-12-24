@@ -1,12 +1,10 @@
 package com.atharva.erp_telecom.exception;
 
 
-import com.atharva.erp_telecom.dto.CustomErrorResponse;
-import com.atharva.erp_telecom.entity.Order;
+import com.atharva.erp_telecom.dto.crm.CustomErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 

@@ -1,9 +1,9 @@
 package com.atharva.erp_telecom.controller;
 
-import com.atharva.erp_telecom.dto.PostingPeriodCreateRequest;
-import com.atharva.erp_telecom.entity.PostingPeriod;
-import com.atharva.erp_telecom.repository.PostingPeriodRepository;
-import com.atharva.erp_telecom.service.PostingPeriodService;
+import com.atharva.erp_telecom.dto.accounting.PostingPeriodCreateRequest;
+import com.atharva.erp_telecom.entity.accounting.PostingPeriod;
+import com.atharva.erp_telecom.repository.accounting.PostingPeriodRepository;
+import com.atharva.erp_telecom.service.accounting.PostingPeriodService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

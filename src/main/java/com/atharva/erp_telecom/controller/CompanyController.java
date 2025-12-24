@@ -1,8 +1,8 @@
 package com.atharva.erp_telecom.controller;
 
-import com.atharva.erp_telecom.dto.CompanyRequest;
-import com.atharva.erp_telecom.dto.CompanyResponse;
-import com.atharva.erp_telecom.service.CompanyService;
+import com.atharva.erp_telecom.dto.finance.CompanyRequest;
+import com.atharva.erp_telecom.dto.finance.CompanyResponse;
+import com.atharva.erp_telecom.service.finance.CompanyService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
