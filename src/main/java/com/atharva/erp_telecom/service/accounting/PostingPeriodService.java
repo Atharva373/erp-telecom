@@ -1,6 +1,6 @@
 package com.atharva.erp_telecom.service.accounting;
 
-import com.atharva.erp_telecom.dto.accounting.PostingPeriodCreateRequest;
+import com.atharva.erp_telecom.dto.accounting.PostingPeriodRequest;
 import com.atharva.erp_telecom.entity.accounting.PostingPeriod;
 import com.atharva.erp_telecom.enums.PeriodStatus;
 import com.atharva.erp_telecom.repository.accounting.PostingPeriodRepository;
@@ -26,14 +26,14 @@ public class PostingPeriodService {
        CORE VALIDATION
        ============================== */
 
-    public boolean isOpen(Long companyId, LocalDate postingDate) {
+    public boolean isOpen(String companyCode, LocalDate postingDate) {
 
         int fiscalYear = postingDate.getYear();
         int period = postingDate.getMonthValue();
 
         PostingPeriod pp = repository
-                .findByCompanyIdAndFiscalYearAndPostingPeriod(
-                        companyId, fiscalYear, period
+                .findByCompanyCodeAndFiscalYearAndPostingPeriod(
+                        companyCode, fiscalYear, period
                 )
                 .orElseThrow(() ->
                         new IllegalStateException("Posting period not configured: " + fiscalYear + "-" + period)
@@ -47,18 +47,18 @@ public class PostingPeriodService {
        ============================== */
 
     @Transactional
-    public PostingPeriod create(PostingPeriodCreateRequest req) {
+    public PostingPeriod create(PostingPeriodRequest req) {
 
-        repository.findByCompanyIdAndFiscalYearAndPostingPeriod(
-                req.getCompanyId(),
+        repository.findByCompanyCodeAndFiscalYearAndPostingPeriod(
+                req.getCompanyCode(),
                 req.getFiscalYear(),
                 req.getPostingPeriod()
         ).ifPresent(pp -> {
-            throw new IllegalStateException("Posting period already exists");
+            throw new IllegalStateException("Posting period already exists with current combination of CompanyCode, FiscalYear and PostingPeriod !");
         });
 
         PostingPeriod period = new PostingPeriod();
-        period.setCompanyId(req.getCompanyId());
+        period.setCompanyCode(req.getCompanyCode());
         period.setFiscalYear(req.getFiscalYear());
         period.setPostingPeriod(req.getPostingPeriod());
         period.setPeriodStart(req.getPeriodStart());
@@ -125,18 +125,18 @@ public class PostingPeriodService {
                 );
     }
 
-    public List<PostingPeriod> getAll(Long companyId) {
-        return repository.findByCompanyIdAndFiscalYear(
-                companyId, LocalDate.now().getYear()
+    public List<PostingPeriod> getAll(String companyCode) {
+        return repository.findByCompanyCodeAndFiscalYear(
+                companyCode, LocalDate.now().getYear()
         );
     }
 
     public void assertOpen(
-            Long companyId,
+            String companyCode,
             int year,
             int period
     ) {
-        PostingPeriod pp = load(companyId, year, period);
+        PostingPeriod pp = load(companyCode, year, period);
 
         if (pp.getStatus() != PeriodStatus.OPEN) {
             throw new IllegalStateException(
@@ -147,11 +147,11 @@ public class PostingPeriodService {
 
     // Additional logic for 13th Posting Period --> Adjustment period.
     public void assertOpenOrAdjustment(
-            Long companyId,
+            String companyCode,
             int year,
             int period
     ) {
-        PostingPeriod pp = load(companyId, year, period);
+        PostingPeriod pp = load(companyCode, year, period);
 
         if (pp.getStatus() == PeriodStatus.LOCKED) {
             throw new IllegalStateException(
@@ -167,8 +167,8 @@ public class PostingPeriodService {
         }
     }
 
-    private PostingPeriod load(Long companyId, int year, int period) {
-        return repository.findByCompanyIdAndFiscalYearAndPeriod(companyId, year, period)
+    private PostingPeriod load(String companyCode, int year, int period) {
+        return repository.findByCompanyCodeAndFiscalYearAndPostingPeriod(companyCode, year, period)
                 .orElseThrow(() ->
                         new IllegalStateException("Posting period not configured"));
     }

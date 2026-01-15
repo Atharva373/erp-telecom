@@ -3,6 +3,8 @@ package com.atharva.erp_telecom.entity.accounting;
 import com.atharva.erp_telecom.enums.PeriodStatus;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -16,11 +18,13 @@ import java.time.LocalDateTime;
         uniqueConstraints = {
                 @UniqueConstraint(
                         name = "uk_company_year_period",
-                        columnNames = {"company_id", "fiscal_year", "posting_period"}
+                        columnNames = {"company_code", "fiscal_year", "posting_period"}
                 )
         }
 )
 @Data
+@Getter
+@Setter
 @EntityListeners(AuditingEntityListener.class)
 public class PostingPeriod {
 
@@ -29,8 +33,8 @@ public class PostingPeriod {
     private Long id;
 
     /** Company this period belongs to */
-    @Column(name = "company_id", nullable = false)
-    private Long companyId;
+    @Column(name = "company_code", nullable = false)
+    private String companyCode;
 
     /** Fiscal year (e.g. 2025) */
     @Column(name = "fiscal_year", nullable = false)
@@ -50,10 +54,10 @@ public class PostingPeriod {
 
     /** Actual calendar range */
     @Column(nullable = false)
-    private LocalDate periodStart;
+    private LocalDateTime periodStart;
 
     @Column(nullable = false)
-    private LocalDate periodEnd;
+    private LocalDateTime periodEnd;
 
     /** Audit fields for closing */
     private LocalDateTime closedOn;

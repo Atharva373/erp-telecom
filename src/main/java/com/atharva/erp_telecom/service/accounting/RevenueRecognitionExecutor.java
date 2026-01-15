@@ -43,7 +43,7 @@ public class RevenueRecognitionExecutor {
 
         for (RevenueSchedule rs : schedules) {
 
-            periodService.assertOpen(rs.getCompanyId(),period.getYear(),period.getMonthValue());
+            periodService.assertOpen(rs.getCompanyCode(),period.getYear(),period.getMonthValue());
 
             BigDecimal amount =
                     calc.calculateMonthlyAmount(rs, period);
@@ -52,7 +52,7 @@ public class RevenueRecognitionExecutor {
 
             //  Build PostingContext
             PostingContext ctx = new PostingContext();
-            ctx.setCompanyId(rs.getCompanyId());
+            ctx.setCompanyCode(rs.getCompanyCode());
             ctx.setEventType(
                     rs.getRecognitionType() == RevenueRecognitionType.DEFERRED
                             ? AccountingEventType.REVREC_DEFERRED

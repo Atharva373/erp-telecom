@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import com.atharva.erp_telecom.exception.custom_exceptions.*;
@@ -123,10 +124,10 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * Custom ExceptionHandling for Product GET API
+     * Custom ExceptionHandling for Order GET API
      */
     @ExceptionHandler(OrderNotFoundException.class)
-    public ResponseEntity<CustomErrorResponse> handleProductNotFound(OrderNotFoundException exception, HttpServletRequest request){
+    public ResponseEntity<CustomErrorResponse> handleOrderNotFound(OrderNotFoundException exception, HttpServletRequest request){
         CustomErrorResponse errorResponse = new CustomErrorResponse(
                 LocalDateTime.now(),
                 HttpStatus.NOT_FOUND,
@@ -139,9 +140,21 @@ public class GlobalExceptionHandler {
     }
 
 
+    @ExceptionHandler(PostingPeriodException.class)
+    public ResponseEntity<CustomErrorResponse> handlePostingPeriodException(PostingPeriodException exception, HttpServletRequest request){
+        CustomErrorResponse errorResponse = new CustomErrorResponse(
+                LocalDateTime.now(),
+                HttpStatus.NOT_FOUND,
+                "Illegal Operation in Specified Period.",
+                request.getRequestURI(),
+                exception.getMessage()
+        );
+        return new ResponseEntity<>(errorResponse,HttpStatus.NOT_FOUND);
+    }
+
     // Generic method for handling anything else that the sever is unable to handle
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleGeneral(Exception ex) {
-        return buildResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Unexpected error: " + ex.getMessage());
+        return buildResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Unexpected error: " + ex.getMessage() + Arrays.toString(ex.getStackTrace()));
     }
 }

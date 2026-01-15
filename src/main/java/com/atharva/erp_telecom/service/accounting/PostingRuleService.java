@@ -43,16 +43,21 @@ public class PostingRuleService {
     @Transactional
     public PostingRuleResponse createPostingRule(PostingRuleRequest request){
         PostingRule rule = EntityDtoMappers.mapPostingRuleRequestToPostingRuleEntity(request,chartOfAccountRepository,companyRepository);
-        if (rule.getItems() != null) {
-            rule.getItems().forEach(line -> line.setPostingRule(rule));
+
+        if (rule.getLines() != null) {
+            rule.getLines().forEach(line -> line.setPostingRule(rule));
         }
         postingRuleValidator.validate(rule);
-        rule.getItems().sort(Comparator.comparing(PostingRuleLine::getSortOrder));
+        // Lesson: Always use modifiableList when using .sort() as the default Streams.toList() returns an unModifiableList which throws an error.
+        rule.getLines().sort(Comparator.comparing(PostingRuleLine::getSortOrder));
         PostingRule saved = postingRuleRepository.save(rule);
         return EntityDtoMappers.mapPostingRuleToPostingRuleResponse(saved);
     }
 
-
+    /**
+     * Method to GET all the PostingRules.
+     * @return {@code List<PostingRuleResponse>}
+     */
     public List<PostingRuleResponse> getAllPostingRules() {
         return postingRuleRepository.findAll()
                 .stream()
@@ -60,7 +65,11 @@ public class PostingRuleService {
                 .toList();
     }
 
-
+    /**
+     * Method to GET Posting Rules by Id.
+     * @param id
+     * @return PostingRuleResponse
+     */
     public PostingRuleResponse getPostingRuleById(Long id) {
         PostingRule rule = postingRuleRepository.findById(id)
                 .orElseThrow(() -> new IllegalPostingRuleException("Posting rule not found"));
@@ -68,6 +77,12 @@ public class PostingRuleService {
         return EntityDtoMappers.mapPostingRuleToPostingRuleResponse(rule);
     }
 
+    /**
+     * Method to Update Posting Rules by Id.
+     * @param id
+     * @param request
+     * @return PostingRuleResponse
+     */
     @Transactional
     public PostingRuleResponse update(Long id, PostingRuleRequest request) {
         PostingRule existing = postingRuleRepository.findById(id)
@@ -87,10 +102,10 @@ public class PostingRuleService {
         CrudUtils.updateIfNotNull(existing::setHeaderConditionExpression,incoming.getHeaderConditionExpression());
 
         // Replace Lines
-        existing.getItems().clear();
-        for (PostingRuleLine newLine : incoming.getItems()) {
+        existing.getLines().clear();
+        for (PostingRuleLine newLine : incoming.getLines()) {
             newLine.setPostingRule(existing);
-            existing.getItems().add(newLine);
+            existing.getLines().add(newLine);
         }
 
         PostingRule saved = postingRuleRepository.save(existing);

@@ -1,8 +1,11 @@
-package com.atharva.erp_telecom.entity.salesorder;
+package com.atharva.erp_telecom.entity.finance;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -12,7 +15,10 @@ import java.util.List;
 
 @Entity
 @Table(name = "companies")
+@ToString
 @EntityListeners(AuditingEntityListener.class)
+@Getter
+@Setter
 public class Company {
 
     @Id

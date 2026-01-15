@@ -4,6 +4,8 @@ import com.atharva.erp_telecom.enums.RevenueRecognitionType;
 import com.atharva.erp_telecom.enums.RevenueScheduleStatus;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -14,7 +16,8 @@ import java.time.YearMonth;
         uniqueConstraints = @UniqueConstraint(
                 columnNames = {"sourceType","sourceId"}
         ))
-@Data
+@Getter
+@Setter
 public class RevenueSchedule {
 
     @Id
@@ -26,7 +29,7 @@ public class RevenueSchedule {
     private Long sourceId;
 
     /* Company */
-    private Long companyId;
+    private String companyCode;
 
     /* Recognition behavior */
     @Enumerated(EnumType.STRING)

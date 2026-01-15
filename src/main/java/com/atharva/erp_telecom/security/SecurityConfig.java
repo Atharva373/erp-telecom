@@ -60,7 +60,8 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable) // disable CSRF for APIs
                 .authorizeHttpRequests(auth -> auth
                         // allow register/login without token
-                        .requestMatchers("/users/register", "/users/login").permitAll()
+                        .requestMatchers("/users/register", "/users/login","/swagger-ui/**",
+                                "/v3/api-docs/**").permitAll()
                         // protect everything else
                         .anyRequest().authenticated()
                 )

@@ -1,6 +1,6 @@
 package com.atharva.erp_telecom.controller;
 
-import com.atharva.erp_telecom.dto.accounting.PostingPeriodCreateRequest;
+import com.atharva.erp_telecom.dto.accounting.PostingPeriodRequest;
 import com.atharva.erp_telecom.entity.accounting.PostingPeriod;
 import com.atharva.erp_telecom.repository.accounting.PostingPeriodRepository;
 import com.atharva.erp_telecom.service.accounting.PostingPeriodService;
@@ -32,7 +32,7 @@ public class PostingPeriodController {
 
     @PostMapping
     public ResponseEntity<PostingPeriod> create(
-            @RequestBody PostingPeriodCreateRequest request) {
+            @RequestBody PostingPeriodRequest request) {
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -67,8 +67,8 @@ public class PostingPeriodController {
 
     @GetMapping
     public ResponseEntity<List<PostingPeriod>> getAll(
-            @RequestParam Long companyId) {
+            @RequestParam String companyCode) {
 
-        return ResponseEntity.ok(service.getAll(companyId));
+        return ResponseEntity.ok(service.getAll(companyCode));
     }
 }

@@ -3,7 +3,7 @@ package com.atharva.erp_telecom.service.accounting;
 import com.atharva.erp_telecom.dto.accounting.ChartOfAccountRequest;
 import com.atharva.erp_telecom.dto.accounting.ChartOfAccountResponse;
 import com.atharva.erp_telecom.entity.accounting.ChartOfAccount;
-import com.atharva.erp_telecom.entity.salesorder.Company;
+import com.atharva.erp_telecom.entity.finance.Company;
 import com.atharva.erp_telecom.exception.custom_exceptions.ResourceNotFoundException;
 import com.atharva.erp_telecom.repository.accounting.ChartOfAccountRepository;
 import com.atharva.erp_telecom.repository.finance.CompanyRepository;

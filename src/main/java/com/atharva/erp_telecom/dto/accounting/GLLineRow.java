@@ -1,10 +1,12 @@
 package com.atharva.erp_telecom.dto.accounting;
 
+import com.atharva.erp_telecom.enums.AccountingEventType;
 import com.atharva.erp_telecom.enums.EntryType;
-import lombok.Data;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * READ - ONLY VIEW for viewing all GL entries filtered by a criterion.
@@ -23,10 +25,11 @@ import java.time.LocalDate;
  *  traceable
  */
 
-@Data
+@Getter
+@Setter
 public class GLLineRow {
 
-    private LocalDate postingDate;
+    LocalDateTime postingDate;
     private Long journalEntryId;
 
     private EntryType entryType;
@@ -35,8 +38,28 @@ public class GLLineRow {
     // Calculated in service
     private BigDecimal runningBalance;
 
-    private String sourceTransactionType;
+    private AccountingEventType sourceTransactionType;
     private Long sourceTransactionId;
 
+    // Constructors for JPQL Queries
+    public GLLineRow(LocalDateTime postingDate, Long id, EntryType entryType, BigDecimal amount, AccountingEventType eventType, Long sourceTransactionId)  {
+        this.postingDate = postingDate;
+        this.journalEntryId = id;
+        this.entryType = entryType;
+        this.amount = amount;
+        this.sourceTransactionType = eventType;
+        this.sourceTransactionId = sourceTransactionId;
+    }
+
+//    // Constructors for general object creation
+//    public GLLineRow(LocalDateTime postingDate, Long journalEntryId, EntryType entryType, BigDecimal amount, BigDecimal runningBalance, AccountingEventType sourceTransactionType, Long sourceTransactionId) {
+//        this.postingDate = postingDate;
+//        this.journalEntryId = journalEntryId;
+//        this.entryType = entryType;
+//        this.amount = amount;
+//        this.runningBalance = runningBalance;
+//        this.sourceTransactionType = sourceTransactionType;
+//        this.sourceTransactionId = sourceTransactionId;
+//    }
 }
 

@@ -1,12 +1,16 @@
 package com.atharva.erp_telecom.entity.accounting;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "currencies")
 @EntityListeners(AuditingEntityListener.class)
@@ -35,59 +39,4 @@ public class Currency {
     @LastModifiedDate
     private LocalDateTime modifiedOn;
 
-    public String getCurrencyCode() {
-        return currencyCode;
-    }
-
-    public void setCurrencyCode(String currencyCode) {
-        this.currencyCode = currencyCode;
-    }
-
-    public String getCurrencyName() {
-        return currencyName;
-    }
-
-    public void setCurrencyName(String currencyName) {
-        this.currencyName = currencyName;
-    }
-
-    public Integer getDecimalPlaces() {
-        return decimalPlaces;
-    }
-
-    public void setDecimalPlaces(Integer decimalPlaces) {
-        this.decimalPlaces = decimalPlaces;
-    }
-
-    public String getSymbol() {
-        return symbol;
-    }
-
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public LocalDateTime getCreatedOn() {
-        return createdOn;
-    }
-
-    public void setCreatedOn(LocalDateTime createdOn) {
-        this.createdOn = createdOn;
-    }
-
-    public LocalDateTime getModifiedOn() {
-        return modifiedOn;
-    }
-
-    public void setModifiedOn(LocalDateTime modifiedOn) {
-        this.modifiedOn = modifiedOn;
-    }
 }

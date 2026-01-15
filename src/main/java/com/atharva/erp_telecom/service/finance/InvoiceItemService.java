@@ -5,7 +5,7 @@ import com.atharva.erp_telecom.entity.crm.Customer;
 import com.atharva.erp_telecom.entity.finance.Invoice;
 import com.atharva.erp_telecom.entity.finance.InvoiceItem;
 import com.atharva.erp_telecom.entity.finance.Tax;
-import com.atharva.erp_telecom.entity.salesorder.Company;
+import com.atharva.erp_telecom.entity.finance.Company;
 import com.atharva.erp_telecom.entity.salesorder.OrderItem;
 import com.atharva.erp_telecom.repository.finance.InvoiceItemRepository;
 import com.atharva.erp_telecom.repository.finance.TaxRepository;

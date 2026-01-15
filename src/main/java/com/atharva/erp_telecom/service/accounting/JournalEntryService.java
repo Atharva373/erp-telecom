@@ -2,6 +2,7 @@ package com.atharva.erp_telecom.service.accounting;
 
 import com.atharva.erp_telecom.entity.accounting.JournalEntry;
 import com.atharva.erp_telecom.entity.accounting.JournalEntryLine;
+import com.atharva.erp_telecom.enums.AccountingEventType;
 import com.atharva.erp_telecom.enums.EntryType;
 import com.atharva.erp_telecom.repository.accounting.JournalEntryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,8 +56,8 @@ public class JournalEntryService {
      * Fetch JE by source transaction
      */
     public List<JournalEntry> getBySource(Long transactionId, String transactionType) {
-        return journalEntryRepository.findBySourceTransactionIdAndSourceTransactionType(
-                transactionId, transactionType
+        return journalEntryRepository.findBySourceTransactionIdAndEventType(
+                transactionId.toString(), AccountingEventType.valueOf(transactionType)
         );
     }
 

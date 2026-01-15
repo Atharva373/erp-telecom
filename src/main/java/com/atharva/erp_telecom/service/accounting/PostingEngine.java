@@ -23,17 +23,22 @@ public class PostingEngine {
     private final PostingRuleResolver ruleResolver;
     private final PostingExpressionEvaluator evaluator;
     private final JournalEntryService journalEntryService;
+
+
+    // Config beans
+    private final CurrencyService currencyService;
     private final PostingPeriodService postingPeriodService;
 
     @Autowired
     public PostingEngine(
             PostingRuleResolver ruleResolver,
             PostingExpressionEvaluator evaluator,
-            JournalEntryService journalEntryService, PostingPeriodService postingPeriodService
+            JournalEntryService journalEntryService, CurrencyService currencyService, PostingPeriodService postingPeriodService
     ) {
         this.ruleResolver = ruleResolver;
         this.evaluator = evaluator;
         this.journalEntryService = journalEntryService;
+        this.currencyService = currencyService;
         this.postingPeriodService = postingPeriodService;
     }
 
@@ -49,13 +54,23 @@ public class PostingEngine {
      */
     @Transactional
     public JournalEntry post(PostingContext ctx) {
+        JournalEntry jeToPersist = buildJournalEntry(ctx);
+        return journalEntryService.save(jeToPersist);
+    }
 
+    // Method to just simulate (but not persist) Journal Entries. Does same thing as post() except persisting to DB.
+    public JournalEntry simulate(PostingContext ctx) {
+        return buildJournalEntry(ctx);
+    }
+
+
+    public JournalEntry buildJournalEntry(PostingContext ctx){
         // 1️⃣ Resolve posting rule (company-specific or global)
         PostingRule rule = ruleResolver.resolveRule(ctx);
 
         // 2️⃣ Build empty JE header
         JournalEntry je = new JournalEntry();
-        je.setCompanyId(ctx.getCompanyId());
+        je.setCompanyCode(ctx.getCompanyCode());
         je.setEventType(ctx.getEventType());
         je.setPostingRuleId(rule.getId());
         je.setLedger("PRIMARY");
@@ -66,7 +81,7 @@ public class PostingEngine {
         // je.setSourceTransactionType(ctx.getSourceTransactionType());
 
         postingPeriodService.assertOpen(
-                ctx.getCompanyId(),
+                ctx.getCompanyCode(),
                 ctx.getPostingDate().getYear(),
                 ctx.getPostingDate().getMonthValue()
         );
@@ -77,11 +92,13 @@ public class PostingEngine {
 
         // 4️⃣ Sort lines by sortOrder (nulls last)
         List<PostingRuleLine> linesToApply =
-                rule.getItems().stream()
-                        .sorted(Comparator.comparing(
-                                PostingRuleLine::getSortOrder,
-                                Comparator.nullsLast(Integer::compareTo)
-                        ))
+                rule.getLines().stream()
+                        .sorted(Comparator
+                                .comparing(
+                                        PostingRuleLine::getSortOrder,
+                                        Comparator.nullsLast(Integer::compareTo)
+                                )
+                        )
                         .toList();
 
         // 5️⃣ Apply rule-level condition (if any)
@@ -144,8 +161,6 @@ public class PostingEngine {
         }
 
         je.setBalanced(true);
-
-        // 🔟 Persist
-        return journalEntryService.save(je);
+        return je;
     }
 }

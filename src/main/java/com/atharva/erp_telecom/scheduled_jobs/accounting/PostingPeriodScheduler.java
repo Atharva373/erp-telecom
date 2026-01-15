@@ -1,4 +1,4 @@
-package com.atharva.erp_telecom.scheduled_jobs;
+package com.atharva.erp_telecom.scheduled_jobs.accounting;
 
 import com.atharva.erp_telecom.service.accounting.PostingPeriodService;
 import org.springframework.scheduling.annotation.EnableScheduling;

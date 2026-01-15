@@ -5,7 +5,7 @@ import com.atharva.erp_telecom.dto.accounting.GLLineRow;
 import com.atharva.erp_telecom.dto.accounting.ProfitAndLossResponse;
 import com.atharva.erp_telecom.dto.accounting.TrialBalanceRow;
 import com.atharva.erp_telecom.service.accounting.BalanceSheetService;
-import com.atharva.erp_telecom.service.accounting.GeneralLedgerService;
+// import com.atharva.erp_telecom.service.accounting.GeneralLedgerService;
 import com.atharva.erp_telecom.service.accounting.ProfitAndLossService;
 import com.atharva.erp_telecom.service.accounting.TrialBalanceService;
 import org.springframework.http.ResponseEntity;
@@ -20,13 +20,15 @@ import java.util.List;
 public class FinancialReportingController {
 
     private final TrialBalanceService trialBalanceService;
-    private final GeneralLedgerService generalLedgerService;
+   // private final GeneralLedgerService generalLedgerService;
     private final BalanceSheetService balanceSheetService;
     private final ProfitAndLossService profitAndLossService;
 
-    public FinancialReportingController(TrialBalanceService trialBalanceService, GeneralLedgerService generalLedgerService, BalanceSheetService balanceSheetService, ProfitAndLossService profitAndLossService) {
+    public FinancialReportingController(TrialBalanceService trialBalanceService,
+                                        //GeneralLedgerService generalLedgerService,
+                                        BalanceSheetService balanceSheetService, ProfitAndLossService profitAndLossService) {
         this.trialBalanceService = trialBalanceService;
-        this.generalLedgerService = generalLedgerService;
+       // this.generalLedgerService = generalLedgerService;
         this.balanceSheetService = balanceSheetService;
         this.profitAndLossService = profitAndLossService;
     }
@@ -53,28 +55,28 @@ public class FinancialReportingController {
     }
 
 
-    /**
-     * ENDPOINT FOR GENERATING REPORT FOR A GENERAL LEDGER SNAPSHOT FOR A PARTICULAR ACCOUNT CODE
-     *
-     * @param accountCode
-     * @param companyId
-     * @param fiscalYear
-     * @param postingPeriod
-     * @param currency
-     * @return ResponseEntity<List<GLLineRow>>
-     */
-    @GetMapping("/gl/{accountCode}")
-    public ResponseEntity<List<GLLineRow>> gl(
-            @PathVariable String accountCode,
-            @RequestParam Long companyId,
-            @RequestParam Integer fiscalYear,
-            @RequestParam Integer postingPeriod,
-            @RequestParam String currency
-    ) {
-        return ResponseEntity.ok(
-                generalLedgerService.getGL(companyId, accountCode, fiscalYear, postingPeriod, currency)
-        );
-    }
+//    /**
+//     * ENDPOINT FOR GENERATING REPORT FOR A GENERAL LEDGER SNAPSHOT FOR A PARTICULAR ACCOUNT CODE
+//     *
+//     * @param accountCode
+//     * @param companyId
+//     * @param fiscalYear
+//     * @param postingPeriod
+//     * @param currency
+//     * @return ResponseEntity<List<GLLineRow>>
+//     */
+//    @GetMapping("/gl/{accountCode}")
+//    public ResponseEntity<List<GLLineRow>> gl(
+//            @PathVariable String accountCode,
+//            @RequestParam Long companyId,
+//            @RequestParam Integer fiscalYear,
+//            @RequestParam Integer postingPeriod,
+//            @RequestParam String currency
+//    ) {
+//        return ResponseEntity.ok(
+//                generalLedgerService.getGL(companyId, accountCode, fiscalYear, postingPeriod, currency)
+//        );
+//    }
 
     /**
      * Balance Sheet answers:

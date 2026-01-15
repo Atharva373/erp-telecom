@@ -17,7 +17,7 @@ import com.atharva.erp_telecom.entity.charging.ChargePlan;
 import com.atharva.erp_telecom.entity.crm.Customer;
 import com.atharva.erp_telecom.entity.finance.Invoice;
 import com.atharva.erp_telecom.entity.finance.InvoiceItem;
-import com.atharva.erp_telecom.entity.salesorder.Company;
+import com.atharva.erp_telecom.entity.finance.Company;
 import com.atharva.erp_telecom.entity.salesorder.Order;
 import com.atharva.erp_telecom.entity.salesorder.OrderItem;
 import com.atharva.erp_telecom.entity.salesorder.Product;
@@ -27,6 +27,7 @@ import com.atharva.erp_telecom.repository.finance.CompanyRepository;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class EntityDtoMappers {
 
@@ -223,21 +224,22 @@ public class EntityDtoMappers {
         PostingRule postingRule = new PostingRule();
         postingRule.setEventType(request.getEventType());
         postingRule.setDescription(request.getDescription());
+        postingRule.setPostingRuleCode(request.getPostingRuleCode());
         postingRule.setCompany(companyRepository.findByCompanyCode(
                 request.getCompanyCode())
                 .orElseThrow(
                         () -> new ResourceNotFoundException("Company NOT FOUND for Code :-> "+request.getCompanyCode())
                 )
         );
-        postingRule.setHeaderConditionExpression(request.getConditionExpression());
+        postingRule.setHeaderConditionExpression(request.getHeaderConditionExpression());
         postingRule.setEffectiveFrom(request.getEffectiveFrom());
         postingRule.setEffectiveTo(request.getEffectiveTo());
         postingRule.setActive(request.getActive());
-        postingRule.setItems(
+        postingRule.setLines(
                 request.getLines()
                 .stream()
                 .map(line -> mapPostingRuleLineRequestToPostingRuleLine(line,chartOfAccountRepository))
-                .toList()
+                .collect(Collectors.toList())
         );
         return postingRule;
     }
@@ -249,6 +251,7 @@ public class EntityDtoMappers {
                 .orElseThrow(() -> new ResourceNotFoundException("CoA NOT FOUND FOR :-> "+line.getAccountCode())));
         postingRuleLine.setEntryType(line.getEntryType());
         postingRuleLine.setAmountExpression(line.getAmountExpression());
+        postingRuleLine.setSortOrder(line.getSortOrder());
         return postingRuleLine;
     }
 
@@ -258,7 +261,7 @@ public class EntityDtoMappers {
         response.setId(postingRule.getId());
         response.setEventType(postingRule.getEventType());
         response.setDescription(postingRule.getDescription());
-        response.setConditionExpression(postingRule.getHeaderConditionExpression());
+        response.setHeaderConditionExpression(postingRule.getHeaderConditionExpression());
         response.setCompanyCode(postingRule.getCompany().getCompanyCode());
         response.setEffectiveFrom(postingRule.getEffectiveFrom());
         response.setEffectiveTo(postingRule.getEffectiveTo());
@@ -267,8 +270,9 @@ public class EntityDtoMappers {
         response.setCreatedBy(postingRule.getCreatedBy());
         response.setActive(postingRule.isActive());
         response.setModifiedBy(postingRule.getModifiedBy());
+        response.setPostingRuleCode(postingRule.getPostingRuleCode());
         response.setLines(
-                postingRule.getItems()
+                postingRule.getLines()
                         .stream()
                         .map(EntityDtoMappers::mapPostingRuleLineToPostingRuleLineDTO)
                         .toList()
@@ -282,6 +286,7 @@ public class EntityDtoMappers {
         responseLine.setEntryType(line.getEntryType());
         responseLine.setAmountExpression(line.getAmountExpression());
         responseLine.setAccountCode(line.getAccount().getAccountCode());
+        responseLine.setSortOrder(line.getSortOrder());
         return responseLine;
     }
 
@@ -318,7 +323,8 @@ public class EntityDtoMappers {
         response.setModifiedOn(chartOfAccount.getModifiedOn());
         response.setCreatedBy(chartOfAccount.getCreatedBy());
         response.setModifiedBy(chartOfAccount.getModifiedBy());
-        response.setCompanyCode(chartOfAccount.getCompany().getCompanyCode());
+        if(chartOfAccount.getCompany()!=null)
+            response.setCompanyCode(chartOfAccount.getCompany().getCompanyCode());
         return response;
     }
 

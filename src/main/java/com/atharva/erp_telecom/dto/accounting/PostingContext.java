@@ -1,6 +1,9 @@
 package com.atharva.erp_telecom.dto.accounting;
 
 import com.atharva.erp_telecom.enums.AccountingEventType;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -27,9 +30,12 @@ import java.util.Map;
     Journal entry builder
 */
 
+@Setter
+@Getter
+@ToString
 public class PostingContext {
-    private Long sourceTransactionId;
-    private Long companyId;
+    private String sourceTransactionId;
+    private String companyCode;
     private AccountingEventType eventType;
     private LocalDateTime postingDate = LocalDateTime.now();
     private String currencyCode;
@@ -45,51 +51,4 @@ public class PostingContext {
         variables.put(key, value);
     }
 
-    public Long getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(Long companyId) {
-        this.companyId = companyId;
-    }
-
-    public AccountingEventType getEventType() {
-        return eventType;
-    }
-
-    public void setEventType(AccountingEventType eventType) {
-        this.eventType = eventType;
-    }
-
-    public LocalDateTime getPostingDate() {
-        return postingDate;
-    }
-
-    public void setPostingDate(LocalDateTime postingDate) {
-        this.postingDate = postingDate;
-    }
-
-    public Map<String, Object> getVariables() {
-        return variables;
-    }
-
-    public void setVariables(Map<String, Object> variables) {
-        this.variables = variables;
-    }
-
-    public Long getSourceTransactionId() {
-        return sourceTransactionId;
-    }
-
-    public void setSourceTransactionId(Long sourceTransactionId) {
-        this.sourceTransactionId = sourceTransactionId;
-    }
-
-    public String getCurrencyCode() {
-        return currencyCode;
-    }
-
-    public void setCurrencyCode(String currencyCode) {
-        this.currencyCode = currencyCode;
-    }
 }

@@ -29,7 +29,7 @@ public class PostingRuleResolver {
         Optional<PostingRule> companyRule =
                 repository.findActiveRuleForCompany(
                         ctx.getEventType(),
-                        ctx.getCompanyId(),
+                        ctx.getCompanyCode(),
                         ctx.getPostingDate()
                 );
 
@@ -40,7 +40,9 @@ public class PostingRuleResolver {
                 )
                 .orElseThrow(() -> new IllegalPostingRuleException(
                         "No posting rule found for event " + ctx.getEventType()
-                )));
+                )
+                )
+        );
 
 
     }

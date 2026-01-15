@@ -1,6 +1,6 @@
 package com.atharva.erp_telecom.repository.finance;
 
-import com.atharva.erp_telecom.entity.salesorder.Company;
+import com.atharva.erp_telecom.entity.finance.Company;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

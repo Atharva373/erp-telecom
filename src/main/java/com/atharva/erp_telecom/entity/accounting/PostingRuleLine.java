@@ -3,15 +3,19 @@ package com.atharva.erp_telecom.entity.accounting;
 import com.atharva.erp_telecom.enums.EntryType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "posting_rule_lines")
-@EntityListeners((AuditingEntityListener.class))
+@EntityListeners(AuditingEntityListener.class)
 public class PostingRuleLine {
 
     @Id
@@ -24,7 +28,7 @@ public class PostingRuleLine {
     private PostingRule postingRule;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "chart_of_account_id", nullable = false)
+    @JoinColumn(name = "account_id",nullable = false)
     private ChartOfAccount account;
 
     @Enumerated(EnumType.STRING)
@@ -78,91 +82,4 @@ public class PostingRuleLine {
     @Column
     private String modifiedBy;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public PostingRule getPostingRule() {
-        return postingRule;
-    }
-
-    public void setPostingRule(PostingRule postingRule) {
-        this.postingRule = postingRule;
-    }
-
-    public ChartOfAccount getAccount() {
-        return account;
-    }
-
-    public void setAccount(ChartOfAccount account) {
-        this.account = account;
-    }
-
-    public EntryType getEntryType() {
-        return entryType;
-    }
-
-    public void setEntryType(EntryType entryType) {
-        this.entryType = entryType;
-    }
-
-    public String getAmountExpression() {
-        return amountExpression;
-    }
-
-    public void setAmountExpression(String amountExpression) {
-        this.amountExpression = amountExpression;
-    }
-
-    public LocalDateTime getCreatedOn() {
-        return createdOn;
-    }
-
-    public void setCreatedOn(LocalDateTime createdOn) {
-        this.createdOn = createdOn;
-    }
-
-    public LocalDateTime getModifiedOn() {
-        return modifiedOn;
-    }
-
-    public void setModifiedOn(LocalDateTime modifiedOn) {
-        this.modifiedOn = modifiedOn;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public String getModifiedBy() {
-        return modifiedBy;
-    }
-
-    public void setModifiedBy(String modifiedBy) {
-        this.modifiedBy = modifiedBy;
-    }
-
-    public Integer getSortOrder() {
-        return sortOrder;
-    }
-
-    public void setSortOrder(Integer sortOrder) {
-        this.sortOrder = sortOrder;
-    }
-
-    public String getItemConditionExpression() {
-        return itemConditionExpression;
-    }
-
-    public void setItemConditionExpression(String itemConditionExpression) {
-        this.itemConditionExpression = itemConditionExpression;
-    }
 }

@@ -1,0 +1,86 @@
+2026-01-01 12:44:32 INFO  [main] c.a.e.ErpTelecomApplication - Starting ErpTelecomApplication using Java 19.0.2 with PID 24620 (D:\Development\Java\Spring Boot\Projects\ERP-Telecom\erp-telecom\target\classes started by Atharv in D:\Development\Java\Spring Boot\Projects\ERP-Telecom\erp-telecom)
+2026-01-01 12:44:32 DEBUG [main] c.a.e.ErpTelecomApplication - Running with Spring Boot v3.5.5, Spring v6.2.10
+2026-01-01 12:44:32 INFO  [main] c.a.e.ErpTelecomApplication - No active profile set, falling back to 1 default profile: "default"
+2026-01-01 12:44:35 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-01 12:44:35 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 150 ms. Found 20 JPA repository interfaces.
+2026-01-01 12:44:36 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8001 (http)
+2026-01-01 12:44:36 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8001"]
+2026-01-01 12:44:36 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-01 12:44:36 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.44]
+2026-01-01 12:44:36 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-01-01 12:44:36 INFO  [main] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3959 ms
+2026-01-01 12:44:36 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-01 12:44:36 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.26.Final
+2026-01-01 12:44:36 INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-01-01 12:44:37 INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-01 12:44:37 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-01-01 12:44:37 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@31e3c34
+2026-01-01 12:44:37 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-01-01 12:44:37 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0.33
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-01-01 12:44:39 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-01-01 12:44:40 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-01 12:44:40 DEBUG [main] c.a.e.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-01-01 12:44:40 INFO  [main] o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-01 12:44:42 INFO  [main] o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userService
+2026-01-01 12:44:42 WARN  [main] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-01 12:44:43 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8001"]
+2026-01-01 12:44:43 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8001 (http) with context path '/'
+2026-01-01 12:44:43 INFO  [main] c.a.e.ErpTelecomApplication - Started ErpTelecomApplication in 11.859 seconds (process running for 12.492)
+2026-01-01 12:44:48 INFO  [http-nio-8001-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-01 12:44:48 INFO  [http-nio-8001-exec-1] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-01-01 12:44:48 INFO  [http-nio-8001-exec-1] o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+2026-01-01 12:48:53 INFO  [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-01-01 12:48:54 INFO  [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-01-01 12:48:54 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-01 12:48:54 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-01-01 12:48:54 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-01-01 12:52:17 INFO  [main] c.a.e.ErpTelecomApplication - Starting ErpTelecomApplication using Java 19.0.2 with PID 15448 (D:\Development\Java\Spring Boot\Projects\ERP-Telecom\erp-telecom\target\classes started by Atharv in D:\Development\Java\Spring Boot\Projects\ERP-Telecom\erp-telecom)
+2026-01-01 12:52:17 DEBUG [main] c.a.e.ErpTelecomApplication - Running with Spring Boot v3.5.5, Spring v6.2.10
+2026-01-01 12:52:17 INFO  [main] c.a.e.ErpTelecomApplication - No active profile set, falling back to 1 default profile: "default"
+2026-01-01 12:52:19 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-01 12:52:19 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 169 ms. Found 20 JPA repository interfaces.
+2026-01-01 12:52:21 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8001 (http)
+2026-01-01 12:52:21 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8001"]
+2026-01-01 12:52:21 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-01 12:52:21 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.44]
+2026-01-01 12:52:21 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-01-01 12:52:21 INFO  [main] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3812 ms
+2026-01-01 12:52:21 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-01 12:52:21 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.26.Final
+2026-01-01 12:52:21 INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-01-01 12:52:21 INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-01 12:52:21 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-01-01 12:52:22 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@14993306
+2026-01-01 12:52:22 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-01-01 12:52:22 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0.33
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-01-01 12:52:24 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-01-01 12:52:24 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-01 12:52:24 DEBUG [main] c.a.e.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-01-01 12:52:25 INFO  [main] o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-01 12:52:26 INFO  [main] o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userService
+2026-01-01 12:52:26 WARN  [main] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-01 12:52:27 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8001"]
+2026-01-01 12:52:27 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8001 (http) with context path '/'
+2026-01-01 12:52:27 INFO  [main] c.a.e.ErpTelecomApplication - Started ErpTelecomApplication in 10.798 seconds (process running for 11.376)
+2026-01-01 12:52:27 INFO  [http-nio-8001-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-01 12:52:27 INFO  [http-nio-8001-exec-1] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-01-01 12:52:27 INFO  [http-nio-8001-exec-1] o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-01-01 12:52:49 INFO  [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-01-01 12:52:49 INFO  [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-01-01 12:52:49 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-01 12:52:49 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-01-01 12:52:49 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

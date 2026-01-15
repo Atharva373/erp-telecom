@@ -21,7 +21,9 @@ public class PostingExpressionEvaluator {
         StandardEvaluationContext spelContext = new StandardEvaluationContext();
         spelContext.setVariables(context.getVariables());
 
-        return parser.parseExpression(expression).getValue(spelContext);
+        ExpressionParser p =  (ExpressionParser) parser.parseExpression(expression).getValue(spelContext);
+        System.out.println("Value of Context: "+p);
+        return p;
     }
 
     public BigDecimal evaluateAmount(String expression, PostingContext context) {

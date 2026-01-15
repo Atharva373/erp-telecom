@@ -1,4 +1,4 @@
-package com.atharva.erp_telecom.scheduled_jobs;
+package com.atharva.erp_telecom.scheduled_jobs.accounting;
 
 import com.atharva.erp_telecom.service.accounting.RevenueRecognitionExecutor;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +15,7 @@ public class RevenueRecognitionScheduler {
     private final RevenueRecognitionExecutor executor;
 
     @Value("${jobs.revrec.enabled:true}")
-    private boolean enabled;
+    private boolean enabled=false;
 
     public RevenueRecognitionScheduler(
             RevenueRecognitionExecutor executor) {

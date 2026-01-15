@@ -3,7 +3,7 @@ package com.atharva.erp_telecom.service.finance;
 
 import com.atharva.erp_telecom.dto.finance.CompanyRequest;
 import com.atharva.erp_telecom.dto.finance.CompanyResponse;
-import com.atharva.erp_telecom.entity.salesorder.Company;
+import com.atharva.erp_telecom.entity.finance.Company;
 import com.atharva.erp_telecom.exception.custom_exceptions.ResourceNotFoundException;
 import com.atharva.erp_telecom.repository.finance.CompanyRepository;
 import com.atharva.erp_telecom.utils.CrudUtils;

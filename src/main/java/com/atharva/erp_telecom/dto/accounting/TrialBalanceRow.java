@@ -1,6 +1,10 @@
 package com.atharva.erp_telecom.dto.accounting;
 
+import com.atharva.erp_telecom.enums.AccountCategory;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
@@ -19,11 +23,14 @@ import java.math.BigDecimal;
  */
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
 public class TrialBalanceRow {
 
     private String accountCode;
     private String accountName;
-    private String accountCategory;
+    private AccountCategory accountCategory;
 
     private BigDecimal totalDebit;
     private BigDecimal totalCredit;

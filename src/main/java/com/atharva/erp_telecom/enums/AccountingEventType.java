@@ -11,6 +11,8 @@ public enum AccountingEventType {
         // 2. Billing & Revenue
         INVOICE_GENERATED,
         INVOICE_CANCELLED,
+        INVOICE_ISSUED,
+        INVOICE_SENT,
         REVENUE_RECOGNIZED_SUBSCRIPTION,
         REVENUE_RECOGNIZED_USAGE,
         REVENUE_RECOGNIZED_ONE_TIME,

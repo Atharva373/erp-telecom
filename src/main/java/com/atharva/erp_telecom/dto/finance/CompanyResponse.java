@@ -1,6 +1,6 @@
 package com.atharva.erp_telecom.dto.finance;
 
-import com.atharva.erp_telecom.entity.salesorder.Company;
+import com.atharva.erp_telecom.entity.finance.Company;
 
 import java.time.LocalDateTime;
 import java.util.List;
