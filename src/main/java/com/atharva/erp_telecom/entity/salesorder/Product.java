@@ -4,6 +4,8 @@ package com.atharva.erp_telecom.entity.salesorder;
 import com.atharva.erp_telecom.entity.charging.ChargePlan;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -15,6 +17,8 @@ import java.util.*;
 @Table(name="product")
 @EntityListeners(AuditingEntityListener.class)      // This is used as a listener class to tell JPA to listen to events like insert and update for
                                                     // this entity. The prePersist() , preUpdate() and similar methods are invoked before any event like update insert or delete.
+@Getter
+@Setter
 public class Product {
 
     @Id
@@ -34,10 +38,10 @@ public class Product {
     private String productCategory;
 
     @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
-    private boolean isActive = true;
+    private boolean active = true;
 
     @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
-    private boolean isBundle = false;
+    private boolean bundle = false;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
@@ -51,83 +55,4 @@ public class Product {
     @JsonManagedReference       // This annotation is used to maintain parent-child hierarchy for inter-related entities.
     private Set<ChargePlan> chargePlans = new HashSet<>();
 
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
-    public String getProductCode() {
-        return productCode;
-    }
-
-    public void setProductCode(String productCode) {
-        this.productCode = productCode;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public String getProductDescription() {
-        return productDescription;
-    }
-
-    public void setProductDescription(String productDescription) {
-        this.productDescription = productDescription;
-    }
-
-    public String getProductCategory() {
-        return productCategory;
-    }
-
-    public void setProductCategory(String productCategory) {
-        this.productCategory = productCategory;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
-    }
-
-    public boolean isBundle() {
-        return isBundle;
-    }
-
-    public void setBundle(boolean bundle) {
-        isBundle = bundle;
-    }
-
-    public LocalDateTime getCreatedOn() {
-        return createdOn;
-    }
-
-    public void setCreatedOn(LocalDateTime createdOn) {
-        this.createdOn = createdOn;
-    }
-
-    public LocalDateTime getUpdatedOn() {
-        return updatedOn;
-    }
-
-    public void setUpdatedOn(LocalDateTime updatedOn) {
-        this.updatedOn = updatedOn;
-    }
-
-    public Set<ChargePlan> getChargePlans() {
-        return chargePlans;
-    }
-
-    public void setChargePlans(Set<ChargePlan> chargePlans) {
-        this.chargePlans = chargePlans;
-    }
 }

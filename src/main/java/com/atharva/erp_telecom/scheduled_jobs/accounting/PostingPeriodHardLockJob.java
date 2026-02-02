@@ -7,7 +7,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Component
 public class PostingPeriodHardLockJob {
@@ -21,7 +21,7 @@ public class PostingPeriodHardLockJob {
     @Scheduled(cron = "0 0 2 * * *") // daily 2 AM
     @Transactional
     public void hardLockPeriods() {
-        repository.findEligibleForHardLock(LocalDate.now())
+        repository.findEligibleForHardLock(LocalDateTime.now().toLocalDate())
                 .forEach(period -> period.setStatus(PeriodStatus.LOCKED));
     }
 }

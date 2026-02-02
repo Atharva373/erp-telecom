@@ -1,7 +1,7 @@
 package com.atharva.erp_telecom.entity.accounting;
 
 import com.atharva.erp_telecom.enums.AccountCategory;
-import com.atharva.erp_telecom.enums.AccountSubtype;
+import com.atharva.erp_telecom.enums.AccountSubCategory;
 import com.atharva.erp_telecom.enums.EntryType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
@@ -54,7 +54,7 @@ public class JournalEntryLine {
     private AccountCategory accountCategory;
 
     @Enumerated(EnumType.STRING)
-    private AccountSubtype accountSubtype;
+    private AccountSubCategory accountSubCategory;
 
     // For audit
     @CreatedDate

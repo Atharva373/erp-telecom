@@ -110,7 +110,7 @@ public class JournalEntryService {
             revLine.setAccountName(line.getAccountName());
             revLine.setSortOrder(line.getSortOrder());
             revLine.setAccountCategory(line.getAccountCategory());
-            revLine.setAccountSubtype(line.getAccountSubtype());
+            revLine.setAccountSubCategory(line.getAccountSubCategory());
 
             // Flip entry type
             if (line.getEntryType() == EntryType.DEBIT) {

@@ -6,7 +6,7 @@ import com.atharva.erp_telecom.entity.accounting.JournalEntryLine;
 import com.atharva.erp_telecom.entity.accounting.PostingRule;
 import com.atharva.erp_telecom.entity.accounting.PostingRuleLine;
 import com.atharva.erp_telecom.enums.AccountCategory;
-import com.atharva.erp_telecom.enums.AccountSubtype;
+import com.atharva.erp_telecom.enums.AccountSubCategory;
 import com.atharva.erp_telecom.enums.EntryType;
 import com.atharva.erp_telecom.exception.custom_exceptions.IllegalPostingRuleException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -137,7 +137,7 @@ public class PostingEngine {
             // Denormalized metadata
             jeLine.setAccountCategory(AccountCategory.valueOf(line.getAccount().getCategory().name()));
             if (line.getAccount().getSubtype() != null)
-                jeLine.setAccountSubtype(AccountSubtype.valueOf(line.getAccount().getSubtype().name()));
+                jeLine.setAccountSubCategory(AccountSubCategory.valueOf(line.getAccount().getSubtype().name()));
 
             je.getLines().add(jeLine);
 

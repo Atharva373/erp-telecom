@@ -1,6 +1,6 @@
 package com.atharva.erp_telecom.enums;
 
-public enum AccountSubtype {
+public enum AccountSubCategory {
     // Asset subtypes
     CASH,
     BANK,

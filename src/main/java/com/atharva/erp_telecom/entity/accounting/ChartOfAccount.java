@@ -2,7 +2,7 @@ package com.atharva.erp_telecom.entity.accounting;
 
 import com.atharva.erp_telecom.entity.finance.Company;
 import com.atharva.erp_telecom.enums.AccountCategory;
-import com.atharva.erp_telecom.enums.AccountSubtype;
+import com.atharva.erp_telecom.enums.AccountSubCategory;
 import com.atharva.erp_telecom.enums.NormalBalance;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -46,7 +46,7 @@ public class ChartOfAccount {
     // Optional: BANK, RECEIVABLE, DEFERRED_REVENUE, SUBSCRIPTION_REVENUE, BREAKAGE, etc.
     @Enumerated(EnumType.STRING)
     @Column(length = 40)
-    private AccountSubtype subtype;
+    private AccountSubCategory subtype;
 
 
     /**

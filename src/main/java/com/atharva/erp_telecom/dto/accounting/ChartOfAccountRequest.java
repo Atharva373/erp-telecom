@@ -1,7 +1,7 @@
 package com.atharva.erp_telecom.dto.accounting;
 
 import com.atharva.erp_telecom.enums.AccountCategory;
-import com.atharva.erp_telecom.enums.AccountSubtype;
+import com.atharva.erp_telecom.enums.AccountSubCategory;
 import com.atharva.erp_telecom.enums.NormalBalance;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +17,7 @@ public class ChartOfAccountRequest {
 
     private AccountCategory category;
 
-    private AccountSubtype subtype;
+    private AccountSubCategory subtype;
 
     private String companyCode;
 

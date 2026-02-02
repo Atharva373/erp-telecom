@@ -1,7 +1,7 @@
 package com.atharva.erp_telecom.dto.accounting;
 
 import com.atharva.erp_telecom.enums.AccountCategory;
-import com.atharva.erp_telecom.enums.AccountSubtype;
+import com.atharva.erp_telecom.enums.AccountSubCategory;
 import com.atharva.erp_telecom.enums.NormalBalance;
 
 import java.time.LocalDate;
@@ -14,7 +14,7 @@ public class ChartOfAccountResponse {
     private String accountName;
 
     private AccountCategory category;
-    private AccountSubtype subtype;
+    private AccountSubCategory subtype;
     private NormalBalance normalBalance;
 
     private String companyCode;
@@ -62,11 +62,11 @@ public class ChartOfAccountResponse {
         this.category = category;
     }
 
-    public AccountSubtype getSubtype() {
+    public AccountSubCategory getSubtype() {
         return subtype;
     }
 
-    public void setSubtype(AccountSubtype subtype) {
+    public void setSubtype(AccountSubCategory subtype) {
         this.subtype = subtype;
     }
 
