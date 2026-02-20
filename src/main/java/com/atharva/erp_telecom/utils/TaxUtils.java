@@ -1,37 +1,37 @@
 package com.atharva.erp_telecom.utils;
 
 
-import com.atharva.erp_telecom.dto.finance.TaxRequest;
-import com.atharva.erp_telecom.dto.finance.TaxResponse;
-import com.atharva.erp_telecom.entity.finance.Tax;
+import com.atharva.erp_telecom.finance.dto.TaxRequest;
+import com.atharva.erp_telecom.finance.dto.TaxResponse;
+import com.atharva.erp_telecom.finance.persistence.masterdata.TaxEntity;
 import org.springframework.stereotype.Component;
 
 @Component
 public class TaxUtils {
 
-    public Tax mapToEntity(TaxRequest request){
-        Tax tax = new Tax();
-        tax.setTaxCode(request.getTaxCode());
-        tax.setTaxName(request.getTaxName());
-        tax.setCgstPercentage(request.getCgstPercentage());
-        tax.setSgstPercentage(request.getSgstPercentage());
-        tax.setIgstPercentage(request.getIgstPercentage());
-        tax.setActive(request.getActive() != null ? request.getActive() : true);
-        tax.setDescription(request.getDescription());
-        return tax;
+    public TaxEntity mapToEntity(TaxRequest request){
+        TaxEntity taxEntity = new TaxEntity();
+        taxEntity.setTaxCode(request.getTaxCode());
+        taxEntity.setTaxName(request.getTaxName());
+        taxEntity.setCgstPercentage(request.getCgstPercentage());
+        taxEntity.setSgstPercentage(request.getSgstPercentage());
+        taxEntity.setIgstPercentage(request.getIgstPercentage());
+        taxEntity.setActive(request.getActive() != null ? request.getActive() : true);
+        taxEntity.setDescription(request.getDescription());
+        return taxEntity;
     }
 
-    public TaxResponse mapToResponse(Tax tax){
+    public TaxResponse mapToResponse(TaxEntity taxEntity){
         TaxResponse response = new TaxResponse();
-        response.setTaxId(tax.getTaxId());
-        response.setTaxCode(tax.getTaxCode());
-        response.setTaxName(tax.getTaxName());
-        response.setCgstPercentage(tax.getCgstPercentage());
-        response.setSgstPercentage(tax.getSgstPercentage());
-        response.setIgstPercentage(tax.getIgstPercentage());
-        response.setTotalTaxPercentage(tax.getTotalTaxPercentage());
-        response.setActive(tax.getActive());
-        response.setDescription(tax.getDescription());
+        response.setTaxId(taxEntity.getTaxId());
+        response.setTaxCode(taxEntity.getTaxCode());
+        response.setTaxName(taxEntity.getTaxName());
+        response.setCgstPercentage(taxEntity.getCgstPercentage());
+        response.setSgstPercentage(taxEntity.getSgstPercentage());
+        response.setIgstPercentage(taxEntity.getIgstPercentage());
+        response.setTotalTaxPercentage(taxEntity.getTotalTaxPercentage());
+        response.setActive(taxEntity.getActive());
+        response.setDescription(taxEntity.getDescription());
         return response;
     }
 

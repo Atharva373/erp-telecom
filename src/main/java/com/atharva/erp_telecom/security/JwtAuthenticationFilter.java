@@ -1,7 +1,7 @@
 package com.atharva.erp_telecom.security;
 
 import com.atharva.erp_telecom.exception.custom_exceptions.InvalidJwtAuthenticationException;
-import com.atharva.erp_telecom.service.auth.UserService;
+import com.atharva.erp_telecom.iam.service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

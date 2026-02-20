@@ -77,13 +77,13 @@ Caused by: java.lang.IllegalArgumentException: Validation failed for query for m
 	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$AbstractQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:99)
 	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.lookupQuery(QueryExecutorMethodInterceptor.java:116)
 	... 57 common frames omitted
-Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticException: Missing constructor for type 'TrialBalanceRow' [    SELECT new com.atharva.erp_telecom.dto.accounting.TrialBalanceRow(
+Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticException: Missing constructor for type 'TrialBalanceRow' [    SELECT new com.atharva.erp_telecom.accounting.dto.TrialBalanceRow(
         jel.accountCode,
         jel.accountName,
         jel.accountCategory,
-        SUM(CASE WHEN jel.entryType = com.atharva.erp_telecom.enums.EntryType.DEBIT
+        SUM(CASE WHEN jel.entryType = com.atharva.erp_telecom.accounting.enums.EntryType.DEBIT
                  THEN jel.amount ELSE 0 END),
-        SUM(CASE WHEN jel.entryType = com.atharva.erp_telecom.enums.EntryType.CREDIT
+        SUM(CASE WHEN jel.entryType = com.atharva.erp_telecom.accounting.enums.EntryType.CREDIT
                  THEN jel.amount ELSE 0 END)
     )
     FROM JournalEntryLine jel
@@ -92,7 +92,7 @@ Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticExcep
         je.companyId = :companyId
         AND je.fiscalYear = :fiscalYear
         AND je.postingPeriod <= :postingPeriod
-        AND je.currencyCode = :currency
+        AND je.currencyCode = :currencyEntity
         AND je.posted = true
     GROUP BY
         jel.accountCode,
@@ -112,13 +112,13 @@ Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticExcep
 	at jdk.proxy2/jdk.proxy2.$Proxy148.createQuery(Unknown Source)
 	at org.springframework.data.jpa.repository.query.SimpleJpaQuery.validateQuery(SimpleJpaQuery.java:91)
 	... 63 common frames omitted
-Caused by: org.hibernate.query.SemanticException: Missing constructor for type 'TrialBalanceRow' [    SELECT new com.atharva.erp_telecom.dto.accounting.TrialBalanceRow(
+Caused by: org.hibernate.query.SemanticException: Missing constructor for type 'TrialBalanceRow' [    SELECT new com.atharva.erp_telecom.accounting.dto.TrialBalanceRow(
         jel.accountCode,
         jel.accountName,
         jel.accountCategory,
-        SUM(CASE WHEN jel.entryType = com.atharva.erp_telecom.enums.EntryType.DEBIT
+        SUM(CASE WHEN jel.entryType = com.atharva.erp_telecom.accounting.enums.EntryType.DEBIT
                  THEN jel.amount ELSE 0 END),
-        SUM(CASE WHEN jel.entryType = com.atharva.erp_telecom.enums.EntryType.CREDIT
+        SUM(CASE WHEN jel.entryType = com.atharva.erp_telecom.accounting.enums.EntryType.CREDIT
                  THEN jel.amount ELSE 0 END)
     )
     FROM JournalEntryLine jel
@@ -127,7 +127,7 @@ Caused by: org.hibernate.query.SemanticException: Missing constructor for type '
         je.companyId = :companyId
         AND je.fiscalYear = :fiscalYear
         AND je.postingPeriod <= :postingPeriod
-        AND je.currencyCode = :currency
+        AND je.currencyCode = :currencyEntity
         AND je.posted = true
     GROUP BY
         jel.accountCode,
@@ -237,13 +237,13 @@ Caused by: java.lang.IllegalArgumentException: Validation failed for query for m
 	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$AbstractQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:99)
 	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.lookupQuery(QueryExecutorMethodInterceptor.java:116)
 	... 57 common frames omitted
-Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticException: Missing constructor for type 'TrialBalanceRow' [    SELECT new com.atharva.erp_telecom.dto.accounting.TrialBalanceRow(
+Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticException: Missing constructor for type 'TrialBalanceRow' [    SELECT new com.atharva.erp_telecom.accounting.dto.TrialBalanceRow(
         jel.accountCode,
         jel.accountName,
         jel.accountCategory,
-        SUM(CASE WHEN jel.entryType = com.atharva.erp_telecom.enums.EntryType.DEBIT
+        SUM(CASE WHEN jel.entryType = com.atharva.erp_telecom.accounting.enums.EntryType.DEBIT
                  THEN jel.amount ELSE 0 END),
-        SUM(CASE WHEN jel.entryType = com.atharva.erp_telecom.enums.EntryType.CREDIT
+        SUM(CASE WHEN jel.entryType = com.atharva.erp_telecom.accounting.enums.EntryType.CREDIT
                  THEN jel.amount ELSE 0 END)
     )
     FROM JournalEntryLine jel
@@ -252,7 +252,7 @@ Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticExcep
         je.companyId = :companyId
         AND je.fiscalYear = :fiscalYear
         AND je.postingPeriod <= :postingPeriod
-        AND je.currencyCode = :currency
+        AND je.currencyCode = :currencyEntity
         AND je.posted = true
     GROUP BY
         jel.accountCode,
@@ -272,13 +272,13 @@ Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticExcep
 	at jdk.proxy2/jdk.proxy2.$Proxy148.createQuery(Unknown Source)
 	at org.springframework.data.jpa.repository.query.SimpleJpaQuery.validateQuery(SimpleJpaQuery.java:91)
 	... 63 common frames omitted
-Caused by: org.hibernate.query.SemanticException: Missing constructor for type 'TrialBalanceRow' [    SELECT new com.atharva.erp_telecom.dto.accounting.TrialBalanceRow(
+Caused by: org.hibernate.query.SemanticException: Missing constructor for type 'TrialBalanceRow' [    SELECT new com.atharva.erp_telecom.accounting.dto.TrialBalanceRow(
         jel.accountCode,
         jel.accountName,
         jel.accountCategory,
-        SUM(CASE WHEN jel.entryType = com.atharva.erp_telecom.enums.EntryType.DEBIT
+        SUM(CASE WHEN jel.entryType = com.atharva.erp_telecom.accounting.enums.EntryType.DEBIT
                  THEN jel.amount ELSE 0 END),
-        SUM(CASE WHEN jel.entryType = com.atharva.erp_telecom.enums.EntryType.CREDIT
+        SUM(CASE WHEN jel.entryType = com.atharva.erp_telecom.accounting.enums.EntryType.CREDIT
                  THEN jel.amount ELSE 0 END)
     )
     FROM JournalEntryLine jel
@@ -287,7 +287,7 @@ Caused by: org.hibernate.query.SemanticException: Missing constructor for type '
         je.companyId = :companyId
         AND je.fiscalYear = :fiscalYear
         AND je.postingPeriod <= :postingPeriod
-        AND je.currencyCode = :currency
+        AND je.currencyCode = :currencyEntity
         AND je.posted = true
     GROUP BY
         jel.accountCode,
@@ -397,7 +397,7 @@ Caused by: java.lang.IllegalArgumentException: Validation failed for query for m
 	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$AbstractQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:99)
 	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.lookupQuery(QueryExecutorMethodInterceptor.java:116)
 	... 57 common frames omitted
-Caused by: java.lang.IllegalArgumentException: org.hibernate.query.sqm.UnknownPathException: Could not resolve attribute 'sourceTransactionType' of 'com.atharva.erp_telecom.entity.accounting.JournalEntry' [    SELECT new com.atharva.erp_telecom.dto.accounting.GLLineRow(
+Caused by: java.lang.IllegalArgumentException: org.hibernate.query.sqm.UnknownPathException: Could not resolve attribute 'sourceTransactionType' of 'com.atharva.erp_telecom.accounting.persistence.transactional.JournalEntryEntity' [    SELECT new com.atharva.erp_telecom.accounting.dto.GLLineRow(
         je.postingDate,
         je.id,
         jel.entryType,
@@ -412,7 +412,7 @@ Caused by: java.lang.IllegalArgumentException: org.hibernate.query.sqm.UnknownPa
         AND jel.accountCode = :accountCode
         AND je.fiscalYear = :fiscalYear
         AND je.postingPeriod <= :postingPeriod
-        AND je.currencyCode = :currency
+        AND je.currencyCode = :currencyEntity
         AND je.posted = true
     ORDER BY
         je.postingDate,
@@ -431,7 +431,7 @@ Caused by: java.lang.IllegalArgumentException: org.hibernate.query.sqm.UnknownPa
 	at jdk.proxy2/jdk.proxy2.$Proxy148.createQuery(Unknown Source)
 	at org.springframework.data.jpa.repository.query.SimpleJpaQuery.validateQuery(SimpleJpaQuery.java:91)
 	... 63 common frames omitted
-Caused by: org.hibernate.query.sqm.UnknownPathException: Could not resolve attribute 'sourceTransactionType' of 'com.atharva.erp_telecom.entity.accounting.JournalEntry' [    SELECT new com.atharva.erp_telecom.dto.accounting.GLLineRow(
+Caused by: org.hibernate.query.sqm.UnknownPathException: Could not resolve attribute 'sourceTransactionType' of 'com.atharva.erp_telecom.accounting.persistence.transactional.JournalEntryEntity' [    SELECT new com.atharva.erp_telecom.accounting.dto.GLLineRow(
         je.postingDate,
         je.id,
         jel.entryType,
@@ -446,7 +446,7 @@ Caused by: org.hibernate.query.sqm.UnknownPathException: Could not resolve attri
         AND jel.accountCode = :accountCode
         AND je.fiscalYear = :fiscalYear
         AND je.postingPeriod <= :postingPeriod
-        AND je.currencyCode = :currency
+        AND je.currencyCode = :currencyEntity
         AND je.posted = true
     ORDER BY
         je.postingDate,
@@ -460,7 +460,7 @@ Caused by: org.hibernate.query.sqm.UnknownPathException: Could not resolve attri
 	at org.hibernate.internal.AbstractSharedSessionContract.interpretHql(AbstractSharedSessionContract.java:832)
 	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:878)
 	... 70 common frames omitted
-Caused by: org.hibernate.query.sqm.PathElementException: Could not resolve attribute 'sourceTransactionType' of 'com.atharva.erp_telecom.entity.accounting.JournalEntry'
+Caused by: org.hibernate.query.sqm.PathElementException: Could not resolve attribute 'sourceTransactionType' of 'com.atharva.erp_telecom.accounting.persistence.transactional.JournalEntryEntity'
 	at org.hibernate.query.sqm.SqmPathSource.getSubPathSource(SqmPathSource.java:95)
 	at org.hibernate.query.sqm.tree.domain.AbstractSqmPath.get(AbstractSqmPath.java:199)
 	at org.hibernate.query.sqm.tree.domain.AbstractSqmFrom.resolvePathPart(AbstractSqmFrom.java:198)
@@ -577,7 +577,7 @@ Caused by: java.lang.IllegalArgumentException: Validation failed for query for m
 	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$AbstractQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:99)
 	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.lookupQuery(QueryExecutorMethodInterceptor.java:116)
 	... 57 common frames omitted
-Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticException: Missing constructor for type 'GLLineRow' [    SELECT new com.atharva.erp_telecom.dto.accounting.GLLineRow(
+Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticException: Missing constructor for type 'GLLineRow' [    SELECT new com.atharva.erp_telecom.accounting.dto.GLLineRow(
         je.postingDate,
         je.id,
         jel.entryType,
@@ -593,7 +593,7 @@ Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticExcep
         AND jel.accountCode = :accountCode
         AND je.fiscalYear = :fiscalYear
         AND je.postingPeriod <= :postingPeriod
-        AND je.currencyCode = :currency
+        AND je.currencyCode = :currencyEntity
         AND je.posted = true
     ORDER BY
         je.postingDate,
@@ -612,7 +612,7 @@ Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticExcep
 	at jdk.proxy2/jdk.proxy2.$Proxy148.createQuery(Unknown Source)
 	at org.springframework.data.jpa.repository.query.SimpleJpaQuery.validateQuery(SimpleJpaQuery.java:91)
 	... 63 common frames omitted
-Caused by: org.hibernate.query.SemanticException: Missing constructor for type 'GLLineRow' [    SELECT new com.atharva.erp_telecom.dto.accounting.GLLineRow(
+Caused by: org.hibernate.query.SemanticException: Missing constructor for type 'GLLineRow' [    SELECT new com.atharva.erp_telecom.accounting.dto.GLLineRow(
         je.postingDate,
         je.id,
         jel.entryType,
@@ -628,7 +628,7 @@ Caused by: org.hibernate.query.SemanticException: Missing constructor for type '
         AND jel.accountCode = :accountCode
         AND je.fiscalYear = :fiscalYear
         AND je.postingPeriod <= :postingPeriod
-        AND je.currencyCode = :currency
+        AND je.currencyCode = :currencyEntity
         AND je.posted = true
     ORDER BY
         je.postingDate,
@@ -737,7 +737,7 @@ Caused by: java.lang.IllegalArgumentException: Validation failed for query for m
 	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$AbstractQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:99)
 	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.lookupQuery(QueryExecutorMethodInterceptor.java:116)
 	... 57 common frames omitted
-Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticException: Missing constructor for type 'GLLineRow' [    SELECT new com.atharva.erp_telecom.dto.accounting.GLLineRow(
+Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticException: Missing constructor for type 'GLLineRow' [    SELECT new com.atharva.erp_telecom.accounting.dto.GLLineRow(
         je.postingDate,
         je.id,
         jel.entryType,
@@ -752,7 +752,7 @@ Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticExcep
         AND jel.accountCode = :accountCode
         AND je.fiscalYear = :fiscalYear
         AND je.postingPeriod <= :postingPeriod
-        AND je.currencyCode = :currency
+        AND je.currencyCode = :currencyEntity
         AND je.posted = true
     ORDER BY
         je.postingDate,
@@ -771,7 +771,7 @@ Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticExcep
 	at jdk.proxy2/jdk.proxy2.$Proxy148.createQuery(Unknown Source)
 	at org.springframework.data.jpa.repository.query.SimpleJpaQuery.validateQuery(SimpleJpaQuery.java:91)
 	... 63 common frames omitted
-Caused by: org.hibernate.query.SemanticException: Missing constructor for type 'GLLineRow' [    SELECT new com.atharva.erp_telecom.dto.accounting.GLLineRow(
+Caused by: org.hibernate.query.SemanticException: Missing constructor for type 'GLLineRow' [    SELECT new com.atharva.erp_telecom.accounting.dto.GLLineRow(
         je.postingDate,
         je.id,
         jel.entryType,
@@ -786,7 +786,7 @@ Caused by: org.hibernate.query.SemanticException: Missing constructor for type '
         AND jel.accountCode = :accountCode
         AND je.fiscalYear = :fiscalYear
         AND je.postingPeriod <= :postingPeriod
-        AND je.currencyCode = :currency
+        AND je.currencyCode = :currencyEntity
         AND je.posted = true
     ORDER BY
         je.postingDate,
@@ -895,7 +895,7 @@ Caused by: java.lang.IllegalArgumentException: Validation failed for query for m
 	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$AbstractQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:99)
 	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.lookupQuery(QueryExecutorMethodInterceptor.java:116)
 	... 57 common frames omitted
-Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticException: Missing constructor for type 'GLLineRow' [    SELECT new com.atharva.erp_telecom.dto.accounting.GLLineRow(
+Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticException: Missing constructor for type 'GLLineRow' [    SELECT new com.atharva.erp_telecom.accounting.dto.GLLineRow(
         je.postingDate,
         je.id,
         jel.entryType,
@@ -910,7 +910,7 @@ Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticExcep
         AND jel.accountCode = :accountCode
         AND je.fiscalYear = :fiscalYear
         AND je.postingPeriod <= :postingPeriod
-        AND je.currencyCode = :currency
+        AND je.currencyCode = :currencyEntity
         AND je.posted = true
     ORDER BY
         je.postingDate,
@@ -929,7 +929,7 @@ Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticExcep
 	at jdk.proxy2/jdk.proxy2.$Proxy148.createQuery(Unknown Source)
 	at org.springframework.data.jpa.repository.query.SimpleJpaQuery.validateQuery(SimpleJpaQuery.java:91)
 	... 63 common frames omitted
-Caused by: org.hibernate.query.SemanticException: Missing constructor for type 'GLLineRow' [    SELECT new com.atharva.erp_telecom.dto.accounting.GLLineRow(
+Caused by: org.hibernate.query.SemanticException: Missing constructor for type 'GLLineRow' [    SELECT new com.atharva.erp_telecom.accounting.dto.GLLineRow(
         je.postingDate,
         je.id,
         jel.entryType,
@@ -944,7 +944,7 @@ Caused by: org.hibernate.query.SemanticException: Missing constructor for type '
         AND jel.accountCode = :accountCode
         AND je.fiscalYear = :fiscalYear
         AND je.postingPeriod <= :postingPeriod
-        AND je.currencyCode = :currency
+        AND je.currencyCode = :currencyEntity
         AND je.posted = true
     ORDER BY
         je.postingDate,
@@ -1053,7 +1053,7 @@ Caused by: java.lang.IllegalArgumentException: Validation failed for query for m
 	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$AbstractQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:99)
 	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.lookupQuery(QueryExecutorMethodInterceptor.java:116)
 	... 57 common frames omitted
-Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticException: Missing constructor for type 'GLLineRow' [    SELECT new com.atharva.erp_telecom.dto.accounting.GLLineRow(
+Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticException: Missing constructor for type 'GLLineRow' [    SELECT new com.atharva.erp_telecom.accounting.dto.GLLineRow(
         je.postingDate,
         je.id,
         jel.entryType,
@@ -1068,7 +1068,7 @@ Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticExcep
         AND jel.accountCode = :accountCode
         AND je.fiscalYear = :fiscalYear
         AND je.postingPeriod <= :postingPeriod
-        AND je.currencyCode = :currency
+        AND je.currencyCode = :currencyEntity
         AND je.posted = true
     ORDER BY
         je.postingDate,
@@ -1087,7 +1087,7 @@ Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticExcep
 	at jdk.proxy2/jdk.proxy2.$Proxy148.createQuery(Unknown Source)
 	at org.springframework.data.jpa.repository.query.SimpleJpaQuery.validateQuery(SimpleJpaQuery.java:91)
 	... 63 common frames omitted
-Caused by: org.hibernate.query.SemanticException: Missing constructor for type 'GLLineRow' [    SELECT new com.atharva.erp_telecom.dto.accounting.GLLineRow(
+Caused by: org.hibernate.query.SemanticException: Missing constructor for type 'GLLineRow' [    SELECT new com.atharva.erp_telecom.accounting.dto.GLLineRow(
         je.postingDate,
         je.id,
         jel.entryType,
@@ -1102,7 +1102,7 @@ Caused by: org.hibernate.query.SemanticException: Missing constructor for type '
         AND jel.accountCode = :accountCode
         AND je.fiscalYear = :fiscalYear
         AND je.postingPeriod <= :postingPeriod
-        AND je.currencyCode = :currency
+        AND je.currencyCode = :currencyEntity
         AND je.posted = true
     ORDER BY
         je.postingDate,
@@ -1211,7 +1211,7 @@ Caused by: java.lang.IllegalArgumentException: Validation failed for query for m
 	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$AbstractQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:99)
 	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.lookupQuery(QueryExecutorMethodInterceptor.java:116)
 	... 57 common frames omitted
-Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticException: Missing constructor for type 'GLLineRow' [    SELECT new com.atharva.erp_telecom.dto.accounting.GLLineRow(
+Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticException: Missing constructor for type 'GLLineRow' [    SELECT new com.atharva.erp_telecom.accounting.dto.GLLineRow(
         je.postingDate,
         je.id,
         jel.entryType,
@@ -1226,7 +1226,7 @@ Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticExcep
         AND jel.accountCode = :accountCode
         AND je.fiscalYear = :fiscalYear
         AND je.postingPeriod <= :postingPeriod
-        AND je.currencyCode = :currency
+        AND je.currencyCode = :currencyEntity
         AND je.posted = true
     ORDER BY
         je.postingDate,
@@ -1245,7 +1245,7 @@ Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticExcep
 	at jdk.proxy2/jdk.proxy2.$Proxy148.createQuery(Unknown Source)
 	at org.springframework.data.jpa.repository.query.SimpleJpaQuery.validateQuery(SimpleJpaQuery.java:91)
 	... 63 common frames omitted
-Caused by: org.hibernate.query.SemanticException: Missing constructor for type 'GLLineRow' [    SELECT new com.atharva.erp_telecom.dto.accounting.GLLineRow(
+Caused by: org.hibernate.query.SemanticException: Missing constructor for type 'GLLineRow' [    SELECT new com.atharva.erp_telecom.accounting.dto.GLLineRow(
         je.postingDate,
         je.id,
         jel.entryType,
@@ -1260,7 +1260,7 @@ Caused by: org.hibernate.query.SemanticException: Missing constructor for type '
         AND jel.accountCode = :accountCode
         AND je.fiscalYear = :fiscalYear
         AND je.postingPeriod <= :postingPeriod
-        AND je.currencyCode = :currency
+        AND je.currencyCode = :currencyEntity
         AND je.posted = true
     ORDER BY
         je.postingDate,
@@ -1369,7 +1369,7 @@ Caused by: java.lang.IllegalArgumentException: Validation failed for query for m
 	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$AbstractQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:99)
 	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.lookupQuery(QueryExecutorMethodInterceptor.java:116)
 	... 57 common frames omitted
-Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticException: Missing constructor for type 'GLLineRow' [    SELECT new com.atharva.erp_telecom.dto.accounting.GLLineRow(
+Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticException: Missing constructor for type 'GLLineRow' [    SELECT new com.atharva.erp_telecom.accounting.dto.GLLineRow(
         je.postingDate,
         je.id,
         jel.entryType,
@@ -1384,7 +1384,7 @@ Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticExcep
         AND jel.accountCode = :accountCode
         AND je.fiscalYear = :fiscalYear
         AND je.postingPeriod <= :postingPeriod
-        AND je.currencyCode = :currency
+        AND je.currencyCode = :currencyEntity
         AND je.posted = true
     ORDER BY
         je.postingDate,
@@ -1403,7 +1403,7 @@ Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticExcep
 	at jdk.proxy2/jdk.proxy2.$Proxy148.createQuery(Unknown Source)
 	at org.springframework.data.jpa.repository.query.SimpleJpaQuery.validateQuery(SimpleJpaQuery.java:91)
 	... 63 common frames omitted
-Caused by: org.hibernate.query.SemanticException: Missing constructor for type 'GLLineRow' [    SELECT new com.atharva.erp_telecom.dto.accounting.GLLineRow(
+Caused by: org.hibernate.query.SemanticException: Missing constructor for type 'GLLineRow' [    SELECT new com.atharva.erp_telecom.accounting.dto.GLLineRow(
         je.postingDate,
         je.id,
         jel.entryType,
@@ -1418,7 +1418,7 @@ Caused by: org.hibernate.query.SemanticException: Missing constructor for type '
         AND jel.accountCode = :accountCode
         AND je.fiscalYear = :fiscalYear
         AND je.postingPeriod <= :postingPeriod
-        AND je.currencyCode = :currency
+        AND je.currencyCode = :currencyEntity
         AND je.posted = true
     ORDER BY
         je.postingDate,
@@ -1527,7 +1527,7 @@ Caused by: java.lang.IllegalArgumentException: Validation failed for query for m
 	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$AbstractQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:99)
 	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.lookupQuery(QueryExecutorMethodInterceptor.java:116)
 	... 57 common frames omitted
-Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticException: Missing constructor for type 'GLLineRow' [    SELECT new com.atharva.erp_telecom.dto.accounting.GLLineRow(
+Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticException: Missing constructor for type 'GLLineRow' [    SELECT new com.atharva.erp_telecom.accounting.dto.GLLineRow(
         je.postingDate,
         je.id,
         jel.entryType,
@@ -1542,7 +1542,7 @@ Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticExcep
         AND jel.accountCode = :accountCode
         AND je.fiscalYear = :fiscalYear
         AND je.postingPeriod <= :postingPeriod
-        AND je.currencyCode = :currency
+        AND je.currencyCode = :currencyEntity
         AND je.posted = true
     ORDER BY
         je.postingDate,
@@ -1561,7 +1561,7 @@ Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticExcep
 	at jdk.proxy2/jdk.proxy2.$Proxy148.createQuery(Unknown Source)
 	at org.springframework.data.jpa.repository.query.SimpleJpaQuery.validateQuery(SimpleJpaQuery.java:91)
 	... 63 common frames omitted
-Caused by: org.hibernate.query.SemanticException: Missing constructor for type 'GLLineRow' [    SELECT new com.atharva.erp_telecom.dto.accounting.GLLineRow(
+Caused by: org.hibernate.query.SemanticException: Missing constructor for type 'GLLineRow' [    SELECT new com.atharva.erp_telecom.accounting.dto.GLLineRow(
         je.postingDate,
         je.id,
         jel.entryType,
@@ -1576,7 +1576,7 @@ Caused by: org.hibernate.query.SemanticException: Missing constructor for type '
         AND jel.accountCode = :accountCode
         AND je.fiscalYear = :fiscalYear
         AND je.postingPeriod <= :postingPeriod
-        AND je.currencyCode = :currency
+        AND je.currencyCode = :currencyEntity
         AND je.posted = true
     ORDER BY
         je.postingDate,
@@ -1685,7 +1685,7 @@ Caused by: java.lang.IllegalArgumentException: Validation failed for query for m
 	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$AbstractQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:99)
 	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.lookupQuery(QueryExecutorMethodInterceptor.java:116)
 	... 57 common frames omitted
-Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticException: Missing constructor for type 'GLLineRow' [    SELECT new com.atharva.erp_telecom.dto.accounting.GLLineRow(
+Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticException: Missing constructor for type 'GLLineRow' [    SELECT new com.atharva.erp_telecom.accounting.dto.GLLineRow(
         je.postingDate,
         je.id,
         jel.entryType,
@@ -1700,7 +1700,7 @@ Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticExcep
         AND jel.accountCode = :accountCode
         AND je.fiscalYear = :fiscalYear
         AND je.postingPeriod <= :postingPeriod
-        AND je.currencyCode = :currency
+        AND je.currencyCode = :currencyEntity
         AND je.posted = true
     ORDER BY
         je.postingDate,
@@ -1719,7 +1719,7 @@ Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticExcep
 	at jdk.proxy2/jdk.proxy2.$Proxy148.createQuery(Unknown Source)
 	at org.springframework.data.jpa.repository.query.SimpleJpaQuery.validateQuery(SimpleJpaQuery.java:91)
 	... 63 common frames omitted
-Caused by: org.hibernate.query.SemanticException: Missing constructor for type 'GLLineRow' [    SELECT new com.atharva.erp_telecom.dto.accounting.GLLineRow(
+Caused by: org.hibernate.query.SemanticException: Missing constructor for type 'GLLineRow' [    SELECT new com.atharva.erp_telecom.accounting.dto.GLLineRow(
         je.postingDate,
         je.id,
         jel.entryType,
@@ -1734,7 +1734,7 @@ Caused by: org.hibernate.query.SemanticException: Missing constructor for type '
         AND jel.accountCode = :accountCode
         AND je.fiscalYear = :fiscalYear
         AND je.postingPeriod <= :postingPeriod
-        AND je.currencyCode = :currency
+        AND je.currencyCode = :currencyEntity
         AND je.posted = true
     ORDER BY
         je.postingDate,
@@ -1772,7 +1772,7 @@ APPLICATION FAILED TO START
 
 Description:
 
-Parameter 0 of constructor in com.atharva.erp_telecom.service.accounting.BalanceSheetService required a bean of type 'com.atharva.erp_telecom.repository.accounting.FinancialStatementsRepository' that could not be found.
+Parameter 0 of constructor in com.atharva.erp_telecom.accounting.service.BalanceSheetService required a bean of type 'com.atharva.erp_telecom.repository.accounting.FinancialStatementsRepository' that could not be found.
 
 
 Action:
