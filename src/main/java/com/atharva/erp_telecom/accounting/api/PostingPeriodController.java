@@ -1,7 +1,8 @@
 package com.atharva.erp_telecom.accounting.api;
 
 import com.atharva.erp_telecom.accounting.dto.PostingPeriodRequest;
-import com.atharva.erp_telecom.accounting.persistence.masterdata.PostingPeriodEntity;
+import com.atharva.erp_telecom.accounting.dto.PostingPeriodResponse;
+import com.atharva.erp_telecom.accounting.persistence.config.PostingPeriodEntity;
 import com.atharva.erp_telecom.accounting.persistence.repository.PostingPeriodRepository;
 import com.atharva.erp_telecom.accounting.service.PostingPeriodService;
 import org.springframework.http.HttpStatus;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/masterdata/finance/accounting/posting-periods")
+@RequestMapping("/config/finance/accounting/posting-periods")
 @PreAuthorize("hasAnyRole('ADMIN','CONSULTANT')")
 public class PostingPeriodController {
 
@@ -66,9 +67,8 @@ public class PostingPeriodController {
        ============================== */
 
     @GetMapping
-    public ResponseEntity<List<PostingPeriodEntity>> getAll(
-            @RequestParam String companyCode) {
-
+    public ResponseEntity<List<PostingPeriodResponse>> getAll(
+            @RequestParam(name = "companyCode") String companyCode) {
         return ResponseEntity.ok(service.getAll(companyCode));
     }
 }

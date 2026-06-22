@@ -1,6 +1,7 @@
-package com.atharva.erp_telecom.accounting.persistence.masterdata;
+package com.atharva.erp_telecom.accounting.persistence.config;
 
 import com.atharva.erp_telecom.accounting.enums.PeriodStatus;
+import com.atharva.erp_telecom.finance.persistence.masterdata.CompanyEntity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -17,13 +18,11 @@ import java.time.LocalDateTime;
         uniqueConstraints = {
                 @UniqueConstraint(
                         name = "uk_company_year_period",
-                        columnNames = {"company_code", "fiscal_year", "posting_period"}
+                        columnNames = {"company_id", "fiscal_year", "posting_period"}
                 )
         }
 )
 @Data
-@Getter
-@Setter
 @EntityListeners(AuditingEntityListener.class)
 public class PostingPeriodEntity {
 
@@ -32,10 +31,11 @@ public class PostingPeriodEntity {
     private Long id;
 
     /** CompanyEntity this period belongs to */
-    @Column(name = "company_code", nullable = false)
-    private String companyCode;
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @JoinColumn(name = "company_id",nullable = false)
+    private CompanyEntity company;
 
-    /** Fiscal year (e.g. 2025) */
+    /** Fiscal year (e.g. 2026) */
     @Column(name = "fiscal_year", nullable = false)
     private Integer fiscalYear;
 

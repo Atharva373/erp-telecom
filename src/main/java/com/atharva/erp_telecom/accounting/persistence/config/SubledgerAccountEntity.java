@@ -1,4 +1,4 @@
-package com.atharva.erp_telecom.accounting.persistence.masterdata;
+package com.atharva.erp_telecom.accounting.persistence.config;
 
 import com.atharva.erp_telecom.crm.enums.PartyType;
 import com.atharva.erp_telecom.accounting.enums.SubledgerType;

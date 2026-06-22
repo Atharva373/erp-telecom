@@ -2,7 +2,7 @@ package com.atharva.erp_telecom.accounting.service;
 
 import com.atharva.erp_telecom.accounting.dto.ChartOfAccountRequest;
 import com.atharva.erp_telecom.accounting.dto.ChartOfAccountResponse;
-import com.atharva.erp_telecom.accounting.persistence.masterdata.ChartOfAccountEntity;
+import com.atharva.erp_telecom.accounting.persistence.config.ChartOfAccountEntity;
 import com.atharva.erp_telecom.finance.persistence.masterdata.CompanyEntity;
 import com.atharva.erp_telecom.exception.custom_exceptions.ResourceNotFoundException;
 import com.atharva.erp_telecom.accounting.persistence.repository.ChartOfAccountRepository;

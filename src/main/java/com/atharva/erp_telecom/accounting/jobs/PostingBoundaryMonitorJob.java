@@ -1,7 +1,7 @@
 package com.atharva.erp_telecom.accounting.jobs;
 
-import com.atharva.erp_telecom.accounting.persistence.masterdata.PostingPeriodEntity;
-import com.atharva.erp_telecom.accounting.persistence.masterdata.PostingPeriodPolicyEntity;
+import com.atharva.erp_telecom.accounting.persistence.config.PostingPeriodEntity;
+import com.atharva.erp_telecom.accounting.persistence.config.PostingPeriodPolicyEntity;
 import com.atharva.erp_telecom.accounting.enums.PeriodStatus;
 import com.atharva.erp_telecom.accounting.persistence.repository.PostingPeriodRepository;
 import com.atharva.erp_telecom.accounting.service.PeriodStateResolver;
@@ -35,7 +35,7 @@ public class PostingBoundaryMonitorJob {
         for (PostingPeriodEntity period : activePeriods) {
             PostingPeriodPolicyEntity policy =
                     policyService.getEffectivePolicy(
-                            period.getCompanyCode(),
+                            period.getCompany().getCompanyCode(),
                             now.toLocalDate()
                     );
 

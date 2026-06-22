@@ -44,7 +44,7 @@ public class InvoiceItemService {
         return orderItems.stream().map(orderItem -> {
             InvoiceItemEntity invoiceItemEntity = new InvoiceItemEntity();
 
-            invoiceItemEntity.setInvoice(invoiceEntity);
+            invoiceItemEntity.setInvoiceEntity(invoiceEntity);
             invoiceItemEntity.setOrderItem(orderItem);
             invoiceItemEntity.setQuantity(orderItem.getQuantity());
             if (orderItem.getProduct() == null) {
@@ -106,7 +106,7 @@ public class InvoiceItemService {
         if (gstTaxOpt.isEmpty()) return BigDecimal.ZERO;
 
         TaxEntity taxEntity = gstTaxOpt.get();
-        invoiceItemEntity.setTax(taxEntity);
+        invoiceItemEntity.setTaxEntity(taxEntity);
 
         double rate = isIntraState ?
                 taxEntity.getCgstPercentage() + taxEntity.getSgstPercentage() :

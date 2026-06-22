@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/masterdata/finance/accounting/chart-of-accounts")
+@RequestMapping("/config/finance/accounting/chart-of-accounts")
 @PreAuthorize("hasAnyRole('ADMIN','CONSULTANT')")
 public class ChartOfAccountController {
 

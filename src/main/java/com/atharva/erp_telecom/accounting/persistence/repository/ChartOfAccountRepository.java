@@ -1,6 +1,6 @@
 package com.atharva.erp_telecom.accounting.persistence.repository;
 
-import com.atharva.erp_telecom.accounting.persistence.masterdata.ChartOfAccountEntity;
+import com.atharva.erp_telecom.accounting.persistence.config.ChartOfAccountEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

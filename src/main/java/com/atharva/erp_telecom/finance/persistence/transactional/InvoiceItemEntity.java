@@ -5,6 +5,8 @@ import com.atharva.erp_telecom.salesorder.persistence.masterdata.Product;
 import com.atharva.erp_telecom.finance.persistence.masterdata.TaxEntity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -15,6 +17,8 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "invoice_items")
 @EntityListeners(AuditingEntityListener.class)
+@Getter
+@Setter
 public class InvoiceItemEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -72,115 +76,4 @@ public class InvoiceItemEntity {
         if (baseAmount == null) baseAmount = BigDecimal.ZERO;
     }
 
-    public Long getInvoiceItemId() {
-        return invoiceItemId;
-    }
-
-    public void setInvoiceItemId(Long invoiceItemId) {
-        this.invoiceItemId = invoiceItemId;
-    }
-
-    public String getInvoiceItemNumber() {
-        return invoiceItemNumber;
-    }
-
-    public void setInvoiceItemNumber(String invoiceItemNumber) {
-        this.invoiceItemNumber = invoiceItemNumber;
-    }
-
-    public InvoiceEntity getInvoice() {
-        return invoiceEntity;
-    }
-
-    public void setInvoice(InvoiceEntity invoiceEntity) {
-        this.invoiceEntity = invoiceEntity;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public TaxEntity getTax() {
-        return taxEntity;
-    }
-
-    public void setTax(TaxEntity taxEntity) {
-        this.taxEntity = taxEntity;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public BigDecimal getUnitPrice() {
-        return unitPrice;
-    }
-
-    public void setUnitPrice(BigDecimal unitPrice) {
-        this.unitPrice = unitPrice;
-    }
-
-    public BigDecimal getBaseAmount() {
-        return baseAmount;
-    }
-
-    public void setBaseAmount(BigDecimal baseAmount) {
-        this.baseAmount = baseAmount;
-    }
-
-    public BigDecimal getTaxAmount() {
-        return taxAmount;
-    }
-
-    public void setTaxAmount(BigDecimal taxAmount) {
-        this.taxAmount = taxAmount;
-    }
-
-    public BigDecimal getTotalAmount() {
-        return totalAmount;
-    }
-
-    public void setTotalAmount(BigDecimal totalAmount) {
-        this.totalAmount = totalAmount;
-    }
-
-    public String getAdditionalInfo() {
-        return additionalInfo;
-    }
-
-    public void setAdditionalInfo(String additionalInfo) {
-        this.additionalInfo = additionalInfo;
-    }
-
-    public OrderItem getOrderItem() {
-        return orderItem;
-    }
-
-    public void setOrderItem(OrderItem orderItem) {
-        this.orderItem = orderItem;
-    }
-
-    public LocalDateTime getCreatedOn() {
-        return createdOn;
-    }
-
-    public void setCreatedOn(LocalDateTime createdOn) {
-        this.createdOn = createdOn;
-    }
-
-    public LocalDateTime getUpdatedOn() {
-        return updatedOn;
-    }
-
-    public void setUpdatedOn(LocalDateTime updatedOn) {
-        this.updatedOn = updatedOn;
-    }
 }

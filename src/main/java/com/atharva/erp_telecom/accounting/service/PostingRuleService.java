@@ -2,8 +2,8 @@ package com.atharva.erp_telecom.accounting.service;
 
 import com.atharva.erp_telecom.accounting.dto.PostingRuleRequest;
 import com.atharva.erp_telecom.accounting.dto.PostingRuleResponse;
-import com.atharva.erp_telecom.accounting.persistence.masterdata.PostingRuleEntity;
-import com.atharva.erp_telecom.accounting.persistence.masterdata.PostingRuleLineEntity;
+import com.atharva.erp_telecom.accounting.persistence.config.PostingRuleEntity;
+import com.atharva.erp_telecom.accounting.persistence.config.PostingRuleLineEntity;
 import com.atharva.erp_telecom.exception.custom_exceptions.IllegalPostingRuleException;
 import com.atharva.erp_telecom.accounting.persistence.repository.ChartOfAccountRepository;
 import com.atharva.erp_telecom.finance.persistence.repository.CompanyRepository;

@@ -1,6 +1,6 @@
 package com.atharva.erp_telecom.accounting.service;
 
-import com.atharva.erp_telecom.accounting.persistence.masterdata.PostingPeriodPolicyEntity;
+import com.atharva.erp_telecom.accounting.persistence.config.PostingPeriodPolicyEntity;
 import com.atharva.erp_telecom.accounting.persistence.repository.PostingPeriodPolicyRepository;
 import org.springframework.stereotype.Service;
 

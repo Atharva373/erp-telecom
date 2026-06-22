@@ -1,6 +1,6 @@
 package com.atharva.erp_telecom.finance.persistence.repository;
 
-import com.atharva.erp_telecom.entity.crm.Customer;
+import com.atharva.erp_telecom.crm.persistence.masterdata.BusinessEntity;
 import com.atharva.erp_telecom.finance.persistence.transactional.InvoiceEntity;
 import com.atharva.erp_telecom.salesorder.persistence.transactional.Order;
 import com.atharva.erp_telecom.invoicing.enums.InvoiceStatus;
@@ -18,7 +18,7 @@ public interface InvoiceRepository extends JpaRepository<InvoiceEntity,Long> {
 
     Optional<InvoiceEntity> findByOrder(Order order);
 
-    List<InvoiceEntity> findByCustomer(Customer customer);
+    List<InvoiceEntity> findByBusinessEntity(BusinessEntity customer);
 
     List<InvoiceEntity> findByStatus(InvoiceStatus status);
 

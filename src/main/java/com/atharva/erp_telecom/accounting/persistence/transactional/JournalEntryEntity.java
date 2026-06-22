@@ -55,7 +55,7 @@ public class JournalEntryEntity {
     @Column(nullable = false)
     private LocalDateTime postingDate;
 
-    @OneToMany(mappedBy = "journalEntry", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "journalEntryEntity", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<JournalEntryLineEntity> lines = new ArrayList<>();
 

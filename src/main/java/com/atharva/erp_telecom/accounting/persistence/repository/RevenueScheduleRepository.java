@@ -1,6 +1,6 @@
 package com.atharva.erp_telecom.accounting.persistence.repository;
 
-import com.atharva.erp_telecom.accounting.persistence.masterdata.RevenueScheduleEntity;
+import com.atharva.erp_telecom.accounting.persistence.config.RevenueScheduleEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -15,7 +15,7 @@ public interface RevenueScheduleRepository
 
     @Query("""
         SELECT rs
-        FROM RevenueSchedule rs
+        FROM RevenueScheduleEntity rs
         WHERE rs.status = 'ACTIVE'
           AND rs.startDate <= :runDate
           AND rs.endDate >= :runDate
@@ -30,9 +30,9 @@ public interface RevenueScheduleRepository
 
     @Query("""
         SELECT rs
-        FROM RevenueSchedule rs
-        WHERE rs.companyId = :companyId
+        FROM RevenueScheduleEntity rs
+        WHERE rs.companyCode = :companyCode
         ORDER BY rs.lastRecognizedPeriod DESC NULLS LAST
     """)
-    List<RevenueScheduleEntity> findRevRecStatus(Long companyId);
+    List<RevenueScheduleEntity> findRevRecStatus(String companyCode);
 }

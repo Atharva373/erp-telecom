@@ -79,7 +79,7 @@ public class CompanyService {
         if (newCompany.getParentCompanyId() != null) {
             CompanyEntity parent = companyRepository.findById(newCompany.getParentCompanyId())
                     .orElseThrow(() -> new ResourceNotFoundException("Parent company not found with ID: " + newCompany.getParentCompanyId()));
-            existingCompanyEntity.setParentCompanyEntity(parent);
+            existingCompanyEntity.setParentCompany(parent);
         }
 
         existingCompanyEntity.setUpdatedOn(LocalDateTime.now());

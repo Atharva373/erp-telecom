@@ -1,11 +1,11 @@
 package com.atharva.erp_telecom.accounting.service;
 
 import com.atharva.erp_telecom.accounting.engine.PostingEngine;
-import com.atharva.erp_telecom.accounting.dto.PostingContext;
+import com.atharva.erp_telecom.accounting.engine.context.PostingContext;
 import com.atharva.erp_telecom.accounting.enums.AccountingEventType;
 import com.atharva.erp_telecom.accounting.enums.RevenueRecognitionType;
 import com.atharva.erp_telecom.accounting.enums.RevenueScheduleStatus;
-import com.atharva.erp_telecom.accounting.persistence.masterdata.RevenueScheduleEntity;
+import com.atharva.erp_telecom.accounting.persistence.config.RevenueScheduleEntity;
 import com.atharva.erp_telecom.accounting.persistence.repository.RevenueScheduleRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,14 +54,14 @@ public class RevenueRecognitionExecutor {
             if (amount.signum() <= 0) continue;
 
             //  Build PostingContext
-            PostingContext ctx = new PostingContext();
-            ctx.setCompanyCode(rs.getCompanyCode());
-            ctx.setEventType(
-                    rs.getRecognitionType() == RevenueRecognitionType.DEFERRED
-                            ? AccountingEventType.REVREC_DEFERRED
-                            : AccountingEventType.REVREC_ACCRUED
-            );
-            ctx.putVar("RECOG_AMOUNT", amount);
+            PostingContext ctx = PostingContext.builder().build();
+//            ctx.setCompanyCode(rs.getCompanyCode());
+//            ctx.setEventType(
+//                    rs.getRecognitionType() == RevenueRecognitionType.DEFERRED
+//                            ? AccountingEventType.REVREC_DEFERRED
+//                            : AccountingEventType.REVREC_ACCRUED
+//            );
+//            ctx.putVar("RECOG_AMOUNT", amount);
 
             // Post
             postingEngine.post(ctx);

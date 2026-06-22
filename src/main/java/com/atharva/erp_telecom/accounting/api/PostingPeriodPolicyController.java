@@ -1,6 +1,6 @@
 package com.atharva.erp_telecom.accounting.api;
 
-import com.atharva.erp_telecom.accounting.persistence.masterdata.PostingPeriodPolicyEntity;
+import com.atharva.erp_telecom.accounting.persistence.config.PostingPeriodPolicyEntity;
 import com.atharva.erp_telecom.accounting.persistence.repository.PostingPeriodPolicyRepository;
 import com.atharva.erp_telecom.accounting.service.PostingPeriodPolicyService;
 import org.springframework.security.access.prepost.PreAuthorize;

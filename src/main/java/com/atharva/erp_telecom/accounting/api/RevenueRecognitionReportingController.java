@@ -22,9 +22,7 @@ public class RevenueRecognitionReportingController {
     }
 
     @GetMapping("/status")
-    public List<RevenueRecognitionJobRunStatusDTO> status(
-            @RequestParam Long companyId
-    ) {
-        return service.getStatus(companyId);
+    public List<RevenueRecognitionJobRunStatusDTO> status(@RequestParam String companyCode) {
+        return service.getStatus(companyCode);
     }
 }

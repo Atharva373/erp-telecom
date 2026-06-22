@@ -41,7 +41,7 @@ public class InvoiceEntity {
     @JsonBackReference
     private Order order;
 
-    @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "invoiceEntity", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<InvoiceItemEntity> invoiceItemEntities = new ArrayList<>();
 
     @Column(nullable = false)
@@ -86,7 +86,7 @@ public class InvoiceEntity {
     // --- Helper Methods ---
     public void addItem(InvoiceItemEntity item) {
         invoiceItemEntities.add(item);
-        item.setInvoice(this);
+        item.setInvoiceEntity(this);
     }
 
     public void setOrder(Order order) {

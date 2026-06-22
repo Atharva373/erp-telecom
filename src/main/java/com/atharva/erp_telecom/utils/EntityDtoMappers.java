@@ -10,9 +10,9 @@ import com.atharva.erp_telecom.finance.dto.InvoiceResponse;
 import com.atharva.erp_telecom.salesorder.dto.OrderItemResponse;
 import com.atharva.erp_telecom.salesorder.dto.OrderResponse;
 import com.atharva.erp_telecom.salesorder.dto.ProductResponse;
-import com.atharva.erp_telecom.accounting.persistence.masterdata.ChartOfAccountEntity;
-import com.atharva.erp_telecom.accounting.persistence.masterdata.PostingRuleEntity;
-import com.atharva.erp_telecom.accounting.persistence.masterdata.PostingRuleLineEntity;
+import com.atharva.erp_telecom.accounting.persistence.config.ChartOfAccountEntity;
+import com.atharva.erp_telecom.accounting.persistence.config.PostingRuleEntity;
+import com.atharva.erp_telecom.accounting.persistence.config.PostingRuleLineEntity;
 import com.atharva.erp_telecom.invoicing.persistence.masterdata.ChargePlan;
 import com.atharva.erp_telecom.crm.persistence.masterdata.BusinessEntity;
 import com.atharva.erp_telecom.finance.persistence.transactional.InvoiceItemEntity;
@@ -182,7 +182,7 @@ public class EntityDtoMappers {
         if(request.getParentCompanyId() != null){
             CompanyEntity parent = companyRepository.findById(request.getParentCompanyId())
                     .orElseThrow(() -> new RuntimeException("Parent companyEntity not found"));
-            companyEntity.setParentCompanyEntity(parent);
+            companyEntity.setParentCompany(parent);
         }
         return companyEntity;
     }

@@ -1,7 +1,7 @@
 package com.atharva.erp_telecom.accounting.service;
 
 import com.atharva.erp_telecom.accounting.dto.RevenueRecognitionJobRunStatusDTO;
-import com.atharva.erp_telecom.accounting.persistence.masterdata.RevenueScheduleEntity;
+import com.atharva.erp_telecom.accounting.persistence.config.RevenueScheduleEntity;
 import com.atharva.erp_telecom.accounting.persistence.repository.RevenueScheduleRepository;
 import org.springframework.stereotype.Service;
 
@@ -37,8 +37,8 @@ public class RevenueRecognitionService {
     }
 
     // For reporting --> Getting the status of the Rev-rec Job run
-    public List<RevenueRecognitionJobRunStatusDTO> getStatus(Long companyId) {
-        return repository.findRevRecStatus(companyId)
+    public List<RevenueRecognitionJobRunStatusDTO> getStatus(String companyCode) {
+        return repository.findRevRecStatus(companyCode)
                 .stream()
                 .map(this::map)
                 .toList();

@@ -11,5 +11,5 @@ public interface JournalEntryRepository extends JpaRepository<JournalEntryEntity
 
     List<JournalEntryEntity> findBySourceTransactionIdAndEventType(String transactionId, AccountingEventType transactionType);
 
-    List<JournalEntryEntity> findByCompanyIdAndPostingDateBetween(Long companyId, LocalDate from, LocalDate to);
+    // List<JournalEntryEntity> findByCompanyCodeAndPostingDateBetween(String companyId, LocalDate from, LocalDate to);
 }

@@ -1,9 +1,14 @@
 package com.atharva.erp_telecom.accounting.service;
 
 import com.atharva.erp_telecom.accounting.dto.PostingPeriodRequest;
-import com.atharva.erp_telecom.accounting.persistence.masterdata.PostingPeriodEntity;
+import com.atharva.erp_telecom.accounting.dto.PostingPeriodResponse;
+import com.atharva.erp_telecom.accounting.persistence.config.PostingPeriodEntity;
 import com.atharva.erp_telecom.accounting.enums.PeriodStatus;
 import com.atharva.erp_telecom.accounting.persistence.repository.PostingPeriodRepository;
+import com.atharva.erp_telecom.accounting.mapper.AccountingMappers;
+import com.atharva.erp_telecom.exception.custom_exceptions.IllegalPostingRuleException;
+import com.atharva.erp_telecom.finance.persistence.masterdata.CompanyEntity;
+import com.atharva.erp_telecom.finance.persistence.repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,11 +20,15 @@ import java.util.List;
 @Service
 public class PostingPeriodService {
 
-    private final PostingPeriodRepository repository;
+    private final PostingPeriodRepository postingPeriodRepository;
+    private final CompanyRepository companyRepository;
+    private final AccountingMappers mappers;
 
     @Autowired
-    public PostingPeriodService(PostingPeriodRepository repository) {
-        this.repository = repository;
+    public PostingPeriodService(PostingPeriodRepository postingPeriodRepository, CompanyRepository companyRepository, AccountingMappers mappers) {
+        this.postingPeriodRepository = postingPeriodRepository;
+        this.companyRepository = companyRepository;
+        this.mappers = mappers;
     }
 
     /* ==============================
@@ -31,8 +40,8 @@ public class PostingPeriodService {
         int fiscalYear = postingDate.getYear();
         int period = postingDate.getMonthValue();
 
-        PostingPeriodEntity pp = repository
-                .findByCompanyCodeAndFiscalYearAndPostingPeriod(
+        PostingPeriodEntity pp = postingPeriodRepository
+                .findByCompany_CompanyCodeAndFiscalYearAndPostingPeriod(
                         companyCode, fiscalYear, period
                 )
                 .orElseThrow(() ->
@@ -49,23 +58,18 @@ public class PostingPeriodService {
     @Transactional
     public PostingPeriodEntity create(PostingPeriodRequest req) {
 
-        repository.findByCompanyCodeAndFiscalYearAndPostingPeriod(
-                req.getCompanyCode(),
-                req.getFiscalYear(),
-                req.getPostingPeriod()
-        ).ifPresent(pp -> {
-            throw new IllegalStateException("Posting period already exists with current combination of CompanyCode, FiscalYear and PostingPeriodEntity !");
-        });
+//        postingPeriodRepository.findByCompany_CompanyCodeAndFiscalYearAndPostingPeriod(
+//                req.getCompanyCode(),
+//                req.getFiscalYear(),
+//                req.getPostingPeriod()
+//        ).ifPresent(pp -> {
+//            throw new IllegalStateException("Posting period already exists with current combination of CompanyCode, FiscalYear and PostingPeriodEntity !");
+//        });
 
-        PostingPeriodEntity period = new PostingPeriodEntity();
-        period.setCompanyCode(req.getCompanyCode());
-        period.setFiscalYear(req.getFiscalYear());
-        period.setPostingPeriod(req.getPostingPeriod());
-        period.setPeriodStart(req.getPeriodStart());
-        period.setPeriodEnd(req.getPeriodEnd());
-        period.setStatus(PeriodStatus.OPEN);
 
-        return repository.save(period);
+        CompanyEntity company = companyRepository.findByCompanyCode(req.getCompanyCode()).orElseThrow(() -> new RuntimeException("Company NOT found"));
+        PostingPeriodEntity period = mappers.toPostingPeriodEntity(req,company);
+        return postingPeriodRepository.save(period);
     }
 
     /* ==============================
@@ -119,29 +123,37 @@ public class PostingPeriodService {
        ============================== */
 
     public PostingPeriodEntity get(Long id) {
-        return repository.findById(id)
+        return postingPeriodRepository.findById(id)
                 .orElseThrow(() ->
                         new IllegalArgumentException("Posting period not found")
                 );
     }
 
-    public List<PostingPeriodEntity> getAll(String companyCode) {
-        return repository.findByCompanyCodeAndFiscalYear(
+    public List<PostingPeriodResponse> getAll(String companyCode) {
+        List<PostingPeriodEntity> returnedPeriods = postingPeriodRepository.findByCompany_CompanyCodeAndFiscalYear(
                 companyCode, LocalDate.now().getYear()
         );
+        return returnedPeriods.stream()
+                .map(mappers::toPostingPeriodResponse).toList();
     }
 
-    public void assertOpen(
-            String companyCode,
-            int year,
-            int period
-    ) {
-        PostingPeriodEntity pp = load(companyCode, year, period);
+    public PostingPeriodEntity getRequiredOpenPeriod(String companyCode,LocalDate eventDate){
 
+        PostingPeriodEntity period = postingPeriodRepository.getRequiredPeriod(companyCode,eventDate);
+        if (period == null) {
+            throw new IllegalPostingRuleException("Posting period not configured for company=" + companyCode + ", date=" + eventDate);
+        }
+
+        if (period.getStatus() != PeriodStatus.OPEN) {
+            throw new IllegalPostingRuleException("Posting period is closed for company=" + companyCode + ", period=" + period.getPostingPeriod());
+        }
+        return period;
+    }
+
+    public void assertOpen(String companyCode,int year,int period) {
+        PostingPeriodEntity pp = load(companyCode, year, period);
         if (pp.getStatus() != PeriodStatus.OPEN) {
-            throw new IllegalStateException(
-                    "Posting period not OPEN: " + year + "-" + period
-            );
+            throw new IllegalStateException("Posting period not OPEN: " + year + "-" + period);
         }
     }
 
@@ -168,7 +180,7 @@ public class PostingPeriodService {
     }
 
     private PostingPeriodEntity load(String companyCode, int year, int period) {
-        return repository.findByCompanyCodeAndFiscalYearAndPostingPeriod(companyCode, year, period)
+        return postingPeriodRepository.findByCompany_CompanyCodeAndFiscalYearAndPostingPeriod(companyCode, year, period)
                 .orElseThrow(() ->
                         new IllegalStateException("Posting period not configured"));
     }

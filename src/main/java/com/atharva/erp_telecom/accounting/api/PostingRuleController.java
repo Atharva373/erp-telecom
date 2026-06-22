@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/masterdata/finance/accounting/posting-rules")
+@RequestMapping("/config/finance/accounting/posting-rules")
 @PreAuthorize("hasAnyRole('ADMIN','CONSULTANT')")
 public class PostingRuleController {
 

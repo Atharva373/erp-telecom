@@ -2,6 +2,8 @@ package com.atharva.erp_telecom.iam.persistence.entity;
 
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -9,6 +11,8 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
+@Setter
+@Getter
 @Entity
 @Table(name="users")
 public class User {
@@ -44,6 +48,7 @@ public class User {
     @Column(name = "updated_time",nullable = false,insertable = false)
     private LocalDateTime updatedTime;
 
+    // Reverted back to the older version for setter.
     // (Best practice to use this) --> This is our join table which stores a many-to-many mapping for all the users and corresponding roles.
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -53,74 +58,4 @@ public class User {
     )
     private Set<Role> roles = new HashSet<>();
 
-    public Long getUserId() {
-        return userId;
-    }
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getUserFirstName() {
-        return userFirstName;
-    }
-    public void setUserFirstName(String userFirstName) {
-        this.userFirstName = userFirstName;
-    }
-
-    public String getUserLastName() {
-        return userLastName;
-    }
-    public void setUserLastName(String userLastName) {
-        this.userLastName = userLastName;
-    }
-
-    public String getCustomerId() {
-        return customerId;
-    }
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
-    }
-
-    public Boolean getEnabled() {
-        return enabled;
-    }
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public LocalDateTime getCreateTime() {
-        return createTime;
-    }
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
-    }
-
-    public LocalDateTime getUpdatedTime() {
-        return updatedTime;
-    }
-    public void setUpdatedTime(LocalDateTime updatedTime) {
-        this.updatedTime = updatedTime;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-    // Reverted back to the older version for setter.
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
 }

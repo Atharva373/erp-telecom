@@ -1,6 +1,6 @@
 package com.atharva.erp_telecom.accounting.jobs;
 
-import com.atharva.erp_telecom.accounting.persistence.masterdata.PostingPeriodEntity;
+import com.atharva.erp_telecom.accounting.persistence.config.PostingPeriodEntity;
 import com.atharva.erp_telecom.accounting.enums.PeriodStatus;
 import com.atharva.erp_telecom.accounting.persistence.repository.PostingPeriodRepository;
 import org.springframework.scheduling.annotation.Scheduled;

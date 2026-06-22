@@ -12,7 +12,7 @@ import org.slf4j.*;
 import java.util.*;
 
 @RestController
-@RequestMapping("/customer")
+@RequestMapping("/businessentity")
 public class BusinessEntityController {
     private static final Logger customerControllerLogger = LoggerFactory.getLogger(BusinessEntityController.class);
     private final BusinessEntityService businessEntityService;
@@ -22,8 +22,7 @@ public class BusinessEntityController {
         this.businessEntityService = businessEntityService;
     }
 
-    @GetMapping("/get")
-    public Object getBusinessEntitys(@RequestParam(value = "id",required = false) String customerId){
+    public Object getBusinessEntities(@RequestParam(value = "id",required = false) String customerId){
         // Get single customer by ID
         if(customerId!=null) {
             Optional<BusinessEntity> fetchedBusinessEntity = businessEntityService.getBusinessEntityById(Long.parseLong(customerId));
@@ -38,13 +37,11 @@ public class BusinessEntityController {
         }
     }
 
-    @PostMapping("/new")
     public ResponseEntity<BusinessEntity> createBusinessEntity(@RequestBody BusinessEntity customer){
         BusinessEntity responseFromDB = businessEntityService.createBusinessEntity(customer);
         return new ResponseEntity<BusinessEntity>(responseFromDB,HttpStatus.CREATED);
     }
 
-    @PostMapping("/update")
     public ResponseEntity<BusinessEntity> updateBusinessEntity(@RequestBody BusinessEntity customer){
         return new ResponseEntity<>(customer,HttpStatus.OK);
     }

@@ -10,9 +10,10 @@ import java.util.Optional;
 
 @Repository
 public interface InvoiceItemRepository extends JpaRepository<InvoiceItemEntity,Long> {
-    List<InvoiceItemEntity> findByInvoice(InvoiceEntity invoiceEntity);
+    List<InvoiceItemEntity> findByInvoiceEntity(InvoiceEntity invoiceEntity);
 
     Optional<InvoiceItemEntity> findByInvoiceItemNumber(String invoiceItemNumber);
 
-    Long countByInvoice(InvoiceEntity invoiceEntity);
+    Long countByInvoiceEntity(InvoiceEntity invoiceEntity);
 }
+

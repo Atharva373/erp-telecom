@@ -1,8 +1,8 @@
 package com.atharva.erp_telecom.accounting.service;
 
 import com.atharva.erp_telecom.finance.persistence.masterdata.CompanyEntity;
-import com.atharva.erp_telecom.accounting.persistence.masterdata.PostingRuleEntity;
-import com.atharva.erp_telecom.accounting.persistence.masterdata.PostingRuleLineEntity;
+import com.atharva.erp_telecom.accounting.persistence.config.PostingRuleEntity;
+import com.atharva.erp_telecom.accounting.persistence.config.PostingRuleLineEntity;
 import com.atharva.erp_telecom.accounting.enums.EntryType;
 import com.atharva.erp_telecom.exception.custom_exceptions.IllegalPostingRuleException;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ public class PostingRuleValidator {
         validateEffectiveDates(rule);
 
         // Validate the header conditional expression.
-        validateConditionExpression(rule.getHeaderConditionExpression());
+        validateHeaderConditionExpression(rule.getHeaderConditionExpression());
 
         boolean hasDebit = false;
         boolean hasCredit = false;
@@ -65,7 +65,7 @@ public class PostingRuleValidator {
             }
 
             validateAmountExpression(line.getAmountExpression());
-            validateConditionExpression(line.getItemConditionExpression());
+            validateLineConditionExpression(line.getItemConditionExpression());
         }
 
         // Must have both debit and credit
@@ -96,15 +96,30 @@ public class PostingRuleValidator {
     }
 
     /**
-     * Method to validate Conditional Expressions to be evaluated at Runtime using SPeL in Posting Rule.
-     * @param expression
+     * Method to validate Conditional Expressions to be evaluated at Runtime using SPeL in Posting Rule - for header.
+     * @param expression String param for expression
      */
-    private void validateConditionExpression(String expression) {
+    private void validateHeaderConditionExpression(String expression) {
         if (expression == null || expression.isBlank())
-            throw new IllegalPostingRuleException("Header Condition Expression should not be null or empty.");
+            //throw new IllegalPostingRuleException("Header Condition Expression should not be null or empty.");
+            return;
 
         if (!expression.matches(HEADER_CONDITION_ALLOWED_PATTERN)) {
-            throw new IllegalPostingRuleException("Condition expression has illegal characters.");
+            throw new IllegalPostingRuleException("Condition expression for posting rule header has illegal characters.");
+        }
+    }
+    /**
+     * Method to validate Conditional Expressions to be evaluated at Runtime using SPeL in Posting Rule - for line items level.
+     * @param expression String param for expression
+     *
+     */
+    private void validateLineConditionExpression(String expression) {
+        if (expression == null || expression.isBlank())
+            //throw new IllegalPostingRuleException("Header Condition Expression should not be null or empty.");
+            return;
+
+        if (!expression.matches(HEADER_CONDITION_ALLOWED_PATTERN)) {
+            throw new IllegalPostingRuleException("Condition expression for posting rule lines has illegal characters.");
         }
     }
 

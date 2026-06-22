@@ -1,6 +1,6 @@
 package com.atharva.erp_telecom.accounting.persistence.transactional;
 
-import com.atharva.erp_telecom.accounting.persistence.masterdata.SubledgerAccountEntity;
+import com.atharva.erp_telecom.accounting.persistence.config.SubledgerAccountEntity;
 import com.atharva.erp_telecom.accounting.enums.SubledgerEventType;
 import com.atharva.erp_telecom.accounting.enums.SubledgerStatus;
 import com.atharva.erp_telecom.accounting.enums.SubledgerType;

@@ -1,12 +1,14 @@
 package com.atharva.erp_telecom.salesorder.persistence.transactional;
 
 
+import com.atharva.erp_telecom.crm.persistence.masterdata.BusinessEntity;
 import com.atharva.erp_telecom.invoicing.persistence.masterdata.ChargePlan;
-import com.atharva.erp_telecom.entity.crm.Customer;
 import com.atharva.erp_telecom.salesorder.enums.ContractStatus;
 import com.atharva.erp_telecom.salesorder.persistence.masterdata.Product;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -17,6 +19,8 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "contracts")
 @EntityListeners(AuditingEntityListener.class)
+@Getter
+@Setter
 public class Contract {
 
     public Contract() {}
@@ -29,8 +33,8 @@ public class Contract {
     private String contractNumber;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "customer_id",nullable = false)
-    private Customer customer;
+    @JoinColumn(name = "business_entity_id",nullable = false)
+    private BusinessEntity businessEntity;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "product_id", nullable = false)
@@ -83,115 +87,5 @@ public class Contract {
         }
     }
 
-    public Long getContractId() {
-        return contractId;
-    }
 
-    public void setContractId(Long contractId) {
-        this.contractId = contractId;
-    }
-
-    public String getContractNumber() {
-        return contractNumber;
-    }
-
-    public void setContractNumber(String contractNumber) {
-        this.contractNumber = contractNumber;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public LocalDate getContractStartDate() {
-        return contractStartDate;
-    }
-
-    public void setContractStartDate(LocalDate contractStartDate) {
-        this.contractStartDate = contractStartDate;
-    }
-
-    public LocalDate getContractEndDate() {
-        return contractEndDate;
-    }
-
-    public void setContractEndDate(LocalDate contractEndDate) {
-        this.contractEndDate = contractEndDate;
-    }
-
-    public ContractStatus getContractStatus() {
-        return contractStatus;
-    }
-
-    public void setContractStatus(ContractStatus contractStatus) {
-        this.contractStatus = contractStatus;
-    }
-
-    public String getDeactivationReason() {
-        return deactivationReason;
-    }
-
-    public void setDeactivationReason(String deactivationReason) {
-        this.deactivationReason = deactivationReason;
-    }
-
-    public LocalDateTime getCreatedOn() {
-        return createdOn;
-    }
-
-    public void setCreatedOn(LocalDateTime createdOn) {
-        this.createdOn = createdOn;
-    }
-
-    public LocalDateTime getUpdatedOn() {
-        return updatedOn;
-    }
-
-    public void setUpdatedOn(LocalDateTime updatedOn) {
-        this.updatedOn = updatedOn;
-    }
-
-    public MasterAgreement getMasterAgreement() {
-        return masterAgreement;
-    }
-
-    public void setMasterAgreement(MasterAgreement masterAgreement) {
-        this.masterAgreement = masterAgreement;
-    }
-
-    public OrderItem getOrderItem() {
-        return orderItem;
-    }
-
-    public void setOrderItem(OrderItem orderItem) {
-        this.orderItem = orderItem;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public String getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
 }

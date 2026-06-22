@@ -1,4 +1,4 @@
-package com.atharva.erp_telecom.accounting.persistence.masterdata;
+package com.atharva.erp_telecom.accounting.persistence.config;
 
 import com.atharva.erp_telecom.finance.persistence.masterdata.CompanyEntity;
 import com.atharva.erp_telecom.accounting.enums.AccountingEventType;
@@ -69,7 +69,7 @@ public class PostingRuleEntity {
     private CompanyEntity companyEntity;
 
     @OneToMany(
-            mappedBy = "postingRule",
+            mappedBy = "postingRuleEntity",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )

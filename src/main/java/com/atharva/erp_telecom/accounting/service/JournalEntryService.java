@@ -64,12 +64,12 @@ public class JournalEntryService {
     /**
      * Fetch all entries for a company in a date range
      */
-    public List<JournalEntryEntity> findByCompanyAndDate(
-            Long companyId, LocalDate from, LocalDate to) {
-
-        return journalEntryRepository
-                .findByCompanyIdAndPostingDateBetween(companyId, from, to);
-    }
+//    public List<JournalEntryEntity> findByCompanyAndDate(
+//            Long companyId, LocalDate from, LocalDate to) {
+//
+//        return journalEntryRepository
+//                .findByCompanyIdAndPostingDateBetween(companyId, from, to);
+//    }
 
     /**
      * Reverse an existing JE by generating a new reversed document
@@ -85,7 +85,7 @@ public class JournalEntryService {
 
         JournalEntryEntity reversal = new JournalEntryEntity();
 
-        reversal.setCompanyId(original.getCompanyId());
+        reversal.setCompanyCode(original.getCompanyCode());
         reversal.setEventType(original.getEventType());
         reversal.setPostingRuleId(original.getPostingRuleId());
         reversal.setPostingDate(LocalDateTime.now());

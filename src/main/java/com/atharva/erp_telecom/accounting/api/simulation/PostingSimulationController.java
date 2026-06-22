@@ -1,6 +1,6 @@
-package com.atharva.erp_telecom.accounting.api;
+package com.atharva.erp_telecom.accounting.api.simulation;
 
-import com.atharva.erp_telecom.accounting.dto.PostingContext;
+import com.atharva.erp_telecom.accounting.engine.context.PostingContext;
 import com.atharva.erp_telecom.accounting.persistence.transactional.JournalEntryEntity;
 import com.atharva.erp_telecom.accounting.engine.PostingEngine;
 import org.springframework.security.access.prepost.PreAuthorize;

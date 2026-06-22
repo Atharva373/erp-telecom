@@ -1,4 +1,4 @@
-package com.atharva.erp_telecom.accounting.persistence.masterdata;
+package com.atharva.erp_telecom.accounting.persistence.config;
 
 import jakarta.persistence.*;
 import lombok.Getter;

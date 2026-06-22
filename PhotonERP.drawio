@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" version="29.4.0" pages="5">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" pages="6">
   <diagram id="PriNzfz--dKBBDu-1lDP" name="Project Structure">
     <mxGraphModel dx="2528" dy="884" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -1130,6 +1130,404 @@
         </mxCell>
         <mxCell id="uD9aJ76kWfOtOLw8fU9--1" parent="uD9aJ76kWfOtOLw8fU9--3" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;&lt;span style=&quot;background-color: transparent; font-weight: normal;&quot;&gt;This section describes the CRM side of Photon for the Customers/Businesses interacting with Photon. We have 2 key entities:&lt;/span&gt;&lt;br&gt;&lt;/font&gt;&lt;/h1&gt;&lt;p&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;1. &lt;b&gt;BusinessEntity &lt;/b&gt;- Standalone Generic entity for representing the Business / Individual customer.&lt;br&gt;&lt;br&gt;2. &lt;b&gt;FinanceProfile &lt;/b&gt;- Linkage from a Business entity to Finance parameters like:&lt;/font&gt;&lt;/p&gt;&lt;blockquote style=&quot;margin: 0 0 0 40px; border: none; padding: 0px;&quot;&gt;&lt;p&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;- AR/AP&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;- Which &lt;/span&gt;&lt;strong data-start=&quot;662&quot; data-end=&quot;684&quot; style=&quot;background-color: transparent;&quot;&gt;GL control account&lt;/strong&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt; is used?&lt;br&gt;&lt;/span&gt;&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;- Credit limits&lt;/font&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;- Currency&lt;/font&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;- Payment Terms&lt;/font&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;- Dunning&lt;/font&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;- Posting behavior&lt;/font&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;- Collective invoicing.&lt;/font&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;b style=&quot;font-size: 15px; background-color: transparent;&quot;&gt;Cardinality&lt;/b&gt;&lt;span style=&quot;font-size: 15px; background-color: transparent;&quot;&gt;:&lt;/span&gt;&lt;/p&gt;&lt;div&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;BusinessEntity 1 ──── N FinanceProfiles&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;&lt;b&gt;FinanceProfile &lt;/b&gt;is strictly linked to Subledgers and all the finance processes that directly affect the Subledger. It does not directly touch the CRM part of things.&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;/blockquote&gt;" vertex="1">
           <mxGeometry height="550" width="750" x="45" y="120" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="e0qYL5z3xJstTIN4sQ0h" name="Posting HLD+LLD">
+    <mxGraphModel dx="2934" dy="1624" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-6" edge="1" parent="1" source="X3iPOrNOpCjzpE6P9R9Q-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="X3iPOrNOpCjzpE6P9R9Q-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-1" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="Accounting event" vertex="1">
+          <mxGeometry height="200" width="200" x="80" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-23" parent="X3iPOrNOpCjzpE6P9R9Q-1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="This is the incoming financial/sales event that triggers an accounting event" vertex="1">
+          <mxGeometry height="100" width="140" x="30" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-2" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;h1&gt;MASTER LLD and HLD - POSTING&lt;/h1&gt;" vertex="1">
+          <mxGeometry height="30" width="550" x="190" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-3" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;h2&gt;1. High-level flow (HLD)&lt;/h2&gt;" vertex="1">
+          <mxGeometry height="30" width="230" x="80" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-14" edge="1" parent="1" source="X3iPOrNOpCjzpE6P9R9Q-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="X3iPOrNOpCjzpE6P9R9Q-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-4" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="Posting Context" vertex="1">
+          <mxGeometry height="200" width="200" x="360" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-41" parent="X3iPOrNOpCjzpE6P9R9Q-4" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="This is the container that holds all the variables in the postable event." vertex="1">
+          <mxGeometry height="90" width="100" x="50" y="55" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-11" edge="1" parent="1" source="X3iPOrNOpCjzpE6P9R9Q-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="X3iPOrNOpCjzpE6P9R9Q-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-5" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="Posting Rule Resolver" vertex="1">
+          <mxGeometry height="200" width="200" x="640" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-42" parent="X3iPOrNOpCjzpE6P9R9Q-5" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Based off of the information in the Posting Context, the accurate Posting rule is determined here" vertex="1">
+          <mxGeometry height="80" width="100" x="50" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-7" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="1" vertex="1">
+          <mxGeometry height="30" width="20" x="310" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-13" edge="1" parent="1" source="X3iPOrNOpCjzpE6P9R9Q-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" target="X3iPOrNOpCjzpE6P9R9Q-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-9" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="Posting Rules" vertex="1">
+          <mxGeometry height="300" width="200" x="936" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-44" parent="X3iPOrNOpCjzpE6P9R9Q-9" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Determines accounting treatment for the event" vertex="1">
+          <mxGeometry height="90" width="130" x="35" y="105" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-12" edge="1" parent="1" source="X3iPOrNOpCjzpE6P9R9Q-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" target="X3iPOrNOpCjzpE6P9R9Q-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-16" edge="1" parent="1" source="X3iPOrNOpCjzpE6P9R9Q-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="X3iPOrNOpCjzpE6P9R9Q-15" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-32" edge="1" parent="1" source="X3iPOrNOpCjzpE6P9R9Q-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="X3iPOrNOpCjzpE6P9R9Q-31" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-10" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="Posting Engine" vertex="1">
+          <mxGeometry height="300" width="240" x="620" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-43" parent="X3iPOrNOpCjzpE6P9R9Q-10" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Orchestrates accounting posting flow.Heart of all the processing and validation for posting the GL or Subledger entries" vertex="1">
+          <mxGeometry height="120" width="110" x="65" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-15" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="Journal Entry" vertex="1">
+          <mxGeometry height="300" width="240" x="280" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-18" parent="X3iPOrNOpCjzpE6P9R9Q-15" style="rounded=0;whiteSpace=wrap;html=1;" value="Journal Entry Line item 1" vertex="1">
+          <mxGeometry height="40" width="170" x="30" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-19" parent="X3iPOrNOpCjzpE6P9R9Q-15" style="rounded=0;whiteSpace=wrap;html=1;" value="Journal Entry Line item 2" vertex="1">
+          <mxGeometry height="40" width="170" x="30" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-20" parent="X3iPOrNOpCjzpE6P9R9Q-15" style="rounded=0;whiteSpace=wrap;html=1;" value="Journal Entry Line item 3" vertex="1">
+          <mxGeometry height="40" width="170" x="30" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-21" parent="X3iPOrNOpCjzpE6P9R9Q-15" style="rounded=0;whiteSpace=wrap;html=1;" value="Journal Entry Line item N" vertex="1">
+          <mxGeometry height="40" width="170" x="30" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-22" edge="1" parent="X3iPOrNOpCjzpE6P9R9Q-15" source="X3iPOrNOpCjzpE6P9R9Q-21" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="X3iPOrNOpCjzpE6P9R9Q-20" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="-180" y="170" as="sourcePoint" />
+            <mxPoint x="-130" y="120" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-24" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="3" vertex="1">
+          <mxGeometry height="30" width="20" x="750" y="490" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-25" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="2" vertex="1">
+          <mxGeometry height="30" width="20" x="590" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-26" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="4" vertex="1">
+          <mxGeometry height="30" width="20" x="890" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-27" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="5" vertex="1">
+          <mxGeometry height="30" width="20" x="890" y="770" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-28" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="6" vertex="1">
+          <mxGeometry height="30" width="20" x="560" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-29" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="is Postpaid = false" vertex="1">
+          <mxGeometry height="30" width="60" x="540" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-30" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="is Postpaid = true" vertex="1">
+          <mxGeometry height="30" width="60" x="670" y="870" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-39" edge="1" parent="1" source="X3iPOrNOpCjzpE6P9R9Q-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="X3iPOrNOpCjzpE6P9R9Q-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-31" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="Subledger" vertex="1">
+          <mxGeometry height="300" width="240" x="620" y="920" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-33" parent="X3iPOrNOpCjzpE6P9R9Q-31" style="rounded=0;whiteSpace=wrap;html=1;" value="Subledger Entry Line item 1" vertex="1">
+          <mxGeometry height="40" width="170" x="35" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-34" parent="X3iPOrNOpCjzpE6P9R9Q-31" style="rounded=0;whiteSpace=wrap;html=1;" value="Subledger Entry Line item 2" vertex="1">
+          <mxGeometry height="40" width="170" x="35" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-35" parent="X3iPOrNOpCjzpE6P9R9Q-31" style="rounded=0;whiteSpace=wrap;html=1;" value="Subledger Entry Line item 3" vertex="1">
+          <mxGeometry height="40" width="170" x="35" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-36" parent="X3iPOrNOpCjzpE6P9R9Q-31" style="rounded=0;whiteSpace=wrap;html=1;" value="Subledger Entry Line item N" vertex="1">
+          <mxGeometry height="40" width="170" x="35" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-37" edge="1" parent="X3iPOrNOpCjzpE6P9R9Q-31" source="X3iPOrNOpCjzpE6P9R9Q-36" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="X3iPOrNOpCjzpE6P9R9Q-35" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="-175" y="180" as="sourcePoint" />
+            <mxPoint x="-125" y="130" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-38" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="6" vertex="1">
+          <mxGeometry height="30" width="20" x="750" y="870" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-40" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="7" vertex="1">
+          <mxGeometry height="30" width="20" x="490" y="1080" as="geometry" />
+        </mxCell>
+        <mxCell id="X3iPOrNOpCjzpE6P9R9Q-45" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Post after reconciliation and past due date" vertex="1">
+          <mxGeometry height="30" width="60" x="470" y="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="JmrS_ImF020Ad9NpWwKP-1" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;" value="&lt;h2&gt;2. Low Level flow (LLD)&lt;/h2&gt;" vertex="1">
+          <mxGeometry height="30" width="230" x="80" y="1320" as="geometry" />
+        </mxCell>
+        <mxCell id="JmrS_ImF020Ad9NpWwKP-2" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;" value="&lt;h2&gt;2.1. LLD for Accounting Event orchestration (Accounting event --&amp;gt; Posting Context in HLD)&lt;/h2&gt;" vertex="1">
+          <mxGeometry height="30" width="900" x="80" y="1380" as="geometry" />
+        </mxCell>
+        <mxCell id="JmrS_ImF020Ad9NpWwKP-3" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="Accounting Event (Interface)" vertex="1">
+          <mxGeometry height="150" width="250" x="220" y="1500" as="geometry" />
+        </mxCell>
+        <mxCell id="JmrS_ImF020Ad9NpWwKP-4" parent="JmrS_ImF020Ad9NpWwKP-3" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Base skeleton for all types of Accounting events" vertex="1">
+          <mxGeometry height="70" width="100" x="75" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="JmrS_ImF020Ad9NpWwKP-5" parent="1" style="swimlane;html=1;" value="accounting/domain/event" vertex="1">
+          <mxGeometry height="240" width="320" x="80" y="2140" as="geometry" />
+        </mxCell>
+        <mxCell id="JmrS_ImF020Ad9NpWwKP-6" parent="JmrS_ImF020Ad9NpWwKP-5" style="rounded=1;whiteSpace=wrap;html=1;" value="&lt;&lt;interface&gt;&gt;&#xa;AccountingEvent" vertex="1">
+          <mxGeometry height="60" width="180" x="67" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="JmrS_ImF020Ad9NpWwKP-7" parent="JmrS_ImF020Ad9NpWwKP-5" style="rounded=1;whiteSpace=wrap;html=1;" value="InvoiceAccountingEvent" vertex="1">
+          <mxGeometry height="50" width="140" x="17" y="152" as="geometry" />
+        </mxCell>
+        <mxCell id="JmrS_ImF020Ad9NpWwKP-8" parent="JmrS_ImF020Ad9NpWwKP-5" style="rounded=1;whiteSpace=wrap;html=1;" value="PaymentAccountingEvent" vertex="1">
+          <mxGeometry height="50" width="140" x="167" y="152" as="geometry" />
+        </mxCell>
+        <mxCell id="JmrS_ImF020Ad9NpWwKP-9" parent="1" style="swimlane;html=1;" value="accounting/service" vertex="1">
+          <mxGeometry height="120" width="220" x="460" y="2160" as="geometry" />
+        </mxCell>
+        <mxCell id="JmrS_ImF020Ad9NpWwKP-10" parent="JmrS_ImF020Ad9NpWwKP-9" style="rounded=1;whiteSpace=wrap;html=1;" value="AccountingService&#xa;process(AccountingEvent)" vertex="1">
+          <mxGeometry height="50" width="160" x="30" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="JmrS_ImF020Ad9NpWwKP-11" parent="1" style="swimlane;html=1;" value="accounting/engine/factory" vertex="1">
+          <mxGeometry height="300" width="420" x="740" y="2160" as="geometry" />
+        </mxCell>
+        <mxCell id="JmrS_ImF020Ad9NpWwKP-12" parent="JmrS_ImF020Ad9NpWwKP-11" style="rounded=1;whiteSpace=wrap;html=1;" value="PostingContextFactoryResolver" vertex="1">
+          <mxGeometry height="50" width="180" x="120" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="JmrS_ImF020Ad9NpWwKP-13" parent="JmrS_ImF020Ad9NpWwKP-11" style="rounded=1;whiteSpace=wrap;html=1;" value="&lt;&lt;interface&gt;&gt;&#xa;PostingContextFactory" vertex="1">
+          <mxGeometry height="60" width="180" x="120" y="115" as="geometry" />
+        </mxCell>
+        <mxCell id="JmrS_ImF020Ad9NpWwKP-14" parent="JmrS_ImF020Ad9NpWwKP-11" style="rounded=1;whiteSpace=wrap;html=1;" value="InvoicePostingContextFactory" vertex="1">
+          <mxGeometry height="50" width="180" x="20" y="215" as="geometry" />
+        </mxCell>
+        <mxCell id="JmrS_ImF020Ad9NpWwKP-15" parent="JmrS_ImF020Ad9NpWwKP-11" style="rounded=1;whiteSpace=wrap;html=1;" value="PaymentPostingContextFactory" vertex="1">
+          <mxGeometry height="50" width="180" x="220" y="215" as="geometry" />
+        </mxCell>
+        <mxCell id="JmrS_ImF020Ad9NpWwKP-24" edge="1" parent="JmrS_ImF020Ad9NpWwKP-11" source="JmrS_ImF020Ad9NpWwKP-12" style="endArrow=block;" target="JmrS_ImF020Ad9NpWwKP-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="JmrS_ImF020Ad9NpWwKP-25" edge="1" parent="JmrS_ImF020Ad9NpWwKP-11" source="JmrS_ImF020Ad9NpWwKP-14" style="endArrow=block;endFill=0;" target="JmrS_ImF020Ad9NpWwKP-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="JmrS_ImF020Ad9NpWwKP-26" edge="1" parent="JmrS_ImF020Ad9NpWwKP-11" source="JmrS_ImF020Ad9NpWwKP-15" style="endArrow=block;endFill=0;" target="JmrS_ImF020Ad9NpWwKP-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="JmrS_ImF020Ad9NpWwKP-16" parent="1" style="swimlane;html=1;" value="accounting/engine/context" vertex="1">
+          <mxGeometry height="120" width="220" x="1210" y="2250" as="geometry" />
+        </mxCell>
+        <mxCell id="JmrS_ImF020Ad9NpWwKP-17" parent="JmrS_ImF020Ad9NpWwKP-16" style="rounded=1;whiteSpace=wrap;html=1;" value="PostingContext" vertex="1">
+          <mxGeometry height="50" width="140" x="40" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="JmrS_ImF020Ad9NpWwKP-18" parent="1" style="swimlane;html=1;" value="accounting/engine" vertex="1">
+          <mxGeometry height="120" width="220" x="1480" y="2250" as="geometry" />
+        </mxCell>
+        <mxCell id="JmrS_ImF020Ad9NpWwKP-19" parent="JmrS_ImF020Ad9NpWwKP-18" style="rounded=1;whiteSpace=wrap;html=1;" value="PostingEngine&#xa;(placeholder)" vertex="1">
+          <mxGeometry height="50" width="140" x="40" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="JmrS_ImF020Ad9NpWwKP-20" edge="1" parent="1" source="JmrS_ImF020Ad9NpWwKP-7" style="endArrow=block;endFill=0;" target="JmrS_ImF020Ad9NpWwKP-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="JmrS_ImF020Ad9NpWwKP-21" edge="1" parent="1" source="JmrS_ImF020Ad9NpWwKP-8" style="endArrow=block;endFill=0;" target="JmrS_ImF020Ad9NpWwKP-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="JmrS_ImF020Ad9NpWwKP-22" edge="1" parent="1" source="JmrS_ImF020Ad9NpWwKP-6" style="endArrow=block;" target="JmrS_ImF020Ad9NpWwKP-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="JmrS_ImF020Ad9NpWwKP-23" edge="1" parent="1" source="JmrS_ImF020Ad9NpWwKP-10" style="endArrow=block;" target="JmrS_ImF020Ad9NpWwKP-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="JmrS_ImF020Ad9NpWwKP-27" edge="1" parent="1" source="JmrS_ImF020Ad9NpWwKP-13" style="endArrow=block;" target="JmrS_ImF020Ad9NpWwKP-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="JmrS_ImF020Ad9NpWwKP-28" edge="1" parent="1" source="JmrS_ImF020Ad9NpWwKP-17" style="endArrow=block;" target="JmrS_ImF020Ad9NpWwKP-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="JmrS_ImF020Ad9NpWwKP-35" edge="1" parent="1" source="JmrS_ImF020Ad9NpWwKP-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="345" y="1650.0000000000005" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JmrS_ImF020Ad9NpWwKP-29" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="Invoice Accounting Event (Class)" vertex="1">
+          <mxGeometry height="100" width="220" x="80" y="1690" as="geometry" />
+        </mxCell>
+        <mxCell id="JmrS_ImF020Ad9NpWwKP-37" edge="1" parent="1" source="JmrS_ImF020Ad9NpWwKP-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="345" y="1650.0000000000005" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JmrS_ImF020Ad9NpWwKP-31" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="Credit Note Accounting Event (Class)" vertex="1">
+          <mxGeometry height="100" width="220" x="235" y="1820" as="geometry" />
+        </mxCell>
+        <mxCell id="JmrS_ImF020Ad9NpWwKP-36" edge="1" parent="1" source="JmrS_ImF020Ad9NpWwKP-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="345" y="1650.0000000000005" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JmrS_ImF020Ad9NpWwKP-33" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="Payment Accounting Event (Class)" vertex="1">
+          <mxGeometry height="100" width="220" x="400" y="1690" as="geometry" />
+        </mxCell>
+        <mxCell id="JmrS_ImF020Ad9NpWwKP-38" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="implement" vertex="1">
+          <mxGeometry height="30" width="60" x="315" y="1680" as="geometry" />
+        </mxCell>
+        <mxCell id="JmrS_ImF020Ad9NpWwKP-39" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;" value="&lt;h3&gt;2.1.1 Accounting Event strcuture&lt;/h3&gt;" vertex="1">
+          <mxGeometry height="30" width="250" x="80" y="1440" as="geometry" />
+        </mxCell>
+        <mxCell id="JmrS_ImF020Ad9NpWwKP-40" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;" value="&lt;h3&gt;2.1.2 Event orchestration&lt;/h3&gt;" vertex="1">
+          <mxGeometry height="30" width="350" x="80" y="2060" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-1" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;rounded=0;" value="&lt;h3&gt;&lt;font face=&quot;Helvetica&quot; style=&quot;&quot;&gt;2.1.3 Working of PostingContextFactoryResolver:&lt;/font&gt;&lt;/h3&gt;&lt;div&gt;&lt;br&gt;1. This class is responsible to get the correct underlying Factory based on the event received from upstream to create context for posting events.&lt;/div&gt;&lt;div&gt;2. For an example, if we receive a Invoice Posting event from upstream, then its the responsibility of PostingContextFactoryResolver to create a lookup Map of all the Classes implementing PostingContextFactory.&lt;br&gt;This class determines the factory using the supports() method inside the interface&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;PostingContextFactory&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;to register all classes while bean initialization.&lt;/span&gt;&lt;/div&gt;&lt;div&gt;3. In runtime, the lookup happens on this map to determine the correct factory and inturn get the context from the event generated.&lt;/div&gt;" vertex="1">
+          <mxGeometry height="200" width="670" x="80" y="2520" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-2" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=30;" value="Upstream Events implementing AccountingEvent interface" vertex="1">
+          <mxGeometry height="280" width="210" x="80" y="3091" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-3" parent="9Sra1W-WWR7-64-gfhfG-2" style="rounded=0;whiteSpace=wrap;html=1;" value="InvoiceAccountingEvent" vertex="1">
+          <mxGeometry height="40" width="140" x="35" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-29" edge="1" parent="9Sra1W-WWR7-64-gfhfG-2" source="9Sra1W-WWR7-64-gfhfG-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="390" y="140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-8" parent="9Sra1W-WWR7-64-gfhfG-2" style="rounded=0;whiteSpace=wrap;html=1;" value="PaymentAccountingEvent" vertex="1">
+          <mxGeometry height="40" width="140" x="35" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-9" parent="9Sra1W-WWR7-64-gfhfG-2" style="rounded=0;whiteSpace=wrap;html=1;" value="CreditMemoAccountingEvent" vertex="1">
+          <mxGeometry height="40" width="165" x="22.5" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-31" edge="1" parent="1" source="9Sra1W-WWR7-64-gfhfG-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="9Sra1W-WWR7-64-gfhfG-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-10" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="PostingContextFactoryResolver" vertex="1">
+          <mxGeometry height="280" width="250" x="470" y="3091" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-32" parent="9Sra1W-WWR7-64-gfhfG-10" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;rounded=0;" value="&lt;b&gt;Creates:&lt;br&gt;1. Map of all classes implementing PostingContextFactory&lt;br&gt;2. resolve() method to actually derive the factory from the event and the map lookup.&lt;/b&gt;" vertex="1">
+          <mxGeometry height="180" width="170" x="20" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-11" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="PostingContextFactory (interface)" vertex="1">
+          <mxGeometry height="140" width="250" x="870" y="3161" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-12" parent="9Sra1W-WWR7-64-gfhfG-11" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;rounded=0;" value="&lt;b&gt;Methods:&lt;br&gt;1. createContext()&lt;br&gt;2. supports()&lt;/b&gt;" vertex="1">
+          <mxGeometry height="70" width="160" x="50" y="45" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-19" edge="1" parent="1" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;endArrow=block;endFill=0;" target="9Sra1W-WWR7-64-gfhfG-11">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1200" y="3051" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-37" edge="1" parent="1" source="9Sra1W-WWR7-64-gfhfG-13" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="9Sra1W-WWR7-64-gfhfG-35">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-13" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="InvoicePostingContextFactory" vertex="1">
+          <mxGeometry height="140" width="250" x="1200" y="2980" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-14" parent="9Sra1W-WWR7-64-gfhfG-13" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;rounded=0;" value="&lt;b&gt;Methods:&lt;br&gt;1. createContext() -&amp;gt; create context from&amp;nbsp;&lt;span style=&quot;text-align: center;&quot;&gt;InvoiceAccountingEvent&lt;/span&gt;&amp;nbsp;data&lt;br&gt;2. supports() -&amp;gt; returns&amp;nbsp;InvoiceAccountingEvent&lt;span style=&quot;text-align: center;&quot;&gt;.class&lt;/span&gt;&lt;/b&gt;" vertex="1">
+          <mxGeometry height="90" width="210" x="20" y="41" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-26" edge="1" parent="1" source="9Sra1W-WWR7-64-gfhfG-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=0;" target="9Sra1W-WWR7-64-gfhfG-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-38" edge="1" parent="1" source="9Sra1W-WWR7-64-gfhfG-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="9Sra1W-WWR7-64-gfhfG-35">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-20" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="PaymentPostingContextFactory" vertex="1">
+          <mxGeometry height="140" width="250" x="1200" y="3161" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-21" parent="9Sra1W-WWR7-64-gfhfG-20" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;rounded=0;" value="&lt;b&gt;Methods:&lt;/b&gt;&lt;br&gt;&lt;b&gt;1. createContext() -&amp;gt; create context from&amp;nbsp;&lt;/b&gt;&lt;span style=&quot;font-weight: bold; text-align: center;&quot;&gt;PaymentAccountingEvent&lt;/span&gt;&lt;b&gt;data&lt;/b&gt;&lt;br&gt;&lt;b&gt;2. supports() -&amp;gt; returns &lt;/b&gt;&lt;span style=&quot;text-align: center;&quot;&gt;&lt;b&gt;PaymentAccountingEvent.class&lt;/b&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="80" width="200" x="20" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-27" edge="1" parent="1" source="9Sra1W-WWR7-64-gfhfG-24" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=0;" target="9Sra1W-WWR7-64-gfhfG-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-39" edge="1" parent="1" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1455" y="3420" as="sourcePoint" />
+            <mxPoint x="1585" y="3230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-24" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="CreditMemoPostingContextFactory" vertex="1">
+          <mxGeometry height="140" width="250" x="1200" y="3341" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-25" parent="9Sra1W-WWR7-64-gfhfG-24" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;rounded=0;" value="&lt;b&gt;Methods:&lt;br&gt;1. createContext() -&amp;gt; create context from&amp;nbsp;&lt;/b&gt;&lt;span style=&quot;text-align: center;&quot;&gt;&lt;b&gt;CreditMemoAccountingEvent&lt;/b&gt;&lt;/span&gt;&lt;b&gt;&lt;br&gt;2. supports() -&amp;gt; returns &lt;span style=&quot;text-align: center;&quot;&gt;CreditMemoAccountingEvent.class&lt;/span&gt;&lt;/b&gt;" vertex="1">
+          <mxGeometry height="100" width="220" x="20" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-28" edge="1" parent="1" source="9Sra1W-WWR7-64-gfhfG-3" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="9Sra1W-WWR7-64-gfhfG-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-30" edge="1" parent="1" source="9Sra1W-WWR7-64-gfhfG-9" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="9Sra1W-WWR7-64-gfhfG-10">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="470" y="3221" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-33" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;fontStyle=1" value="&lt;h3&gt;2.1.4. End to End Illustration of Classes&lt;/h3&gt;" vertex="1">
+          <mxGeometry height="30" width="250" x="80" y="3031" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-34" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Via Accounting Service (Create/Simulate)" vertex="1">
+          <mxGeometry height="30" width="120" x="320" y="3161" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-42" edge="1" parent="1" source="9Sra1W-WWR7-64-gfhfG-35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="9Sra1W-WWR7-64-gfhfG-40">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-35" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="PostingContext" vertex="1">
+          <mxGeometry height="140" width="250" x="1585" y="3161" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-36" parent="9Sra1W-WWR7-64-gfhfG-35" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;rounded=0;" value="Contains:&lt;br&gt;1. All necessary and common event fields&lt;br&gt;2. Event dependent variables in a separate map." vertex="1">
+          <mxGeometry height="85" width="210" x="20" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-45" edge="1" parent="1" source="9Sra1W-WWR7-64-gfhfG-40" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="9Sra1W-WWR7-64-gfhfG-43" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-40" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="PostingEnglne" vertex="1">
+          <mxGeometry height="270" width="250" x="1925" y="3096" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-41" parent="9Sra1W-WWR7-64-gfhfG-40" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;rounded=0;" value="Builds Journal Entries from:&lt;br&gt;&lt;br&gt;1. PostingContext&lt;br&gt;   → runtime variables&lt;br&gt;&lt;br&gt;2. PostingRule&lt;br&gt;   → accounting logic&lt;br&gt;&lt;br&gt;3. PostingPeriod&lt;br&gt;   → fiscal metadata + validation&lt;br&gt;&lt;br&gt;4. ExpressionEvaluator&lt;br&gt;   → runtime SpEL resolution" vertex="1">
+          <mxGeometry height="205" width="200" x="20" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-43" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="Journal Entry (GL)" vertex="1">
+          <mxGeometry height="179" width="250" x="2255" y="3141.5" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-44" parent="9Sra1W-WWR7-64-gfhfG-43" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;rounded=0;" value="Contains:&lt;br&gt;1. Header: Containing GL transaction metadata&lt;br&gt;2. Lines: Contain CoA,CR/DR and amount specific details." vertex="1">
+          <mxGeometry height="125" width="210" x="20" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-49" edge="1" parent="1" source="9Sra1W-WWR7-64-gfhfG-47" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="9Sra1W-WWR7-64-gfhfG-40">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-47" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="PostingRuleResolver" vertex="1">
+          <mxGeometry height="140" width="250" x="1585" y="3341" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-48" parent="9Sra1W-WWR7-64-gfhfG-47" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;rounded=0;" value="Resolves the posting rule for the particular Accounting Event received" vertex="1">
+          <mxGeometry height="55" width="210" x="20" y="45" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-52" edge="1" parent="1" source="9Sra1W-WWR7-64-gfhfG-50" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="9Sra1W-WWR7-64-gfhfG-40">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-50" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="PostingPeriod" vertex="1">
+          <mxGeometry height="140" width="250" x="1585" y="2980" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-51" parent="9Sra1W-WWR7-64-gfhfG-50" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;rounded=0;" value="Resolves the posting period for the particular company and fiscal year and period when the event was received" vertex="1">
+          <mxGeometry height="55" width="210" x="20" y="45" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-55" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;Classes Used&lt;/font&gt;&lt;/b&gt;" vertex="1">
+          <mxGeometry height="390" width="260" x="75" y="3460" as="geometry" />
+        </mxCell>
+        <mxCell id="9Sra1W-WWR7-64-gfhfG-56" parent="9Sra1W-WWR7-64-gfhfG-55" style="text;whiteSpace=wrap;fontStyle=0;fontSize=14;" value="AccountingEvent&#xa;        ↓&#xa;PostingContextFactoryResolver&#xa;        ↓&#xa;PostingContextFactory&#xa;        ↓&#xa;PostingContext&#xa;        ↓&#xa;PostingRuleResolver&#xa;        ↓&#xa;PostingRule&#xa;        ↓&#xa;PostingPeriodService&#xa;        ↓&#xa;PostingPeriod&#xa;        ↓&#xa;PostingEngine&#xa;        ↓&#xa;Journal Entry" vertex="1">
+          <mxGeometry height="340" width="203" x="27" y="40" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
